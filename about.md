@@ -4,8 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+![Me](/assets/kristen.jpg)
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+My name is Kristen. I graduated for SFSU May 2013. My first full-time job was working at a startup, [Manilla.com][manilla],
+as a web developer.  I discovered Zumba around the time I graduated and fell in love.  And if you can't tell,
+I am also obsessed with food.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+[manilla]: https://www.manilla.com/
