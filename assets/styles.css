@@ -2,3 +2,8 @@ body {
   background-color: pink;
   font-family: 'Roboto Mono', monospace;
 }
+
+p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
