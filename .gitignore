@@ -1,2 +1,7 @@
-_site
+.DS_Store
+
 .idea/*
+
+_site/
+.jekyll-cache/
+.jekyll-metadata
