@@ -4,7 +4,6 @@ description: "This is a blog of everything that is important to Kristen - progra
 baseurl: ""
 url: kristen.github.io
 github: kristen
-twitter: ksunkisd
 paginate: 5
 
 # Build settings
