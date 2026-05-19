@@ -189,7 +189,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
       </div>
       <div class="tip-box">
         <b>How to use:</b> Click a row to mark the chapter done. <b>Blue</b> recruit rows, <b>green</b> items, <b>gold</b> steals — each has its own checkbox.
-        Steel-blue borders = Lyn's Story. Orange borders = Hector-exclusive. Red = gaiden. Blue/purple = split routes.
+        Teal borders = Lyn's Story. Orange borders = Hector-exclusive. Red = gaiden. Blue/purple = split routes.
         <b>Gold cards</b> = save reminders. <b>Blue cards</b> = branch explanation.
         Recruitment data from <a href="https://serenesforest.net/blazing-sword/" style="color:var(--gold)">Serenes Forest</a>; verify item details there.
       </div>
@@ -330,7 +330,7 @@ const ITEMS = [
     items:[],
     warns:['Complete in ≤15 turns to unlock Lyn Ch. 7x']},
 
-  {type:'ch',id:'lyn_7x',num:'Lyn Ch. 7x',name:'The Black Shadow',cls:'is-lyn is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+  {type:'ch',id:'lyn_7x',num:'Lyn Ch. 7x',name:'The Black Shadow',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
     items:[],
     warns:['Unlock: complete Lyn Ch. 7 in ≤15 turns']},
 
@@ -422,7 +422,7 @@ const ITEMS = [
     steal:['Member Card (enemy Thief SE — only one in the entire game; grants access to secret shops)'],
     warns:['Heath approaches from the east — have Lyn or Priscilla positioned to intercept and talk','Eliwood mode: also recruit Fiora here by talking with Florina','STEAL the Member Card from the enemy Thief in the SE before he escapes — it is irreplaceable','Recruit Legault before he moves too far — intercept him near the stairs']},
 
-  {type:'ch',id:'c19xx',num:'Hector Ch. 19xx',name:'A Glimpse in Time',cls:'is-hector is-gaiden',badge:'hector',badgeText:'Hector',
+  {type:'ch',id:'c19xx',num:'Hector Ch. 19xx',name:'A Glimpse in Time',cls:'is-gaiden',badge:'hector',badgeText:'Hector',
     items:['Ninis\'s Grace (wind bracelet, protects Ninian/Nils)'],
     warns:['HECTOR MODE ONLY','Unlock: Nils reached Level 7+ during Lyn\'s Story AND Kishuna was defeated in Ch. 18x/19x']},
 
@@ -532,7 +532,7 @@ const ITEMS = [
     items:[],
     warns:['Primarily a long story chapter — Athos recounts his 500-year history with Nergal in Arcadia']},
 
-  {type:'ch',id:'c31x',num:'Hector Ch. 31x',name:'Battle Preparations',cls:'is-hector is-gaiden',badge:'hector',badgeText:'Hector',
+  {type:'ch',id:'c31x',num:'Hector Ch. 31x',name:'Battle Preparations',cls:'is-gaiden',badge:'hector',badgeText:'Hector',
     recruits:['Karla — Enemy Swordmaster; Bartre must be a promoted Warrior at Level 5+ before the chapter starts — she challenges him to a duel, then joins if he survives',
               'Farina — costs 20,000G (Hector mode, available around Ch. 25 onwards)'],
     items:[],
