@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fire Emblem: The Binding Blade — Personal Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --bg:        #1a1410;
+  --bg2:       #221c16;
+  --bg3:       #2c2420;
+  --bg4:       #36302a;
+  --border:    rgba(255,220,160,0.12);
+  --border2:   rgba(255,220,160,0.22);
+  --gold:      #d4a84b;
+  --gold-dim:  #8a6a28;
+  --text:      #e8dcc8;
+  --text2:     #9e8e78;
+  --text3:     #6a5c4e;
+  --green:     #5faa7a;
+  --green-bg:  rgba(95,170,122,0.12);
+  --red:       #c06050;
+  --red-bg:    rgba(192,96,80,0.12);
+  --blue:      #6090c8;
+  --blue-bg:   rgba(96,144,200,0.12);
+  --amber:     #d4a84b;
+  --amber-bg:  rgba(212,168,75,0.12);
+  --purple:    #9878c8;
+  --purple-bg: rgba(152,120,200,0.12);
+  --radius:    8px;
+  --header-h:  68px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+.site-header{background:linear-gradient(180deg,#0e0a06 0%,var(--bg) 100%);border-bottom:1px solid var(--border2);padding:18px 24px 14px;text-align:center;position:sticky;top:0;z-index:20}
+.site-header h1{font-family:'Crimson Pro',Georgia,serif;font-size:24px;font-weight:600;color:var(--gold);letter-spacing:.02em;margin-bottom:2px}
+.site-header p{font-size:12px;color:var(--text2)}
+
+/* wide: two columns */
+@media(min-width:860px){
+  .tabs-mobile{display:none}
+  .two-col{display:flex;height:calc(100vh - var(--header-h));overflow:hidden}
+  .col{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bg4) transparent}
+  .col::-webkit-scrollbar{width:6px}
+  .col::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+  .col-chapters{border-right:1px solid var(--border2)}
+  .col-head{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 16px 10px}
+  .col-head-title{font-family:'Crimson Pro',Georgia,serif;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:6px}
+  .col-body{padding:14px 16px 48px}
+  .prog-text{font-size:11px;color:var(--text2);margin-bottom:4px}
+  .prog-bar-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+  .prog-bar{height:100%;background:var(--green);border-radius:2px;transition:width .35s ease}
+}
+
+/* narrow: tabs */
+@media(max-width:859px){
+  .two-col{display:block}
+  .col-head{display:none}
+  .col{display:none;padding:14px 14px 48px}
+  .col.active{display:block}
+  .tabs-mobile{display:flex;gap:6px;padding:12px 14px 0;border-bottom:1px solid var(--border);margin-bottom:14px}
+  .tab-btn{padding:7px 16px;border:1px solid var(--border2);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;background:var(--bg2);color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;font-family:inherit;transition:all .15s;margin-bottom:-1px;position:relative}
+  .tab-btn:hover{color:var(--text)}
+  .tab-btn.active{background:var(--bg);border-color:var(--border2);border-bottom-color:var(--bg);color:var(--gold)}
+  .mobile-prog{margin-bottom:12px}
+  .prog-text{font-size:12px;color:var(--text2);margin-bottom:5px}
+  .prog-bar-wrap{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+  .prog-bar{height:100%;background:var(--green);border-radius:3px;transition:width .35s ease}
+}
+
+.tip-box{font-size:13px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.tip-box b{color:var(--text);font-weight:500}
+
+.ch-list{display:flex;flex-direction:column;gap:5px}
+
+/* paired chapters sit side-by-side */
+.ch-pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.ch-pair .ch-row{margin:0}
+.ch-row{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--border);border-left-width:3px;border-left-color:var(--border);border-radius:var(--radius);background:var(--bg2);transition:background .12s}
+.ch-row.done{background:rgba(95,170,122,0.05);opacity:.7}
+.ch-row.is-gaiden{border-left-color:var(--red)}
+.ch-row.is-ra    {border-left-color:var(--blue)}
+.ch-row.is-rb    {border-left-color:var(--purple)}
+.ch-row.is-sacae {border-left-color:#c8884a}
+.ch-row.is-illia {border-left-color:#4aa8a8}
+
+/* only the header line is clickable */
+.ch-header{display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:4px;margin:-2px;padding:2px;flex-wrap:wrap}
+.ch-header:hover .ch-title-text{color:var(--gold)}
+
+.ch-check{width:18px;height:18px;border:1.5px solid var(--border2);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;transition:all .15s}
+.ch-row.done .ch-check{background:var(--green);border-color:var(--green)}
+.ch-main{flex:1;min-width:0}
+.ch-title{font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px;flex-wrap:wrap;line-height:1.4}
+.ch-title-text{transition:color .12s}
+.ch-num{color:var(--text3);font-size:12px;min-width:50px;flex-shrink:0}
+
+.tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:11px;padding:3px 8px;border-radius:8px;display:flex;align-items:center;gap:4px;line-height:1.3}
+.tag i{font-size:11px}
+.tag.unit {background:var(--blue-bg);  color:var(--blue)}
+.tag.warn {background:var(--red-bg);   color:var(--red)}
+.tag.steal{background:var(--amber-bg); color:var(--amber)}
+
+/* sub-item checklist */
+.sub-items{display:flex;flex-direction:column;gap:2px;margin-top:6px;padding-left:1px}
+.sub-item{display:flex;align-items:baseline;gap:7px;font-size:11px;cursor:pointer;user-select:none;line-height:1.45;padding:2px 4px;border-radius:4px}
+.sub-item:hover{background:rgba(255,255,255,0.03)}
+.sub-check{width:13px;height:13px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;transition:all .15s;position:relative;top:1px}
+.sub-check.on{background:var(--green);border-color:var(--green)}
+.sub-label{color:var(--green);flex:1;min-width:0}
+.sub-label.on{color:var(--text3);text-decoration:line-through}
+.sub-items.steal-items .sub-label{color:var(--amber)}
+.sub-items.steal-items .sub-check.on{background:var(--amber);border-color:var(--amber)}
+.sub-items.recruit-items .sub-label{color:var(--blue)}
+.sub-items.recruit-items .sub-check.on{background:var(--blue);border-color:var(--blue)}
+.sub-section-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:8px}
+
+.badge{font-size:11px;padding:2px 7px;border-radius:8px;font-weight:500;flex-shrink:0}
+.badge.gaiden{background:var(--red-bg);    color:var(--red)}
+.badge.ra    {background:var(--blue-bg);   color:var(--blue)}
+.badge.rb    {background:var(--purple-bg); color:var(--purple)}
+.badge.sacae {background:rgba(200,136,74,0.15); color:#d4924a}
+.badge.illia {background:rgba(74,168,168,0.15);color:#6acaca}
+
+.callout{border-radius:var(--radius);padding:12px 15px;font-size:13px;line-height:1.6}
+.callout.save-card{background:rgba(212,168,75,0.07);border:1px solid rgba(212,168,75,0.28);color:var(--amber)}
+.callout.save-card b{color:#f0c870}
+.callout.split-card{background:rgba(96,144,200,0.06);border:1px solid rgba(96,144,200,0.2);color:var(--text2)}
+.callout.split-card h4{font-size:13px;font-weight:500;color:var(--gold);margin-bottom:8px}
+.callout.split-card b{color:var(--text)}
+.split-opts{display:flex;flex-direction:column;gap:8px}
+.split-opt{padding:8px 10px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid var(--border)}
+.split-opt-title{display:flex;align-items:center;gap:7px;margin-bottom:3px;font-size:13px;font-weight:500;color:var(--text)}
+.split-opt p{font-size:12px;color:var(--text2);margin-top:2px}
+.split-opt .note{font-size:11px;color:var(--text3);margin-top:2px}
+.excl-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.excl-chip{font-size:12px;padding:3px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2)}
+
+.section-divider{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 7px;border-top:1px solid var(--border);padding-top:14px}
+.section-divider.first{border-top:none;padding-top:0;margin-top:0}
+.tier-row{display:flex;margin-bottom:5px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.tier-label{width:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;font-family:'Crimson Pro',serif}
+.tier-units{flex:1;padding:8px 10px;display:flex;flex-wrap:wrap;gap:5px;background:var(--bg2)}
+.unit-chip{font-size:12px;padding:3px 9px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);line-height:1.4}
+.unit-chip small{display:block;font-size:10px;color:var(--text3);margin-top:1px}
+.unit-chip.is-ra    {border-left-width:3px;border-left-color:var(--blue)}
+.unit-chip.is-rb    {border-left-width:3px;border-left-color:var(--purple)}
+.unit-chip.is-sacae {border-left-width:3px;border-left-color:#c8884a}
+.unit-chip.is-illia {border-left-width:3px;border-left-color:#4aa8a8}
+.tier-s .tier-label{background:rgba(255,127,127,0.25); color:#ff7f7f}
+.tier-a .tier-label{background:rgba(255,170,102,0.25); color:#ffaa66}
+.tier-b .tier-label{background:rgba(255,255,102,0.25); color:#efef50}
+.tier-c .tier-label{background:rgba(204,255,102,0.25); color:#ccff66}
+.tier-d .tier-label{background:rgba(128,238,128,0.25); color:#80ee80}
+.tier-f .tier-label{background:rgba(128,187,255,0.25); color:#80bbff}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>Fire Emblem: The Binding Blade</h1>
+  <p>Personal walkthrough — all routes · recruitment · tier list</p>
+</div>
+
+<div class="tabs-mobile">
+  <button class="tab-btn active" onclick="showTab('chapters')">Chapters</button>
+  <button class="tab-btn" onclick="showTab('tiers')">Tier List</button>
+</div>
+
+<div class="two-col">
+
+  <!-- LEFT: CHAPTERS -->
+  <div class="col col-chapters active" id="col-chapters">
+    <div class="col-head">
+      <div class="col-head-title">Chapters &amp; Routes</div>
+      <div class="prog-text" id="prog-text-wide">0 of 37 chapters complete</div>
+      <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar-wide" style="width:0%"></div></div>
+    </div>
+    <div class="col-body">
+      <div class="mobile-prog">
+        <div class="prog-text" id="prog-text-narrow">0 of 37 chapters complete</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar-narrow" style="width:0%"></div></div>
+      </div>
+      <div class="tip-box">
+        <b>How to use:</b> Click a row to mark the chapter done. <b>Blue</b> recruit rows, <b>green</b> items, <b>gold</b> steals — each has its own checkbox.
+        Coloured left borders show route (blue = A, purple = B, orange = Sacae, steel-blue = Illia, red = gaiden).
+        <b>Gold cards</b> = save reminders. <b>Blue cards</b> = branch explanation.
+        Recruitment data from <a href="https://www.feshrine.net/fe6/walkthroughindex.php" style="color:var(--gold)">FEShrine walkthroughs</a>; items from Serenes Forest.
+      </div>
+      <div class="ch-list" id="ch-list"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: TIERS -->
+  <div class="col col-tiers" id="col-tiers">
+    <div class="col-head">
+      <div class="col-head-title">Unit Tier List</div>
+    </div>
+    <div class="col-body">
+      <div class="tip-box"><b>Tier philosophy:</b> Rated for a normal-mode completionist run. Pre-promotes judged on value vs. investment. Dancers/bards are S for double-move utility alone.</div>
+
+      <div class="section-divider first">S — Core team, always deploy</div>
+      <div class="tier-row tier-s"><div class="tier-label">S</div><div class="tier-units">
+        <div class="unit-chip">Marcus<small>Paladin · Ch.1 · Essential early Jagen</small></div>
+        <div class="unit-chip">Rutger/Rutoga<small>Myrmidon · Ch.4 · Crit machine, boss killer</small></div>
+        <div class="unit-chip">Clarine/Clarin<small>Troubadour · Ch.4 · Mounted healer, invaluable</small></div>
+        <div class="unit-chip">Perceval<small>Paladin · Ch.13/15 · Best pre-promote, A swords+lances</small></div>
+        <div class="unit-chip is-ra">Larum<small>Dancer · Ch.11A · double-move utility</small></div>
+        <div class="unit-chip is-rb">Elffin/Elphin<small>Bard · Ch.11B · double-move utility</small></div>
+      </div></div>
+
+      <div class="section-divider">A — Invest freely, strong payoff</div>
+      <div class="tier-row tier-a"><div class="tier-label">A</div><div class="tier-units">
+        <div class="unit-chip">Alen<small>Cavalier · Ch.1 · Well-rounded, great growths</small></div>
+        <div class="unit-chip">Lance<small>Cavalier · Ch.1 · Alen's equal, both are core</small></div>
+        <div class="unit-chip">Thany<small>Peg. Knight · Ch.2 · Flying utility, rescue Roy</small></div>
+        <div class="unit-chip">Melady/Miledy<small>Wyvern · Ch.13 · Top flier, best base stats</small></div>
+        <div class="unit-chip">Cecilia<small>Valkyrie · Ch.14 · Mounted mage + healer</small></div>
+        <div class="unit-chip">Niime/Nim<small>Druid · Ch.19A/19B · Physic + dark, joins ready</small></div>
+        <div class="unit-chip">Igrene<small>Sniper · Ch.14 · Reliable pre-promote archer</small></div>
+        <div class="unit-chip">Zealot<small>Paladin · Ch.7 · Solid pre-promote filler</small></div>
+      </div></div>
+
+      <div class="section-divider">B — Solid contributors</div>
+      <div class="tier-row tier-b"><div class="tier-label">B</div><div class="tier-units">
+        <div class="unit-chip">Dieck<small>Mercenary · Ch.2 · Early powerhouse</small></div>
+        <div class="unit-chip">Lugh<small>Mage · Ch.3 · Best offensive mage early</small></div>
+        <div class="unit-chip">Lilina<small>Mage · Ch.8 · High mag growth, very fragile</small></div>
+        <div class="unit-chip">Sue<small>Nomad · Ch.6 · Mobile bow user</small></div>
+        <div class="unit-chip">Sin/Shin<small>Nomad · Ch.13 · Better join stats than Sue</small></div>
+        <div class="unit-chip">Klein<small>Sniper · Ch.10B/11A · Solid pre-promote archer</small></div>
+        <div class="unit-chip">Fir<small>Myrmidon · Ch.9 · Good growths, needs investment</small></div>
+        <div class="unit-chip is-ra">Echidna<small>Hero · Ch.11A · Pre-promote, axes + swords</small></div>
+        <div class="unit-chip">Saul/Sol<small>Priest · Ch.6 · Good healer, promotes to Bishop</small></div>
+        <div class="unit-chip">Thea/Tate<small>Peg. Knight · Ch.10B/11A · Thany's sister, reliable</small></div>
+      </div></div>
+
+      <div class="section-divider">C — Usable but outclassed</div>
+      <div class="tier-row tier-c"><div class="tier-label">C</div><div class="tier-units">
+        <div class="unit-chip">Roy<small>Lord · Ch.1 · Required; weak until Ch. 21 promotion</small></div>
+        <div class="unit-chip">Geese<small>Pirate · Ch.10A/11B · Decent, class limits utility</small></div>
+        <div class="unit-chip">Noah<small>Cavalier · Ch.7 · Average in every way</small></div>
+        <div class="unit-chip">Trec<small>Cavalier · Ch.7 · Same as Noah</small></div>
+        <div class="unit-chip">Gonzalez<small>Brigand · Ch.10A/10B · High power, terrible accuracy</small></div>
+        <div class="unit-chip is-rb">Bartre<small>Fighter · Ch.11B · Route B only; needs heavy investment</small></div>
+        <div class="unit-chip">Dorothy<small>Archer · Ch.6 · Replaced soon by better archers</small></div>
+        <div class="unit-chip">Garret<small>Berserker · Ch.14 · Pre-promote, high crit fun</small></div>
+        <div class="unit-chip">Raigh/Ray<small>Shaman · Ch.12 · Dark magic niche, slow developer</small></div>
+      </div></div>
+
+      <div class="section-divider">D — Bench unless desperate</div>
+      <div class="tier-row tier-d"><div class="tier-label">D</div><div class="tier-units">
+        <div class="unit-chip">Wendy/Gwendolyn<small>Knight · Ch.8 · Armored, very immobile</small></div>
+        <div class="unit-chip">Barth<small>Knight · Ch.8 · Same problems as Wendy/Gwendolyn</small></div>
+        <div class="unit-chip">Bors<small>Knight · Ch.1 · Very limited usefulness</small></div>
+        <div class="unit-chip">Wolt<small>Archer · Ch.1 · Poor growth rates</small></div>
+        <div class="unit-chip">Ogier/Oujay<small>Mercenary · Ch.8 · Joins very underleveled</small></div>
+        <div class="unit-chip">Lot<small>Fighter · Ch.2 · Replaced quickly</small></div>
+        <div class="unit-chip">Sophia<small>Shaman · Ch.14 · Keep alive for 14x, no EXP investment</small></div>
+        <div class="unit-chip">Fa/Fae<small>Manakete · True ending req · Rarely useful in combat</small></div>
+      </div></div>
+
+      <div class="section-divider">F — Avoid</div>
+      <div class="tier-row tier-f"><div class="tier-label">F</div><div class="tier-units">
+        <div class="unit-chip">Chad<small>Thief · Ch.3 · Cannot promote in FE6</small></div>
+        <div class="unit-chip">Astohl<small>Thief · Ch.8 · Same thief promotion problem</small></div>
+        <div class="unit-chip">Cath<small>Thief · Ch.12 · Hard to recruit (3 talks), same limits</small></div>
+        <div class="unit-chip">Wade<small>Fighter · Ch.2 · Very poor growth rates</small></div>
+        <div class="unit-chip is-sacae">Dayan<small>Nomadic Trooper · Ch.20B · Late join, redundant</small></div>
+        <div class="unit-chip is-illia">Juno<small>Falcon Knight · Ch.20A · Late join, redundant</small></div>
+      </div></div>
+
+      <div class="tip-box" style="margin-top:14px">
+        <b>Thieves cannot promote in FE6</b> — keep one for chests/doors, never invest EXP.
+        <b>Sophia</b> must survive Ch. 14 to unlock Ch. 14x.
+        <b>Fa/Fae</b> is mandatory for the true ending regardless of combat value.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /two-col -->
+
+<script>
+// Item data sourced from Fuuin no Tsurugi Official Guidebook via Serenes Forest
+// https://serenesforest.net/binding-blade/miscellaneous/item-locations/
+const ITEMS = [
+  {type:'ch',id:'c1',num:'Ch. 1',name:'Dawn of Destiny',
+    recruits:['Roy, Marcus, Alen, Lance, Wolt & Bors — Automatically, turn 1'],
+    items:['5000G (village)'],warns:[]},
+
+  {type:'ch',id:'c2',num:'Ch. 2',name:'The Princess of Bern',
+    recruits:['Merlinus & Ellen — Automatically, turn 1','Dieck, Thany, Wade & Lot — Automatically, turn 2'],
+    items:['Armourslayer (village)'],warns:[]},
+
+  {type:'ch',id:'c3',num:'Ch. 3',name:'Late Arrival',
+    recruits:['Chad — Automatically, turn 1','Lugh — Visit north-eastern village'],
+    items:['Mend (village)','3000G (chest)','Halberd (chest)'],
+    steal:['Vulnerary'],warns:[]},
+
+  {type:'ch',id:'c4',num:'Ch. 4',name:'Collapse of the Alliance',
+    recruits:['Clarine/Clarin — Turn 3: leaves castle; talks to Roy automatically (have Roy near castle)','Rutger/Rutoga — Turn 6: talk with Clarine/Clarin (keep units back; he has Killing Edge)'],
+    items:['Angelic Robe (village)','Steel Blade (village)','Door Key (village)'],
+    steal:['Vulneraries ×4'],
+    warns:['Turn 6: Rutger/Rutoga and reinforcements are deadly if units are near the castle']},
+
+  {type:'ch',id:'c5',num:'Ch. 5',name:'The Emblem of Fire',
+    items:["Gant's Lance (village)"],warns:[]},
+
+  {type:'ch',id:'c6',num:'Ch. 6',name:'The Trap',
+    recruits:['Saul/Sol & Dorothy — Automatically, turn 1','Sue — 3rd room on west side (NPC); talk with Roy (bring spare Iron Bow)','Cath — Turn 6: talk with Roy (does not join yet; steal lockpick first)'],
+    items:['5000G (chest)','3000G (chest)','Unlock (chest)','Short Bow (chest)','Killer Axe (chest)','Goddess Icon (chest)','Silver Lance (chest)','2000G (chest)'],
+    steal:['Vulneraries ×7','Chest Key','Lockpick from Cath (if unrecruited)'],
+    warns:['Loot-dense chapter — bring thieves and chest keys']},
+
+  {type:'ch',id:'c7',num:'Ch. 7',name:'The Rebellion of Ostia',
+    recruits:['Zealot — Turn 2: appears from eastern village; talk with Roy','Treck — Turn 2: appears with Zealot; talk with Zealot','Noah — Turn 3: appears from arena; talk with Zealot or Treck'],
+    items:['Longbow (village)','Torch (village)','Red Gem (village)','Killing Edge (village)','Elixir (village)','Physic (village)','Knightslayer (village)','Hero\'s Crest (village)','Rapier (chest)','Barrier (chest)'],
+    steal:['Vulneraries ×6','Red Gem'],
+    warns:['Visit EVERY village — there are 8 of them with major items']},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 8',
+    body:'Keep <b>Lilina alive</b> through Ch. 8 to unlock Ch. 8x. If she dies the gaiden is skipped — and without all five gaidens you cannot reach the true ending. Make a backup save here as insurance.'},
+
+  {type:'ch',id:'c8',num:'Ch. 8',name:'The Reunion',
+    recruits:['Astohl & Lilina — Automatically, turn 1 (move Lilina left on turn 1)','Ogier/Oujay — Turn 8: NW corner with Wendy/Gwendolyn and Barth','Wendy/Gwendolyn — Turn 8: NW corner with Ogier/Oujay and Barth','Barth — Turn 8: NW corner with Ogier/Oujay and Wendy/Gwendolyn','Cath — Turn 10: talk with Roy (does not join yet; steal lockpick)'],
+    items:['Elysian Whip (chest)','Secret Book (chest)','Silver Axe (chest)','Guiding Ring (chest)','Light Brand (chest)','Killer Bow (chest)','Elfire (chest)','Knight\'s Crest (chest)','Thunder (Roy + Lilina talk event)'],
+    steal:['Vulneraries ×7','Lockpicks ×2','Chest Keys ×2','Door Keys ×2'],
+    warns:['Very chest-heavy — bring thieves','KEEP LILINA ALIVE — unlocks Ch. 8x']},
+
+  {type:'ch',id:'c8x',num:'Ch. 8x',name:'The Blazing Sword',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Durandal (end of chapter)'],
+    warns:['Required for true ending — unlocked by keeping Lilina alive in Ch. 8']},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 9 — Western Isles route split',
+    body:'Ch. 9 has two villages. <b>Visiting the Killer Bow village (right side) = Route A</b> (Ch. 10A/11A, Echidna + Larum). <b>Visiting the Restore village (or neither) = Route B</b> (Ch. 10B/11B, Bartre + Elffin/Elphin). Duplicate your save here to see both routes.'},
+
+  {type:'split',
+    title:'Western Isles — Route A vs. Route B',
+    opts:[
+      {badge:'ra',label:'Route A',cond:'Visit the Killer Bow village in Ch. 9',
+       units:'Echidna (Hero) + Larum (Dancer)',
+       note:'Generally preferred — Echidna is more useful than Bartre, Larum is an excellent dancer'},
+      {badge:'rb',label:'Route B',cond:'Visit the Restore village (or neither village) in Ch. 9',
+       units:'Bartre (Fighter) + Elffin/Elphin (Bard)',
+       note:'Elffin/Elphin is equally excellent as Larum; Bartre needs heavy investment'}
+    ],
+    excl:['Echidna OR Bartre','Larum OR Elffin/Elphin']},
+
+  {type:'ch',id:'c9',num:'Ch. 9',name:'The Misty Isles',
+    recruits:['Fir — Turn 5: enemy on northern bridge; talk with Noah','Sin/Shin — Enemy; talk with Fir or Sue'],
+    items:['Silver Sword (village)','Killer Bow (right village — Route A) OR Restore (left village — Route B)'],
+    steal:['Vulneraries ×3','Antitoxins ×3'],
+    warns:['Which village you visit determines your route (see card above)','Bring Noah (Fir) and Sue (Sin/Shin) to the northern group']},
+
+  {type:'pair',pair:[
+    {id:'c10a',num:'Ch. 10A',name:'The Resistance Forces',cls:'is-ra',badge:'ra',badgeText:'Route A',
+      recruits:['Geese — Turn 5: NPC from eastern village; talk with Roy','Gonzales — Turn 6: enemy from castle; talk with Lilina'],
+      items:['Swordreaver (village)','Wyrmslayer (end of chapter)'],
+      steal:['Vulneraries ×3','Antitoxin'],warns:[]},
+    {id:'c10b',num:'Ch. 10B',name:'Caught in the Middle',cls:'is-rb',badge:'rb',badgeText:'Route B',
+      recruits:['Gonzales — Turn 6: enemy from NW; talk with Lilina','Klein — Turn 8: enemy SE; talk with Clarine/Clarin','Thea/Tate — Turn 10: enemy; talk with Klein (not Thany — allies will fight and die)'],
+      items:['Speedwings or Elixir (NW village — Wade/Lot get Speedwings, others get Elixir)','Dragonshield (village)','Barrier (village)','Sleep (village)','Orion\'s Bolt (village)','Wyrmslayer (end of chapter)'],
+      warns:['Use Wade or Lot to visit NW and N villages for better rewards']}
+  ]},
+
+  {type:'pair',pair:[
+    {id:'c11a',num:'Ch. 11A',name:'Hero of the Western Isles',cls:'is-ra',badge:'ra',badgeText:'Route A',
+      recruits:['Larum — Automatically, turn 1','Klein — Turn 5: enemy SE; talk with Clarine/Clarin','Thea/Tate — Turn 7: enemy; talk with Klein (not Thany first)','Echidna — Turn 8: NPC from eastern house; talk with Larum'],
+      items:['Restore (village)','Orion\'s Bolt (village)','Dragonshield (village)','Axereaver (village)','5000G (village)','Speedwings (village)','Angelic Robe (village)','Sleep (village)','Orion\'s Bolt (end, if Klein recruited + soldiers survived)','Elysian Whip (end, if Thea/Tate recruited + soldiers survived)','Hero\'s Crest (end, if all villages visited)'],
+      warns:['Visit all villages!','Keep Klein\'s and Thea/Tate\'s allied soldiers alive for bonus end rewards']},
+    {id:'c11b',num:'Ch. 11B',name:'Escape to Freedom',cls:'is-rb',badge:'rb',badgeText:'Route B',
+      recruits:['Elffin/Elphin — Automatically, turn 1','Geese — Turn 5: NPC from village; talk with Roy','Bartre — Turn 9: appears west; talk with Fir (or Roy)'],
+      items:['Red Gem (village)','Energy Ring (end of chapter, if all civilians survived)'],
+      warns:['Keep Elffin/Elphin alive — required for Ch. 12x on Route B','Protect all civilians for the Energy Ring']}
+  ]},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 12 — turn limit for Ch. 12x',
+    body:'Complete Ch. 12 in <b>≤20 turns</b> to unlock Ch. 12x. Route B players must also <b>keep Elffin/Elphin alive</b>. Save here and plan an aggressive assault.'},
+
+  {type:'ch',id:'c12',num:'Ch. 12',name:'The True Enemy',
+    recruits:['Raigh/Ray — Talk with Lugh or Chad (western shaman; does not move)','Cath — Turn 7: third talk with Roy joins her permanently'],
+    items:['Flux (chest)','Aircalibur (chest)','Elysian Whip (chest)','Lancereaver (chest)','Blue Gem (chest)','Brave Bow (chest)'],
+    steal:['Vulneraries ×3','Lockpick'],
+    warns:['Must complete in ≤20 turns for Ch. 12x!','Route B: also keep Elffin/Elphin alive']},
+
+  {type:'ch',id:'c12x',num:'Ch. 12x',name:'The Axe of Thunder',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Chest Key (chest)','Antitoxin (chest)','Torch (chest)','Lockpick (chest)','Elixir ×3 (chest)','White Gem (chest)','Red Gem (chest)','Antitoxins (chest)','Armads — legendary axe (end of chapter)'],
+    warns:['Required for true ending']},
+
+  {type:'ch',id:'c13',num:'Ch. 13',name:'The Rescue Plan',
+    recruits:['Melady/Miledy & Sin/Shin — Automatically, turn 3 (Sin joins with Melady/Miledy\'s group)','Perceval — Enemy; talk with Larum or Elffin/Elphin (leaves end of turn 8 if not recruited)'],
+    items:["Body Ring (village)","Al's Sword (village)",'Knight\'s Crest (end of chapter, if Perceval recruited + his soldiers survived)'],
+    steal:['Vulneraries ×4'],
+    warns:["Get the villages for Body Ring and Al's Sword",'Perceval also recruitable in Ch. 15 for hard mode stat bonuses']},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 14 — two conditions for Ch. 14x',
+    body:'Unlock Ch. 14x by: (1) finishing in <b>≤25 turns</b> AND (2) <b>keeping Sophia alive</b>. The <b>Silver Card</b> is also hidden in the desert sand here (halves all shop prices) — along with Talisman, Speedwings, Boots, Silence, Silver Blade, and Warp. Send mounted/flying units to search every tile. Forblaze is obtained at the END of Ch. 14x, not in Ch. 14 itself.'},
+
+  {type:'ch',id:'c14',num:'Ch. 14',name:'Arcadia',
+    recruits:['Cecilia, Sophia & Igrene — Automatically, start of chapter','Garret — Turn 3: enemy; talk with Lilina or Echidna'],
+    items:['Silver Card (hidden in sand — halves shop prices forever!)','Talisman (sand)','Speedwings (sand)','Boots (sand)','Silence (sand)','Guiding Ring (sand, requires Sophia in party)','Silver Blade (sand)','Warp (sand)'],
+    warns:['Complete in ≤25 turns AND keep Sophia alive for Ch. 14x',
+           'Search ALL desert tiles — 7 hidden items including Silver Card and Boots',
+           'Garret: talk with Lilina or Echidna before he destroys a village']},
+
+  {type:'ch',id:'c14x',num:'Ch. 14x',name:'The Infernal Element',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    recruits:['Fa/Fae — Recruit here (required for true ending)'],
+    items:['Forblaze — legendary dark tome (end of chapter)'],
+    warns:['Required for true ending','Fa/Fae must be in party for the true ending']},
+
+  {type:'ch',id:'c15',num:'Ch. 15',name:'The Dragon Girl',
+    recruits:['Perceval — Enemy; talk with Larum or Elffin/Elphin (if not recruited in Ch. 13)'],
+    items:['Divine (village)','Hammerne (village)','Knight\'s Crest (end, if Perceval recruited + all 4 cavalier allies survived)'],
+    warns:['Hammerne is extremely rare — one of only two in the game','Recruit Perceval here for hard mode stat bonuses if you skipped Ch. 13']},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 16 — do NOT kill Douglas',
+    body:'Douglas is an enemy general. <b>Killing him locks you out of Ch. 16x</b>, required for the true ending. Have Perceval talk to him to recruit him. There are also many valuable chests — bring thieves. Save here in case of accidents.'},
+
+  {type:'ch',id:'c16',num:'Ch. 16',name:'Retaking the Capital',
+    recruits:['Fa/Fae — Available in battle preparations','Hugh — Enemy; talk with Roy and pay 5,000–10,000G (lower pay = lower stats)','Zeiss — Turn 2: enemy; talk with Melady/Miledy','Cath — Turn 10: talk with Roy (3rd talk joins; steal lockpick first)'],
+    items:['Berserk (chest)','Hero\'s Crest (chest)','Knight\'s Crest (chest)','Silver Bow (chest)','Rescue (chest)','5000G (chest)','Bolting (chest)','Brave Lance (chest)','Restore (chest)','Recover (chest)'],
+    steal:['Vulneraries ×3','Lockpicks ×2','Red Gems ×2','Blue Gem','Delphi Shield'],
+    warns:['DO NOT KILL DOUGLAS — Perceval recruits him in Ch. 16x','Delphi Shield (steal) protects against bows — very useful vs. wyverns later']},
+
+  {type:'ch',id:'c16x',num:'Ch. 16x',name:'The Pinnacle of Light',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    recruits:['Douglas — Automatically, start of chapter (recruited via Perceval in Ch. 16)'],
+    items:['Aureola — legendary light tome/staff (end of chapter)'],
+    steal:['Vulneraries ×4'],
+    warns:['Required for true ending']},
+
+  {type:'save',
+    title:'🗂️ Save before Ch. 17 — Sacae vs. Illia route split',
+    body:'Route is set by which pair has more total EXP: <b>Nomads (Sue + Sin/Shin) → Sacae</b> (Ch. 17B–20B, recruits Dayan). <b>Pegasus Knights (Thany + Thea/Tate) → Illia</b> (Ch. 17A–20A, recruits Juno). Check EXP in the status screen and engineer deliberately. Duplicate save to see both routes.'},
+
+  {type:'split',
+    title:'Late game — Sacae route vs. Illia route',
+    opts:[
+      {badge:'sacae',label:'Sacae',cond:'Sue + Sin/Shin have more total EXP than Thany + Thea/Tate',
+       units:'Dayan (Nomadic Trooper, Ch. 20B)',
+       note:'Ch. 17B → 18B → 19B → 20B → 20Bx (Bow of the Winds). Murgleis at end of 20Bx.'},
+      {badge:'illia',label:'Illia',cond:'Thany + Thea/Tate have more total EXP than Sue + Sin/Shin',
+       units:'Juno (Falcon Knight, Ch. 20A)',
+       note:'Ch. 17A → 18A → 19A → 20A → 20Ax (Spear of Ice). Maltet at end of 20Ax. Generally easier.'}
+    ],
+    excl:['Dayan OR Juno']},
+
+  {type:'pair',pair:[
+    {id:'c17a',num:'Ch. 17A',name:'The Path Through the Ocean',cls:'is-illia',badge:'illia',badgeText:'Illia',
+      items:["Tiena's Staff (village)"],steal:['Elixirs ×3','Vulneraries ×6'],warns:[]},
+    {id:'c17b',num:'Ch. 17B',name:"The Bishop's Teachings",cls:'is-sacae',badge:'sacae',badgeText:'Sacae',
+      items:["Tiena's Staff (village)",'Eclipse (village)'],steal:['Vulneraries ×2','Lockpicks ×2'],warns:[]}
+  ]},
+
+  {type:'pair',pair:[
+    {id:'c18a',num:'Ch. 18A',name:'The Frozen River',cls:'is-illia',badge:'illia',badgeText:'Illia',
+      items:['Goddess Icon (village)','Secret Book (village)','Guiding Ring (village)'],warns:[]},
+    {id:'c18b',num:'Ch. 18B',name:'The Law of Sacae',cls:'is-sacae',badge:'sacae',badgeText:'Sacae',
+      items:[],steal:['Vulneraries ×3','Elixirs ×4'],warns:[]}
+  ]},
+
+  {type:'pair',pair:[
+    {id:'c19a',num:'Ch. 19A',name:'Bitter Cold',cls:'is-illia',badge:'illia',badgeText:'Illia',
+      recruits:['Niime/Nim — Automatically, start of chapter'],
+      items:['Aircalibur (village)','Energy Ring (village)'],steal:['Vulneraries ×10','Elixirs ×4',"Knight's Crest"],warns:[]},
+    {id:'c19b',num:'Ch. 19B',name:'Battle in Bulgar',cls:'is-sacae',badge:'sacae',badgeText:'Sacae',
+      recruits:['Niime/Nim — Automatically, start of chapter'],
+      items:['Wyrmslayer (village)','Energy Ring (village)','Goddess Icon (village)','Wo Dao (village)','Longbow (village)'],steal:['Elixirs ×2'],warns:[]}
+  ]},
+
+  {type:'pair',pair:[
+    {id:'c20a',num:'Ch. 20A',name:'The Liberation of Illia',cls:'is-illia',badge:'illia',badgeText:'Illia',
+      recruits:['Juno — NPC; talk with Thany, Thea/Tate, or Zealot'],
+      items:['Speedwings (chest)','Axereaver (chest)','Longbow (chest)','Wo Dao (chest)','Wyrmslayer (chest)','Nosferatu (chest)','Purge (chest)','Sleep (chest)','Angelic Robe (end, if all civilians survived)'],
+      steal:['Vulneraries ×3','Lockpicks ×3','Red Gems ×2','Blue Gem','Elysian Whip'],warns:[]},
+    {id:'c20b',num:'Ch. 20B',name:'The Silver Wolf',cls:'is-sacae',badge:'sacae',badgeText:'Sacae',
+      recruits:['Dayan — Turn 3: NPC; talk with Roy, Sue, or Sin/Shin'],
+      items:['Nosferatu (chest)','Sleep (chest)','Axereaver (chest)','Dragonshield (chest)','Guiding Ring (chest)','Blue Gem (chest)'],
+      steal:['Vulnerary','Lockpicks ×2','Red Gems ×2','Orion\'s Bolt'],warns:[]}
+  ]},
+
+  {type:'pair',pair:[
+    {id:'c20ax',num:'Ch. 20Ax',name:'The Spear of Ice',cls:'is-illia is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+      items:['Maltet — legendary lance (end of chapter)'],steal:['Vulneraries ×6'],
+      warns:['Illia route — required for true ending','Conditions: complete Ch. 20A in ≤25 turns, Thany + Thea/Tate + Juno must be alive']},
+    {id:'c20bx',num:'Ch. 20Bx',name:'The Bow of the Winds',cls:'is-sacae is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+      items:['Murgleis — legendary sword (end of chapter)'],steal:['Vulneraries ×7'],
+      warns:['Sacae route — required for true ending','Conditions: complete Ch. 20B in ≤25 turns, Sue + Sin/Shin + Dayan must be alive']}
+  ]},
+
+  {type:'ch',id:'c21',num:'Ch. 21',name:'The Binding Blade',
+    recruits:['Yodel — Automatically, start of chapter'],
+    items:["Knight's Crest (village)",'Binding Blade — legendary sword, Roy promotes (end of chapter)'],
+    steal:['Vulneraries ×10',"Knight's Crest"],
+    warns:['Roy must seize to receive the Binding Blade and promote',
+           'WITHOUT all gaidens + Melady/Miledy + Zeiss alive → game ends here (bad ending)',
+           'Ch. 21x condition: complete in ≤30 turns, Melady/Miledy AND Zeiss must be alive']},
+
+  {type:'ch',id:'c21x',num:'Ch. 21x',name:"The Dragon's Gate",cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Elixir ×3 (chests)','Apocalypse — legendary dark tome (end of chapter)','Binding Blade (end of chapter)'],
+    steal:['Vulneraries ×2'],
+    warns:['True ending gate! Requires: all 5 gaidens + Ch. 21 in ≤30 turns + Melady/Miledy AND Zeiss alive']},
+
+  {type:'ch',id:'c22',num:'Ch. 22',name:'The Neverending Dream',
+    recruits:['Cath — Turn 15: talk with Roy (if not yet joined)'],
+    items:['Sleep (chest)','White Gem (chest)','Nosferatu (chest)','Wyrmslayer (chest)','Dragonshield (chest)','Swordreaver (chest)'],
+    steal:['Vulneraries ×5','Lockpicks ×3',"Hero's Crest"],warns:[]},
+
+  {type:'ch',id:'c23',num:'Ch. 23',name:'The Palace of Bern',
+    recruits:['Karel — Visit village with Fir or Bartre'],
+    items:[],
+    steal:['Guiding Ring','Red Gem','Blue Gem'],warns:[]},
+
+  {type:'ch',id:'c24',num:'Ch. 24',name:'The Final Battle',
+    items:[],steal:['Vulneraries ×15'],warns:[]},
+
+  {type:'ch',id:'cF',num:'Final',name:'Light (True Ending)',
+    items:[],steal:['Vulneraries (infinite)'],
+    warns:['Roy must be promoted (received Binding Blade in Ch. 21)']}
+];
+
+const CH_IDS = ITEMS.flatMap(i=> i.type==='ch' ? [i.id] : i.type==='pair' ? i.pair.map(p=>p.id) : []);
+let done={};
+try{done=JSON.parse(localStorage.getItem('fe6_guide_v4')||'{}');}catch(e){}
+function persist(){try{localStorage.setItem('fe6_guide_v4',JSON.stringify(done));}catch(e){}}
+
+function updateProgress(){
+  const n=CH_IDS.filter(id=>done[id]).length;
+  const pct=Math.round(n/CH_IDS.length*100)+'%';
+  const txt=n+' of '+CH_IDS.length+' chapters complete';
+  ['wide','narrow'].forEach(s=>{
+    document.getElementById('prog-text-'+s).textContent=txt;
+    document.getElementById('prog-bar-'+s).style.width=pct;
+  });
+}
+
+function toggle(id){done[id]=!done[id];persist();render();updateProgress();}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function singularizeSteal(name){
+  if(/ies$/i.test(name)) return name.replace(/ies$/i,'y');
+  if(/s$/i.test(name)&&!/ss$/i.test(name)) return name.replace(/s$/i,'');
+  return name;
+}
+
+function expandStealEntry(s){
+  s=s.trim();
+  if(/infinite/i.test(s))
+    return s.includes('farm')?[s]:['Vulneraries (infinite — farm as needed)'];
+  const m=s.match(/^(.+?)\s*[×x](\d+)(?:\s+.+)?$/i);
+  if(m){
+    const base=singularizeSteal(m[1].trim());
+    const n=parseInt(m[2],10);
+    return Array.from({length:n},(_,i)=>`${base} (steal ${i+1}/${n})`);
+  }
+  if(/\(|from\b/i.test(s)) return [s];
+  return [`${s} (steal)`];
+}
+
+function expandStealList(arr){return arr.flatMap(expandStealEntry);}
+
+function appendSubList(body,chapterId,labels,keyPrefix,variant){
+  if(!labels.length) return;
+  if(variant==='steal'||variant==='recruit'){
+    const hdr=document.createElement('div');
+    hdr.className='sub-section-label';
+    hdr.textContent=variant==='steal'?'Steal':'Recruit';
+    body.appendChild(hdr);
+  }
+  const subList=document.createElement('div');
+  subList.className='sub-items'+(variant==='steal'?' steal-items':variant==='recruit'?' recruit-items':'');
+  labels.forEach((label,idx)=>{
+    const key=chapterId+keyPrefix+idx;
+    const checked=!!done[key];
+    const row=document.createElement('div');
+    row.className='sub-item';
+    row.onclick=(e)=>{
+      e.stopPropagation();
+      done[key]=!done[key];
+      persist();
+      const box=row.querySelector('.sub-check');
+      const lbl=row.querySelector('.sub-label');
+      box.className='sub-check'+(done[key]?' on':'');
+      box.innerHTML=done[key]?'<i class="ti ti-check" aria-hidden="true"></i>':'';
+      lbl.className='sub-label'+(done[key]?' on':'');
+    };
+    row.innerHTML=`
+      <div class="sub-check${checked?' on':''}">${checked?'<i class="ti ti-check" aria-hidden="true"></i>':''}</div>
+      <span class="sub-label${checked?' on':''}">${esc(label)}</span>`;
+    subList.appendChild(row);
+  });
+  body.appendChild(subList);
+}
+
+function makeChRow(item){
+  const isDone=done[item.id];
+  const el=document.createElement('div');
+  el.className=['ch-row',isDone?'done':'',item.cls||''].filter(Boolean).join(' ');
+
+  const badges=item.badge?`<span class="badge ${item.badge}">${esc(item.badgeText)}</span>`:'';
+
+  // header — only this is clickable for the chapter checkbox
+  const header=document.createElement('div');
+  header.className='ch-header';
+  header.onclick=(e)=>{e.stopPropagation();toggle(item.id);};
+  header.innerHTML=`
+    <div class="ch-check">${isDone?'<i class="ti ti-check" aria-hidden="true"></i>':''}</div>
+    <div class="ch-title">
+      <span class="ch-num">${esc(item.num)}</span>
+      <span class="ch-title-text">${esc(item.name)}</span>
+      ${badges}
+    </div>`;
+
+  // body — tags and sub-items, not clickable for parent
+  const body=document.createElement('div');
+  body.style.cssText='padding-left:26px';
+
+  // warn tags
+  let tags='';
+  if(item.warns&&item.warns.length)
+    item.warns.forEach(w=>{tags+=`<div class="tag warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i>${esc(w)}</div>`;});
+  if(tags) body.innerHTML+=`<div class="tag-row">${tags}</div>`;
+
+  if(item.recruits&&item.recruits.length)
+    appendSubList(body,item.id,item.recruits,'_recruit','recruit');
+  if(item.items&&item.items.length)
+    appendSubList(body,item.id,item.items,'_item','item');
+  if(item.steal&&item.steal.length)
+    appendSubList(body,item.id,expandStealList(item.steal),'_steal','steal');
+
+  // assemble: header spans full width, body below it inside ch-main
+  const main=document.createElement('div');
+  main.className='ch-main';
+  main.appendChild(header);
+  if(body.childNodes.length) main.appendChild(body);
+  el.appendChild(main);
+  return el;
+}
+
+    function render(){
+  const list=document.getElementById('ch-list');
+  list.innerHTML='';
+  ITEMS.forEach(item=>{
+    let el;
+    if(item.type==='ch'){
+      el=makeChRow(item);
+    } else if(item.type==='pair'){
+      el=document.createElement('div');
+      el.className='ch-pair';
+      item.pair.forEach(ch=>el.appendChild(makeChRow(ch)));
+    } else if(item.type==='save'){
+      el=document.createElement('div');
+      el.className='callout save-card';
+      el.innerHTML=`<b>${esc(item.title)}</b><br>${item.body}`;
+    } else if(item.type==='split'){
+      el=document.createElement('div');
+      el.className='callout split-card';
+      const optsHtml=item.opts.map(o=>`
+        <div class="split-opt">
+          <div class="split-opt-title"><span class="badge ${o.badge}">${esc(o.label)}</span>${esc(o.cond)}</div>
+          <p>Recruits: <b>${esc(o.units)}</b></p>
+          <p class="note">${esc(o.note)}</p>
+        </div>`).join('');
+      const exclHtml=item.excl.map(e=>`<div class="excl-chip">${esc(e)}</div>`).join('');
+      el.innerHTML=`<h4>${esc(item.title)}</h4><div class="split-opts">${optsHtml}</div><div class="excl-row">${exclHtml}</div>`;
+    }
+    if(el) list.appendChild(el);
+  });
+}
+
+function showTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>
+    b.classList.toggle('active',b.textContent.toLowerCase().startsWith(name.substring(0,3)))
+  );
+  document.getElementById('col-chapters').classList.toggle('active',name==='chapters');
+  document.getElementById('col-tiers').classList.toggle('active',name==='tiers');
+}
+
+render();
+updateProgress();
+</script>
+</body>
+</html>

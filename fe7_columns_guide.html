@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fire Emblem: The Blazing Blade — Personal Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --bg:        #1a1410;
+  --bg2:       #221c16;
+  --bg3:       #2c2420;
+  --bg4:       #36302a;
+  --border:    rgba(255,220,160,0.12);
+  --border2:   rgba(255,220,160,0.22);
+  --gold:      #d4a84b;
+  --gold-dim:  #8a6a28;
+  --text:      #e8dcc8;
+  --text2:     #9e8e78;
+  --text3:     #6a5c4e;
+  --green:     #5faa7a;
+  --green-bg:  rgba(95,170,122,0.12);
+  --red:       #c06050;
+  --red-bg:    rgba(192,96,80,0.12);
+  --blue:      #6090c8;
+  --blue-bg:   rgba(96,144,200,0.12);
+  --amber:     #d4a84b;
+  --amber-bg:  rgba(212,168,75,0.12);
+  --purple:    #9878c8;
+  --purple-bg: rgba(152,120,200,0.12);
+  --radius:    8px;
+  --header-h:  68px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+
+.site-header{background:linear-gradient(180deg,#0e0a06 0%,var(--bg) 100%);border-bottom:1px solid var(--border2);padding:18px 24px 14px;text-align:center;position:sticky;top:0;z-index:20}
+.site-header h1{font-family:'Crimson Pro',Georgia,serif;font-size:24px;font-weight:600;color:var(--gold);letter-spacing:.02em;margin-bottom:2px}
+.site-header p{font-size:12px;color:var(--text2)}
+
+/* wide: two columns */
+@media(min-width:860px){
+  .tabs-mobile{display:none}
+  .two-col{display:flex;height:calc(100vh - var(--header-h));overflow:hidden}
+  .col{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bg4) transparent}
+  .col::-webkit-scrollbar{width:6px}
+  .col::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+  .col-chapters{border-right:1px solid var(--border2)}
+  .col-head{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 16px 10px}
+  .col-head-title{font-family:'Crimson Pro',Georgia,serif;font-size:16px;font-weight:600;color:var(--gold);margin-bottom:6px}
+  .col-body{padding:14px 16px 48px}
+  .prog-text{font-size:11px;color:var(--text2);margin-bottom:4px}
+  .prog-bar-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+  .prog-bar{height:100%;background:var(--green);border-radius:2px;transition:width .35s ease}
+}
+
+/* narrow: tabs */
+@media(max-width:859px){
+  .two-col{display:block}
+  .col-head{display:none}
+  .col{display:none;padding:14px 14px 48px}
+  .col.active{display:block}
+  .tabs-mobile{display:flex;gap:6px;padding:12px 14px 0;border-bottom:1px solid var(--border);margin-bottom:14px}
+  .tab-btn{padding:7px 16px;border:1px solid var(--border2);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;background:var(--bg2);color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;font-family:inherit;transition:all .15s;margin-bottom:-1px;position:relative}
+  .tab-btn:hover{color:var(--text)}
+  .tab-btn.active{background:var(--bg);border-color:var(--border2);border-bottom-color:var(--bg);color:var(--gold)}
+  .mobile-prog{margin-bottom:12px}
+  .prog-text{font-size:12px;color:var(--text2);margin-bottom:5px}
+  .prog-bar-wrap{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+  .prog-bar{height:100%;background:var(--green);border-radius:3px;transition:width .35s ease}
+}
+
+.tip-box{font-size:13px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:11px 14px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.tip-box b{color:var(--text);font-weight:500}
+
+.ch-list{display:flex;flex-direction:column;gap:5px}
+
+/* paired chapters sit side-by-side */
+.ch-pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.ch-pair .ch-row{margin:0}
+.ch-row{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--border);border-left-width:3px;border-left-color:var(--border);border-radius:var(--radius);background:var(--bg2);transition:background .12s}
+.ch-row.done{background:rgba(95,170,122,0.05);opacity:.7}
+.ch-row.is-gaiden{border-left-color:var(--red)}
+.ch-row.is-ra    {border-left-color:var(--blue)}
+.ch-row.is-rb    {border-left-color:var(--purple)}
+.ch-row.is-hector{border-left-color:#d4924a}
+.ch-row.is-lyn   {border-left-color:#4aa8a8}
+
+/* only the header line is clickable */
+.ch-header{display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:4px;margin:-2px;padding:2px;flex-wrap:wrap}
+.ch-header:hover .ch-title-text{color:var(--gold)}
+
+.ch-check{width:18px;height:18px;border:1.5px solid var(--border2);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;transition:all .15s}
+.ch-row.done .ch-check{background:var(--green);border-color:var(--green)}
+.ch-main{flex:1;min-width:0}
+.ch-title{font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px;flex-wrap:wrap;line-height:1.4}
+.ch-title-text{transition:color .12s}
+.ch-num{color:var(--text3);font-size:12px;min-width:50px;flex-shrink:0}
+
+.tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:11px;padding:3px 8px;border-radius:8px;display:flex;align-items:center;gap:4px;line-height:1.3}
+.tag i{font-size:11px}
+.tag.unit {background:var(--blue-bg);  color:var(--blue)}
+.tag.warn {background:var(--red-bg);   color:var(--red)}
+.tag.steal{background:var(--amber-bg); color:var(--amber)}
+
+/* sub-item checklist */
+.sub-items{display:flex;flex-direction:column;gap:2px;margin-top:6px;padding-left:1px}
+.sub-item{display:flex;align-items:baseline;gap:7px;font-size:11px;cursor:pointer;user-select:none;line-height:1.45;padding:2px 4px;border-radius:4px}
+.sub-item:hover{background:rgba(255,255,255,0.03)}
+.sub-check{width:13px;height:13px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;transition:all .15s;position:relative;top:1px}
+.sub-check.on{background:var(--green);border-color:var(--green)}
+.sub-label{color:var(--green);flex:1;min-width:0}
+.sub-label.on{color:var(--text3);text-decoration:line-through}
+.sub-items.steal-items .sub-label{color:var(--amber)}
+.sub-items.steal-items .sub-check.on{background:var(--amber);border-color:var(--amber)}
+.sub-items.recruit-items .sub-label{color:var(--blue)}
+.sub-items.recruit-items .sub-check.on{background:var(--blue);border-color:var(--blue)}
+.sub-section-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-top:8px}
+
+.badge{font-size:11px;padding:2px 7px;border-radius:8px;font-weight:500;flex-shrink:0}
+.badge.gaiden {background:var(--red-bg);    color:var(--red)}
+.badge.ra     {background:var(--blue-bg);   color:var(--blue)}
+.badge.rb     {background:var(--purple-bg); color:var(--purple)}
+.badge.hector {background:rgba(212,146,74,0.15); color:#d4924a}
+.badge.lyn    {background:rgba(74,168,168,0.15);color:#6acaca}
+
+.callout{border-radius:var(--radius);padding:12px 15px;font-size:13px;line-height:1.6}
+.callout.save-card{background:rgba(212,168,75,0.07);border:1px solid rgba(212,168,75,0.28);color:var(--amber)}
+.callout.save-card b{color:#f0c870}
+.callout.split-card{background:rgba(96,144,200,0.06);border:1px solid rgba(96,144,200,0.2);color:var(--text2)}
+.callout.split-card h4{font-size:13px;font-weight:500;color:var(--gold);margin-bottom:8px}
+.callout.split-card b{color:var(--text)}
+.split-opts{display:flex;flex-direction:column;gap:8px}
+.split-opt{padding:8px 10px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid var(--border)}
+.split-opt-title{display:flex;align-items:center;gap:7px;margin-bottom:3px;font-size:13px;font-weight:500;color:var(--text)}
+.split-opt p{font-size:12px;color:var(--text2);margin-top:2px}
+.split-opt .note{font-size:11px;color:var(--text3);margin-top:2px}
+.excl-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.excl-chip{font-size:12px;padding:3px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2)}
+
+.section-divider{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 7px;border-top:1px solid var(--border);padding-top:14px}
+.section-divider.first{border-top:none;padding-top:0;margin-top:0}
+.tier-row{display:flex;margin-bottom:5px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.tier-label{width:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;font-family:'Crimson Pro',serif}
+.tier-units{flex:1;padding:8px 10px;display:flex;flex-wrap:wrap;gap:5px;background:var(--bg2)}
+.unit-chip{font-size:12px;padding:3px 9px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);line-height:1.4}
+.unit-chip small{display:block;font-size:10px;color:var(--text3);margin-top:1px}
+.unit-chip.is-hector{border-left-width:3px;border-left-color:#d4924a}
+.unit-chip.is-lyn   {border-left-width:3px;border-left-color:#4aa8a8}
+.tier-s .tier-label{background:rgba(255,127,127,0.25); color:#ff7f7f}
+.tier-a .tier-label{background:rgba(255,170,102,0.25); color:#ffaa66}
+.tier-b .tier-label{background:rgba(255,255,102,0.25); color:#efef50}
+.tier-c .tier-label{background:rgba(204,255,102,0.25); color:#ccff66}
+.tier-d .tier-label{background:rgba(128,238,128,0.25); color:#80ee80}
+.tier-f .tier-label{background:rgba(128,187,255,0.25); color:#80bbff}
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>Fire Emblem: The Blazing Blade</h1>
+  <p>Personal walkthrough — Lyn's Story · Eliwood &amp; Hector routes · recruitment · tier list</p>
+</div>
+
+<div class="tabs-mobile">
+  <button class="tab-btn active" onclick="showTab('chapters')">Chapters</button>
+  <button class="tab-btn" onclick="showTab('tiers')">Tier List</button>
+</div>
+
+<div class="two-col">
+
+  <!-- LEFT: CHAPTERS -->
+  <div class="col col-chapters active" id="col-chapters">
+    <div class="col-head">
+      <div class="col-head-title">Chapters &amp; Routes</div>
+      <div class="prog-text" id="prog-text-wide">0 of 43 chapters complete</div>
+      <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar-wide" style="width:0%"></div></div>
+    </div>
+    <div class="col-body">
+      <div class="mobile-prog">
+        <div class="prog-text" id="prog-text-narrow">0 of 43 chapters complete</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" id="prog-bar-narrow" style="width:0%"></div></div>
+      </div>
+      <div class="tip-box">
+        <b>How to use:</b> Click a row to mark the chapter done. <b>Blue</b> recruit rows, <b>green</b> items, <b>gold</b> steals — each has its own checkbox.
+        Steel-blue borders = Lyn's Story. Orange borders = Hector-exclusive. Red = gaiden. Blue/purple = split routes.
+        <b>Gold cards</b> = save reminders. <b>Blue cards</b> = branch explanation.
+        Recruitment data from <a href="https://serenesforest.net/blazing-sword/" style="color:var(--gold)">Serenes Forest</a>; verify item details there.
+      </div>
+      <div class="ch-list" id="ch-list"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: TIERS -->
+  <div class="col col-tiers" id="col-tiers">
+    <div class="col-head">
+      <div class="col-head-title">Unit Tier List</div>
+    </div>
+    <div class="col-body">
+      <div class="tip-box"><b>Tier philosophy:</b> Rated for a normal-mode completionist run including Lyn's Story. Pre-promotes judged on value vs. investment. Ninian is S for dancer utility alone. Orange border = Hector mode only. Teal border = Lyn's Story join only.</div>
+
+      <div class="section-divider first">S — Core team, always deploy</div>
+      <div class="tier-row tier-s"><div class="tier-label">S</div><div class="tier-units">
+        <div class="unit-chip">Florina<small>Peg. Knight · Lyn Ch. 1 · Fastest flying unit, best all-around</small></div>
+        <div class="unit-chip">Pent<small>Sage · Ch. 22 · Pre-promote, A anima + A staves, immediately dominant</small></div>
+        <div class="unit-chip">Ninian<small>Dancer · Lyn Ch. 7 · Double-move utility; unavailable after Ch. 28</small></div>
+      </div></div>
+
+      <div class="section-divider">A — Invest freely, strong payoff</div>
+      <div class="tier-row tier-a"><div class="tier-label">A</div><div class="tier-units">
+        <div class="unit-chip is-hector">Hector<small>Lord · Ch. 11H · Required in his story; best offense+defense among lords</small></div>
+        <div class="unit-chip">Marcus<small>Paladin · Ch. 11 · Essential early Jagen; solid through mid-game</small></div>
+        <div class="unit-chip">Raven<small>Mercenary · Ch. 13 · Highest base speed, top physical attacker</small></div>
+        <div class="unit-chip">Serra<small>Cleric · Lyn Ch. 3 · Best healer; great supports</small></div>
+        <div class="unit-chip">Heath<small>Wyvern Rider · Ch. 19 · Strong bases, flying utility, great growths</small></div>
+        <div class="unit-chip">Fiora<small>Peg. Knight · Ch. 15H/19E · Florina's sister; solid flier</small></div>
+        <div class="unit-chip is-hector">Oswin<small>Knight · Ch. 11H · Hector only; incredible base stats for early game</small></div>
+      </div></div>
+
+      <div class="section-divider">B — Solid contributors</div>
+      <div class="tier-row tier-b"><div class="tier-label">B</div><div class="tier-units">
+        <div class="unit-chip">Eliwood<small>Lord · Ch. 11 · Required; better after Knight Lord promotion</small></div>
+        <div class="unit-chip is-lyn">Lyn<small>Lord · Lyn Prologue · Required; strong with Sol Katti promotion</small></div>
+        <div class="unit-chip">Sain<small>Cavalier · Lyn Prologue · Great Str growth; better offensively than Kent</small></div>
+        <div class="unit-chip">Priscilla<small>Troubadour · Ch. 13 · Mounted healer; invaluable mobility</small></div>
+        <div class="unit-chip">Canas<small>Shaman · Ch. 14 · Only dark magic user; Nosferatu sustain is excellent</small></div>
+        <div class="unit-chip">Jaffar<small>Assassin · Ch. 24 · Late join; very high crit + Silencer ability</small></div>
+        <div class="unit-chip">Louise<small>Sniper · Ch. 22 · Joins with Pent; solid pre-promote bow user</small></div>
+      </div></div>
+
+      <div class="section-divider">C — Usable but outclassed</div>
+      <div class="tier-row tier-c"><div class="tier-label">C</div><div class="tier-units">
+        <div class="unit-chip">Kent<small>Cavalier · Lyn Prologue · Slightly behind Sain; reliable all-rounder</small></div>
+        <div class="unit-chip">Lowen<small>Cavalier · Ch. 11 · High HP/Def but slow; tanky cavalier</small></div>
+        <div class="unit-chip">Erk<small>Mage · Lyn Ch. 3 · Early join; decent growths</small></div>
+        <div class="unit-chip">Lucius<small>Monk · Lyn Ch. 4 · Very high Mag/Res; extremely fragile</small></div>
+        <div class="unit-chip">Matthew<small>Thief · Lyn Ch. 4 · Essential for chests and doors</small></div>
+        <div class="unit-chip">Dart<small>Pirate · Ch. 17 · High Str; inconsistent accuracy</small></div>
+        <div class="unit-chip">Rebecca<small>Archer · Ch. 11 · Early bow user; falls off late game</small></div>
+        <div class="unit-chip">Dorcas<small>Fighter · Lyn Ch. 3 · Decent; outclassed by better units quickly</small></div>
+        <div class="unit-chip">Hawkeye<small>Berserker · Ch. 18 · Pre-promote; good bases but no room to grow</small></div>
+        <div class="unit-chip">Nino<small>Mage · Ch. 24 · Joins severely underleveled; great growths if invested</small></div>
+      </div></div>
+
+      <div class="section-divider">D — Bench unless desperate</div>
+      <div class="tier-row tier-d"><div class="tier-label">D</div><div class="tier-units">
+        <div class="unit-chip is-lyn">Wil<small>Archer · Lyn Ch. 2 · Poor growth rates; replaced soon</small></div>
+        <div class="unit-chip">Bartre<small>Fighter · Ch. 13 · One of the weakest units; joins underleveled</small></div>
+        <div class="unit-chip">Guy<small>Myrmidon · Lyn Ch. 4 · Low bases; high potential with heavy EXP</small></div>
+        <div class="unit-chip">Legault<small>Thief · Ch. 18x · Second thief; useful for lockpick flexibility</small></div>
+        <div class="unit-chip">Geitz<small>Warrior · Ch. 23B · Pre-promote; decent bases but joins on Linus route</small></div>
+        <div class="unit-chip">Isadora<small>Paladin · Ch. 28 · Very late join; mediocre stats for endgame</small></div>
+        <div class="unit-chip">Wallace<small>General · Ch. 23A · Very late armored join; slow and poor chapter coverage</small></div>
+      </div></div>
+
+      <div class="section-divider">F — Avoid</div>
+      <div class="tier-row tier-f"><div class="tier-label">F</div><div class="tier-units">
+        <div class="unit-chip">Renault<small>Bishop · Ch. 29 · Last recruitable character; A staves but no time left</small></div>
+        <div class="unit-chip is-hector">Karla<small>Swordmaster · Hector Ch. 31x · Joins underleveled; very hard to recruit</small></div>
+        <div class="unit-chip is-hector">Farina<small>Peg. Knight · Hector Ch. 25 · Costs 20,000G; strictly worse than Florina/Fiora</small></div>
+      </div></div>
+
+      <div class="tip-box" style="margin-top:14px">
+        <b>Ninian leaves permanently around Ch. 28</b> (story event) — use her dancer utility while you can.
+        <b>Nino</b> has the highest magic growth in the game but joins at level 5 in Ch. 24; she needs a Guiding Ring and several chapters to shine.
+        <b>Harken vs. Karel</b> are mutually exclusive — see Ch. 25 notes for conditions.
+        <b>Hector mode</b> adds Farina (20,000G), Karla (complex conditions), and Oswin — none are worth the cost except Oswin.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /two-col -->
+
+<script>
+// Recruitment data from Serenes Forest: https://serenesforest.net/blazing-sword/
+// Item data: https://serenesforest.net/blazing-sword/miscellaneous/item-locations/
+// Gaiden conditions: https://serenesforest.net/blazing-sword/miscellaneous/gaiden-chapters/
+const ITEMS = [
+
+  // ═══════════════════════════════════════════════════════
+  // LYN'S STORY (tutorial — stats carry over to main story)
+  // ═══════════════════════════════════════════════════════
+  {type:'save',
+    title:'Lyn\'s Story — Tutorial Mode',
+    body:'Lyn\'s Story is the tutorial. <b>Stats and levels carry over</b> to the main story. If you skip it, Lyn-mode characters rejoin in Ch. 15 at reduced base stats. Teal borders mark Lyn\'s Story chapters. All characters here automatically rejoin the main cast at <b>Ch. 15 (Noble Lady of Caelin)</b>.'},
+
+  {type:'ch',id:'lyn_p',num:'Prologue',name:'A Girl from the Plains',cls:'is-lyn',
+    recruits:['Lyn, Sain & Kent — Automatically, turn 1'],
+    items:['Iron Sword (Lyn starts equipped)'],warns:[]},
+
+  {type:'ch',id:'lyn_1',num:'Lyn Ch. 1',name:'Footsteps of Fate',cls:'is-lyn',
+    recruits:['Florina — Automatically at start'],
+    items:[],warns:[]},
+
+  {type:'ch',id:'lyn_2',num:'Lyn Ch. 2',name:'Sword of Spirits',cls:'is-lyn',
+    recruits:['Wil — Visit northern village'],
+    items:['Vulnerary (village)'],warns:[]},
+
+  {type:'ch',id:'lyn_3',num:'Lyn Ch. 3',name:'Band of Mercenaries',cls:'is-lyn',
+    recruits:['Dorcas — Enemy; talk with Lyn (hired to kill her, has a change of heart)','Erk & Serra — NPC allied group; keep both alive through the chapter to secure their join'],
+    items:[],
+    steal:['Vulneraries'],
+    warns:['Keep Erk and Serra alive — they are NPC allies who join permanently if they survive']},
+
+  {type:'ch',id:'lyn_4',num:'Lyn Ch. 4',name:'In Occupation\'s Shadow',cls:'is-lyn',
+    recruits:['Matthew — Automatically at start','Lucius — Enemy monk; talk with Lyn or Matthew','Guy — Enemy myrmidon; talk with Matthew (owes Matthew a debt)'],
+    items:['Vulnerary (village)'],
+    steal:['Vulneraries','Door Keys'],
+    warns:[]},
+
+  {type:'ch',id:'lyn_5',num:'Lyn Ch. 5',name:'Beyond the Borders',cls:'is-lyn',
+    recruits:['Nils — Event (freed from captivity)'],
+    items:[],warns:[]},
+
+  {type:'ch',id:'lyn_6',num:'Lyn Ch. 6',name:'Blood of Pride',cls:'is-lyn',
+    items:[],warns:[]},
+
+  {type:'save',
+    title:'Save before Lyn Ch. 7 — gaiden unlock',
+    body:'Complete Lyn Ch. 7 in <b>≤15 turns</b> to unlock Lyn Ch. 7x (The Black Shadow). This is the only gaiden in Lyn\'s Story.'},
+
+  {type:'ch',id:'lyn_7',num:'Lyn Ch. 7',name:'Siblings Abroad',cls:'is-lyn',
+    recruits:['Ninian — Event (escapes with Nils)'],
+    items:[],
+    warns:['Complete in ≤15 turns to unlock Lyn Ch. 7x']},
+
+  {type:'ch',id:'lyn_7x',num:'Lyn Ch. 7x',name:'The Black Shadow',cls:'is-lyn is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:[],
+    warns:['Unlock: complete Lyn Ch. 7 in ≤15 turns']},
+
+  {type:'ch',id:'lyn_8',num:'Lyn Ch. 8',name:'Vortex of Strategy',cls:'is-lyn',
+    items:[],warns:[]},
+
+  {type:'ch',id:'lyn_9',num:'Lyn Ch. 9',name:'A Grim Reunion',cls:'is-lyn',
+    items:[],warns:[]},
+
+  {type:'ch',id:'lyn_10',num:'Lyn Ch. 10',name:'The Distant Plains',cls:'is-lyn',
+    items:[],
+    warns:['End of Lyn\'s Story — all characters and levels carry into the main story']},
+
+  // ═══════════════════════════════════════════════════════
+  // MAIN STORY — ELIWOOD & HECTOR
+  // ═══════════════════════════════════════════════════════
+  {type:'save',
+    title:'Main Story begins — choose Eliwood or Hector\'s Story',
+    body:'From here you choose <b>Eliwood\'s Story</b> (standard, 30 chapters + gaidens) or <b>Hector\'s Story</b> (harder, 32 chapters + 8 gaidens, 6 exclusive chapters). Chapters with an orange <b>Hector</b> badge are exclusive to Hector\'s mode. Both stories share most chapters but numbering shifts in Hector\'s mode due to the extra chapters.'},
+
+  {type:'ch',id:'c11',num:'Ch. 11',name:'Taking Leave',
+    recruits:['Lowen — Automatically at start','Rebecca — Automatically at start','Marcus — Returns, automatically at start'],
+    items:['Knight\'s Crest (village)','Vulnerary (village)'],warns:[]},
+
+  {type:'ch',id:'c12',num:'Ch. 12',name:'Birds of a Feather',
+    recruits:['Hector — Automatically joins (Eliwood mode; he and his party merge with yours)','Oswin — Automatically joins with Hector'],
+    items:[],warns:[]},
+
+  {type:'save',
+    title:'Save before Ch. 13 — gaiden unlock + recruitment timing',
+    body:'<b>Visit the NW village in Ch. 13</b> to unlock Ch. 13x (The Peddler Merlinus). Merlinus becomes your permanent convoy manager — very useful. Also recruit Priscilla, Raven (enemy — talk with Priscilla), and Bartre here.'},
+
+  {type:'ch',id:'c13',num:'Ch. 13',name:'In Search of Truth',
+    recruits:['Priscilla — NPC in west area; talk with Eliwood or Hector to recruit','Raven — Enemy; talk with Priscilla (he\'s her older brother)','Bartre — Enemy; talk with Eliwood, Hector, or Lyn'],
+    items:['Red Gem (NW village — also unlocks Ch. 13x)','Iron Axe (village)'],
+    steal:['Vulneraries','Door Keys'],
+    warns:['Visit NW village to get the Red Gem AND unlock Ch. 13x','Priscilla must talk to Raven before he moves far — deploy both near each other']},
+
+  {type:'ch',id:'c13x',num:'Ch. 13x',name:'The Peddler Merlinus',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    recruits:['Merlinus — Protect him for 7 turns; he flees after and joins as convoy manager'],
+    items:[],
+    warns:['Unlock: visit NW village in Ch. 13','Merlinus becomes your item convoy — very useful for the rest of the game']},
+
+  {type:'ch',id:'c14',num:'Ch. 14',name:'False Friends',
+    recruits:['Canas — Visit southern village (he\'s a friendly dark magic scholar)'],
+    items:['Nosferatu (Canas\'s village)','Flux (other village)'],warns:[]},
+
+  {type:'ch',id:'c15',num:'Ch. 15',name:'Noble Lady of Caelin',
+    recruits:['Lyn, Sain, Kent, Florina, Wil, Dorcas, Serra, Erk, Lucius, Matthew, Ninian, Nils & Guy — All Lyn\'s Story units rejoin at levels from tutorial'],
+    items:[],
+    warns:['All Lyn\'s Story characters rejoin here','If Lyn\'s Story was skipped, characters rejoin at reduced base stats — play the tutorial!']},
+
+  {type:'ch',id:'c15h',num:'Hector Ch. 15',name:'Talons Alight',cls:'is-hector',badge:'hector',badgeText:'Hector',
+    recruits:['Fiora — NPC Pegasus Knight; talk with Florina (Fiora is Florina\'s older sister)'],
+    items:[],
+    warns:['HECTOR MODE ONLY — does not appear in Eliwood\'s Story','In Eliwood mode, Fiora joins differently around Ch. 19']},
+
+  {type:'ch',id:'c16',num:'Ch. 16',name:'Whereabouts Unknown',
+    items:[],
+    warns:['Keep at least 1 NPC Caelin soldier alive to unlock Ch. 16x (The Port of Badon)']},
+
+  {type:'ch',id:'c16x',num:'Ch. 16x',name:'The Port of Badon',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Lancereaver (village)','Devil Axe (village)'],
+    warns:['Unlock: keep ≥1 Caelin soldier alive in Ch. 16','DO NOT defeat Dart here — he appears as an enemy pirate; killing him locks you out of recruiting him in Ch. 17','Arena available — great for grinding levels, weapon ranks, supports, and gold']},
+
+  {type:'ch',id:'c17',num:'Ch. 17',name:'Pirate Ship',
+    recruits:['Dart — Enemy pirate; talk with Rebecca (they grew up together)'],
+    items:['Chest contents (various weapons and gold)'],
+    steal:['Vulneraries','Keys'],
+    warns:['Dart is an enemy sailing with the pirates — have Rebecca nearby and ready to talk','Moving ship map — terrain changes each turn, be careful with positioning']},
+
+  {type:'save',
+    title:'Save before Ch. 18 — gaiden unlock',
+    body:'Complete Ch. 18 (The Dread Isle) in <b>≤15 turns</b> to unlock Ch. 18x (Imprisoner of Magic). Hawkeye also joins here as an NPC — <b>keep him alive</b>, he is needed for the Ch. 22x unlock conditions.'},
+
+  {type:'ch',id:'c18',num:'Ch. 18',name:'The Dread Isle',
+    recruits:['Hawkeye — NPC ally; joins your party automatically after the chapter'],
+    items:['Elfire (village)'],
+    warns:['Complete in ≤15 turns to unlock Ch. 18x','Keep Hawkeye alive through this chapter — required for Ch. 22x unlock']},
+
+  {type:'ch',id:'c18x',num:'Ch. 18x',name:'Imprisoner of Magic',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Luna (chest)','Various chest items'],
+    steal:['Vulneraries'],
+    warns:['Unlock: complete Ch. 18 in ≤15 turns','Defeat Kishuna (magic seal enemy) — required for Hector mode Ch. 19xx unlock']},
+
+  {type:'ch',id:'c19',num:'Ch. 19',name:'Dragon\'s Gate',
+    recruits:['Heath — Enemy wyvern rider; talk with Lyn or Priscilla (he questions his loyalty to the Black Fang)','Fiora — NPC (Eliwood mode); talk with Florina to recruit (Hector mode players already have her from Ch. 15H)','Legault — Enemy thief (former Black Fang); appears from stairs early in the chapter; talk with Eliwood, Hector, or Lyn — will likely have already opened the eastern chests'],
+    items:['Barrier (chest, likely opened by Legault)','Guiding Ring (chest, likely opened by Legault)'],
+    steal:['Member Card (enemy Thief SE — only one in the entire game; grants access to secret shops)'],
+    warns:['Heath approaches from the east — have Lyn or Priscilla positioned to intercept and talk','Eliwood mode: also recruit Fiora here by talking with Florina','STEAL the Member Card from the enemy Thief in the SE before he escapes — it is irreplaceable','Recruit Legault before he moves too far — intercept him near the stairs']},
+
+  {type:'ch',id:'c19xx',num:'Hector Ch. 19xx',name:'A Glimpse in Time',cls:'is-hector is-gaiden',badge:'hector',badgeText:'Hector',
+    items:['Ninis\'s Grace (wind bracelet, protects Ninian/Nils)'],
+    warns:['HECTOR MODE ONLY','Unlock: Nils reached Level 7+ during Lyn\'s Story AND Kishuna was defeated in Ch. 18x/19x']},
+
+  {type:'ch',id:'c20',num:'Ch. 20',name:'New Resolve',
+    items:[],
+    warns:['Primarily a story/transition chapter after Dragon\'s Gate — Eliwood and company return to Badon']},
+
+  {type:'ch',id:'c21',num:'Ch. 21',name:'Kinship\'s Bond',
+    items:[],
+    warns:['Secret shop in the top-left room (left of the pillar) — requires Member Card from Ch. 19 to access']},
+
+  {type:'save',
+    title:'Save before Ch. 22 — gaiden unlock conditions',
+    body:'To unlock Ch. 22x (Genesis): <b>Hawkeye must be alive</b> AND you must earn <b>700+ total EXP</b> in Ch. 22 (Living Legend). Send all units into the fog to fight — the more enemies killed, the better. Also: Pent and Louise join as NPCs — protect them to secure their permanent recruitment.'},
+
+  {type:'ch',id:'c22',num:'Ch. 22',name:'Living Legend',
+    recruits:['Pent — NPC allied Sage; joins permanently after the chapter (best pre-promote in the game)','Louise — Joins with Pent (Sniper, Pent\'s wife)'],
+    items:['Elixir (Athos gifts at chapter start)'],
+    warns:['Earn 700+ total EXP this chapter to unlock Ch. 22x — farm as many enemies as possible','Keep Hawkeye alive (also required for 22x)','Keep Pent and Louise alive — they join after the chapter','Fog of War sandstorm — bring Torch staves or units with high vision radius']},
+
+  {type:'ch',id:'c22x',num:'Ch. 22x',name:'Genesis',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Various stat boosters and rare items'],
+    warns:['Unlock: Hawkeye alive + 700+ EXP earned in Ch. 22']},
+
+  {type:'save',
+    title:'Save before Ch. 23 — Four-Fanged Offense split',
+    body:'Ch. 23 has two versions based on your <b>lords\' combined level</b>. <b>Lloyd version</b> (Fog of War, harder) if lords\' combined level is ≤49. <b>Linus version</b> (no Fog of War, easier) if ≥50. Your choice determines whether <b>Wallace</b> (Lloyd route) or <b>Geitz</b> (Linus route) is recruitable. Duplicate save to see both.'},
+
+  {type:'split',
+    title:'Four-Fanged Offense — Lloyd vs Linus',
+    opts:[
+      {badge:'ra',label:'Lloyd (White Wolf)',cond:'Lords\' combined level ≤49',
+       units:'Wallace (General) — NPC ally, joins after chapter',
+       note:'Fog of War map. Wallace is a very poor unit at this point; armored movement hurts him badly.'},
+      {badge:'rb',label:'Linus (Mad Dog)',cond:'Lords\' combined level ≥50',
+       units:'Geitz (Warrior) — enemy; talk with Dart to recruit',
+       note:'No fog of war, easier chapter. Geitz is a solid pre-promote Warrior if you want an axe user.'}
+    ],
+    excl:['Wallace OR Geitz']},
+
+  {type:'pair',pair:[
+    {id:'c23a',num:'Ch. 23A',name:'Four-Fanged Offense (Lloyd)',cls:'is-ra',badge:'ra',badgeText:'Lloyd',
+      recruits:['Wallace — NPC ally General; joins automatically after the chapter'],
+      items:[],
+      warns:['Fog of War! Bring Torch staves','Wallace is generally not worth training at this stage — armored class, very late join']},
+    {id:'c23b',num:'Ch. 23B',name:'Four-Fanged Offense (Linus)',cls:'is-rb',badge:'rb',badgeText:'Linus',
+      recruits:['Geitz — Enemy Warrior; talk with Dart to recruit'],
+      items:[],
+      warns:['Have Dart alive and positioned near Geitz when he appears']}
+  ]},
+
+  {type:'ch',id:'c24',num:'Ch. 24',name:'Unfulfilled Heart',
+    recruits:['Nino — NPC ally Mage; joins at start of chapter','Jaffar — Enemy Assassin (Angel of Death); Nino must talk to him to recruit'],
+    items:[],
+    warns:['CRITICAL: Have Nino talk to Jaffar — he will not join otherwise','Both Nino AND Jaffar must survive Ch. 24 AND Ch. 26 to unlock Ch. 26x (Night of Farewells)','Jaffar is one of the best units in the game despite late join']},
+
+  {type:'save',
+    title:'Save before Ch. 25 — Pale Flower split + Harken vs. Karel',
+    body:'Ch. 25 has two versions. <b>Kenneth version</b> if your magic users (Serra, Erk, Priscilla, Lucius) gained more EXP than your physical users (Dorcas, Bartre, Guy, Raven). <b>Jerme version</b> otherwise. Additionally, either <b>Harken</b> or <b>Karel</b> is recruitable this chapter — they are mutually exclusive. See Ch. 25 notes for specific conditions per version.'},
+
+  {type:'split',
+    title:'Pale Flower of Darkness — Kenneth vs Jerme',
+    opts:[
+      {badge:'ra',label:'Kenneth',cond:'Magic users\' gained EXP > physical users\' gained EXP',
+       units:'Harken OR Karel available (see chapter notes for exact condition)',
+       note:'Magic-heavy enemy composition. Harken appears if <2 promoted enemies defeated by turn 9; Karel appears if ≥2 defeated.'},
+      {badge:'rb',label:'Jerme',cond:'Physical users\' gained EXP ≥ magic users\' gained EXP',
+       units:'Harken OR Karel available (see chapter notes for exact condition)',
+       note:'Physical-heavy enemy composition. Harken appears if <4 doors opened by turn 9; Karel appears if ≥4 doors opened.'}
+    ],
+    excl:['Kenneth OR Jerme version','Harken OR Karel (not both)']},
+
+  {type:'pair',pair:[
+    {id:'c25a',num:'Ch. 25A',name:'Pale Flower (Kenneth)',cls:'is-ra',badge:'ra',badgeText:'Kenneth',
+      recruits:['Harken — Enemy Hero; appears if <2 promoted enemies defeated by turn 9 → talk with Eliwood or Hector','Karel — Enemy Swordmaster; appears if ≥2 promoted enemies defeated by turn 9 → talk with any unit (mutually exclusive with Harken)'],
+      items:[],
+      warns:['Harken vs. Karel: defeat <2 promoted enemies by turn 9 for Harken; ≥2 for Karel','Recruit ONE — the other will not appear this chapter']},
+    {id:'c25b',num:'Ch. 25B',name:'Pale Flower (Jerme)',cls:'is-rb',badge:'rb',badgeText:'Jerme',
+      recruits:['Harken — Enemy Hero; appears if <4 doors opened by turn 9 → talk with Eliwood or Hector','Karel — Enemy Swordmaster; appears if ≥4 doors opened by turn 9 → talk with any unit (mutually exclusive with Harken)'],
+      items:[],
+      warns:['Harken vs. Karel: open <4 doors by turn 9 for Harken; ≥4 for Karel','Recruit ONE — the other will not appear this chapter']}
+  ]},
+
+  {type:'save',
+    title:'Save before Ch. 26 — Ch. 26x unlock',
+    body:'Unlock Ch. 26x (Night of Farewells) by: <b>Nino recruited in Ch. 24</b>, <b>Jaffar recruited in Ch. 24 via Nino</b>, and <b>both survive through Ch. 26</b>. If either dies at any point after Ch. 24, the gaiden is locked. Save here as insurance.'},
+
+  {type:'ch',id:'c26',num:'Ch. 26',name:'Battle Before Dawn',
+    items:[],
+    steal:['Vulneraries'],
+    warns:['Keep Nino AND Jaffar alive — required for Ch. 26x','Reinforcements are plentiful and dangerous; do not overextend']},
+
+  {type:'ch',id:'c26x',num:'Ch. 26x',name:'Night of Farewells',cls:'is-gaiden',badge:'gaiden',badgeText:'Gaiden',
+    items:['Speedwings (village)','Various stat boosters'],
+    warns:['Unlock: Nino talked to Jaffar in Ch. 24, both survived through Ch. 26']},
+
+  {type:'ch',id:'c27',num:'Ch. 27',name:'Cog of Destiny',
+    items:['Warp (chest — the ONLY obtainable Warp staff in the entire game; do not miss it)','Iron Rune (held by boss — only one in the game; protects against crits)'],
+    warns:['Boss is whichever of Lloyd/Linus was NOT fought in Ch. 23 — same character, other brother','GET THE WARP STAFF from the chest — it is irreplaceable','Steal or defeat the boss for the Iron Rune','Dangerous chapter: fast Valkyries, Druids with Luna, and multiple status staves','Eliwood promotes automatically at the end of this chapter (story event)','Vaida appears as a reinforcement with Wyvern Riders when you approach the altar']},
+
+  {type:'ch',id:'c28',num:'Ch. 28',name:'Valorous Roland',
+    recruits:['Isadora — NPC Paladin; joins after a story event'],
+    items:['Durandal — Eliwood\'s legendary Blazing Sword (story event: Roland\'s ghost bestows it)'],
+    warns:['Ninian\'s story role concludes around this chapter — she will no longer be available as a dancer','Eliwood wields Durandal from here on; it counts as his promotion weapon','Isadora joins very late with mediocre stats for endgame']},
+
+  {type:'ch',id:'c29',num:'Ch. 29',name:'Sands of Time',
+    items:[],
+    warns:['Primarily a long story chapter — Athos recounts his 500-year history with Nergal in Arcadia']},
+
+  {type:'ch',id:'c31x',num:'Hector Ch. 31x',name:'Battle Preparations',cls:'is-hector is-gaiden',badge:'hector',badgeText:'Hector',
+    recruits:['Karla — Enemy Swordmaster; Bartre must be a promoted Warrior at Level 5+ before the chapter starts — she challenges him to a duel, then joins if he survives',
+              'Farina — costs 20,000G (Hector mode, available around Ch. 25 onwards)'],
+    items:[],
+    warns:['HECTOR MODE ONLY','Unlock: complete Ch. 31 (Sands of Time in Hector\'s numbering) in ≤20 turns','Karla: Bartre must be a Level 5+ Warrior (promoted) before this chapter — plan ahead']},
+
+  {type:'ch',id:'c30',num:'Ch. 30',name:'Victory or Death',
+    recruits:['Renault — Visit ruins to the north within 11 turns (last recruitable character; Bishop pre-promote with A-rank staves)'],
+    items:['Fortify (Renault carries it — only Fortify staff in Eliwood\'s tale)'],
+    warns:['Visit the northern ruins within 11 turns to recruit Renault and get the Fortify staff','Renault joins far too late to develop, but Fortify is a useful staff for the endgame']},
+
+  {type:'ch',id:'cF',num:'Final',name:'Light',
+    recruits:['Athos — Guest unit (does not count as permanent; uses Forblaze and Aureola)'],
+    items:['Durandal — Eliwood\'s legendary sword (obtained through story quest)','Armads — Hector\'s legendary axe (obtained through story quest)','Sol Katti — Lyn\'s legendary sword (evolved from Mani Katti)'],
+    warns:['All three lords receive their legendary weapons and promote before this chapter','Athos handles the toughest enemies with his legendary tomes — let him']}
+];
+
+const CH_IDS = ITEMS.flatMap(i=> i.type==='ch' ? [i.id] : i.type==='pair' ? i.pair.map(p=>p.id) : []);
+let done={};
+try{done=JSON.parse(localStorage.getItem('fe7_guide_v1')||'{}');}catch(e){}
+function persist(){try{localStorage.setItem('fe7_guide_v1',JSON.stringify(done));}catch(e){}}
+
+function updateProgress(){
+  const n=CH_IDS.filter(id=>done[id]).length;
+  const pct=Math.round(n/CH_IDS.length*100)+'%';
+  const txt=n+' of '+CH_IDS.length+' chapters complete';
+  ['wide','narrow'].forEach(s=>{
+    document.getElementById('prog-text-'+s).textContent=txt;
+    document.getElementById('prog-bar-'+s).style.width=pct;
+  });
+}
+
+function toggle(id){done[id]=!done[id];persist();render();updateProgress();}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function singularizeSteal(name){
+  if(/ies$/i.test(name)) return name.replace(/ies$/i,'y');
+  if(/s$/i.test(name)&&!/ss$/i.test(name)) return name.replace(/s$/i,'');
+  return name;
+}
+
+function expandStealEntry(s){
+  s=s.trim();
+  if(/infinite/i.test(s))
+    return s.includes('farm')?[s]:['Vulneraries (infinite — farm as needed)'];
+  const m=s.match(/^(.+?)\s*[×x](\d+)(?:\s+.+)?$/i);
+  if(m){
+    const base=singularizeSteal(m[1].trim());
+    const n=parseInt(m[2],10);
+    return Array.from({length:n},(_,i)=>`${base} (steal ${i+1}/${n})`);
+  }
+  if(/\(|from\b/i.test(s)) return [s];
+  return [`${s} (steal)`];
+}
+
+function expandStealList(arr){return arr.flatMap(expandStealEntry);}
+
+function appendSubList(body,chapterId,labels,keyPrefix,variant){
+  if(!labels.length) return;
+  if(variant==='steal'||variant==='recruit'){
+    const hdr=document.createElement('div');
+    hdr.className='sub-section-label';
+    hdr.textContent=variant==='steal'?'Steal':'Recruit';
+    body.appendChild(hdr);
+  }
+  const subList=document.createElement('div');
+  subList.className='sub-items'+(variant==='steal'?' steal-items':variant==='recruit'?' recruit-items':'');
+  labels.forEach((label,idx)=>{
+    const key=chapterId+keyPrefix+idx;
+    const checked=!!done[key];
+    const row=document.createElement('div');
+    row.className='sub-item';
+    row.onclick=(e)=>{
+      e.stopPropagation();
+      done[key]=!done[key];
+      persist();
+      const box=row.querySelector('.sub-check');
+      const lbl=row.querySelector('.sub-label');
+      box.className='sub-check'+(done[key]?' on':'');
+      box.innerHTML=done[key]?'<i class="ti ti-check" aria-hidden="true"></i>':'';
+      lbl.className='sub-label'+(done[key]?' on':'');
+    };
+    row.innerHTML=`
+      <div class="sub-check${checked?' on':''}">${checked?'<i class="ti ti-check" aria-hidden="true"></i>':''}</div>
+      <span class="sub-label${checked?' on':''}">${esc(label)}</span>`;
+    subList.appendChild(row);
+  });
+  body.appendChild(subList);
+}
+
+function makeChRow(item){
+  const isDone=done[item.id];
+  const el=document.createElement('div');
+  el.className=['ch-row',isDone?'done':'',item.cls||''].filter(Boolean).join(' ');
+
+  const badges=item.badge?`<span class="badge ${item.badge}">${esc(item.badgeText)}</span>`:'';
+
+  const header=document.createElement('div');
+  header.className='ch-header';
+  header.onclick=(e)=>{e.stopPropagation();toggle(item.id);};
+  header.innerHTML=`
+    <div class="ch-check">${isDone?'<i class="ti ti-check" aria-hidden="true"></i>':''}</div>
+    <div class="ch-title">
+      <span class="ch-num">${esc(item.num)}</span>
+      <span class="ch-title-text">${esc(item.name)}</span>
+      ${badges}
+    </div>`;
+
+  const body=document.createElement('div');
+  body.style.cssText='padding-left:26px';
+
+  let tags='';
+  if(item.warns&&item.warns.length)
+    item.warns.forEach(w=>{tags+=`<div class="tag warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i>${esc(w)}</div>`;});
+  if(tags) body.innerHTML+=`<div class="tag-row">${tags}</div>`;
+
+  if(item.recruits&&item.recruits.length)
+    appendSubList(body,item.id,item.recruits,'_recruit','recruit');
+  if(item.items&&item.items.length)
+    appendSubList(body,item.id,item.items,'_item','item');
+  if(item.steal&&item.steal.length)
+    appendSubList(body,item.id,expandStealList(item.steal),'_steal','steal');
+
+  const main=document.createElement('div');
+  main.className='ch-main';
+  main.appendChild(header);
+  if(body.childNodes.length) main.appendChild(body);
+  el.appendChild(main);
+  return el;
+}
+
+function render(){
+  const list=document.getElementById('ch-list');
+  list.innerHTML='';
+  ITEMS.forEach(item=>{
+    let el;
+    if(item.type==='ch'){
+      el=makeChRow(item);
+    } else if(item.type==='pair'){
+      el=document.createElement('div');
+      el.className='ch-pair';
+      item.pair.forEach(ch=>el.appendChild(makeChRow(ch)));
+    } else if(item.type==='save'){
+      el=document.createElement('div');
+      el.className='callout save-card';
+      el.innerHTML=`<b>${esc(item.title)}</b><br>${item.body}`;
+    } else if(item.type==='split'){
+      el=document.createElement('div');
+      el.className='callout split-card';
+      const optsHtml=item.opts.map(o=>`
+        <div class="split-opt">
+          <div class="split-opt-title"><span class="badge ${o.badge}">${esc(o.label)}</span>${esc(o.cond)}</div>
+          <p>Recruits: <b>${esc(o.units)}</b></p>
+          <p class="note">${esc(o.note)}</p>
+        </div>`).join('');
+      const exclHtml=item.excl.map(e=>`<div class="excl-chip">${esc(e)}</div>`).join('');
+      el.innerHTML=`<h4>${esc(item.title)}</h4><div class="split-opts">${optsHtml}</div><div class="excl-row">${exclHtml}</div>`;
+    }
+    if(el) list.appendChild(el);
+  });
+}
+
+function showTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>
+    b.classList.toggle('active',b.textContent.toLowerCase().startsWith(name.substring(0,3)))
+  );
+  document.getElementById('col-chapters').classList.toggle('active',name==='chapters');
+  document.getElementById('col-tiers').classList.toggle('active',name==='tiers');
+}
+
+render();
+updateProgress();
+</script>
+</body>
+</html>
