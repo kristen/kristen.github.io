@@ -1,0 +1,908 @@
+window.ITEMS = [
+  {
+    "type": "ch",
+    "id": "c1",
+    "num": "Ch. 1",
+    "name": "Dawn of Destiny",
+    "recruits": [
+      "Roy, Marcus, Alen, Lance, Wolt & Bors — Automatically, turn 1"
+    ],
+    "items": [
+      "5000G (village)"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c2",
+    "num": "Ch. 2",
+    "name": "The Princess of Bern",
+    "recruits": [
+      "Merlinus & Ellen — Automatically, turn 1",
+      "Dieck, Thany, Wade & Lot — Automatically, turn 2"
+    ],
+    "items": [
+      "Armourslayer (village)"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c3",
+    "num": "Ch. 3",
+    "name": "Late Arrival",
+    "recruits": [
+      "Chad — Automatically, turn 1",
+      "Lugh — Visit north-eastern village"
+    ],
+    "items": [
+      "Mend (village)",
+      "3000G (chest)",
+      "Halberd (chest)"
+    ],
+    "steal": [
+      "Vulnerary"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c4",
+    "num": "Ch. 4",
+    "name": "Collapse of the Alliance",
+    "recruits": [
+      "Clarine/Clarin — Turn 3: leaves castle; talks to Roy automatically (have Roy near castle)",
+      "Rutger/Rutoga — Turn 6: talk with Clarine/Clarin (keep units back; he has Killing Edge)"
+    ],
+    "items": [
+      "Angelic Robe (village)",
+      "Steel Blade (village)",
+      "Door Key (village)"
+    ],
+    "steal": [
+      "Vulneraries ×4"
+    ],
+    "warns": [
+      "Turn 6: Rutger/Rutoga and reinforcements are deadly if units are near the castle"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c5",
+    "num": "Ch. 5",
+    "name": "The Emblem of Fire",
+    "items": [
+      "Gant's Lance (village)"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c6",
+    "num": "Ch. 6",
+    "name": "The Trap",
+    "recruits": [
+      "Saul/Sol & Dorothy — Automatically, turn 1",
+      "Sue — 3rd room on west side (NPC); talk with Roy (bring spare Iron Bow)",
+      "Cath — Turn 6: talk with Roy (does not join yet; steal lockpick first)"
+    ],
+    "items": [
+      "5000G (chest)",
+      "3000G (chest)",
+      "Unlock (chest)",
+      "Short Bow (chest)",
+      "Killer Axe (chest)",
+      "Goddess Icon (chest)",
+      "Silver Lance (chest)",
+      "2000G (chest)"
+    ],
+    "steal": [
+      "Vulneraries ×7",
+      "Chest Key",
+      "Lockpick from Cath (if unrecruited)"
+    ],
+    "warns": [
+      "Loot-dense chapter — bring thieves and chest keys"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c7",
+    "num": "Ch. 7",
+    "name": "The Rebellion of Ostia",
+    "recruits": [
+      "Zealot — Turn 2: appears from eastern village; talk with Roy",
+      "Treck — Turn 2: appears with Zealot; talk with Zealot",
+      "Noah — Turn 3: appears from arena; talk with Zealot or Treck"
+    ],
+    "items": [
+      "Longbow (village)",
+      "Torch (village)",
+      "Red Gem (village)",
+      "Killing Edge (village)",
+      "Elixir (village)",
+      "Physic (village)",
+      "Knightslayer (village)",
+      "Hero's Crest (village)",
+      "Rapier (chest)",
+      "Barrier (chest)"
+    ],
+    "steal": [
+      "Vulneraries ×6",
+      "Red Gem"
+    ],
+    "warns": [
+      "Visit EVERY village — there are 8 of them with major items"
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 8",
+    "body": "Keep <b>Lilina alive</b> through Ch. 8 to unlock Ch. 8x. If she dies the gaiden is skipped — and without all five gaidens you cannot reach the true ending. Make a backup save here as insurance."
+  },
+  {
+    "type": "ch",
+    "id": "c8",
+    "num": "Ch. 8",
+    "name": "The Reunion",
+    "recruits": [
+      "Astohl & Lilina — Automatically, turn 1 (move Lilina left on turn 1)",
+      "Ogier/Oujay — Turn 8: NW corner with Wendy/Gwendolyn and Barth",
+      "Wendy/Gwendolyn — Turn 8: NW corner with Ogier/Oujay and Barth",
+      "Barth — Turn 8: NW corner with Ogier/Oujay and Wendy/Gwendolyn",
+      "Cath — Turn 10: talk with Roy (does not join yet; steal lockpick)"
+    ],
+    "items": [
+      "Elysian Whip (chest)",
+      "Secret Book (chest)",
+      "Silver Axe (chest)",
+      "Guiding Ring (chest)",
+      "Light Brand (chest)",
+      "Killer Bow (chest)",
+      "Elfire (chest)",
+      "Knight's Crest (chest)",
+      "Thunder (Roy + Lilina talk event)"
+    ],
+    "steal": [
+      "Vulneraries ×7",
+      "Lockpicks ×2",
+      "Chest Keys ×2",
+      "Door Keys ×2"
+    ],
+    "warns": [
+      "Very chest-heavy — bring thieves",
+      "KEEP LILINA ALIVE — unlocks Ch. 8x"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c8x",
+    "num": "Ch. 8x",
+    "name": "The Blazing Sword",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "items": [
+      "Durandal (end of chapter)"
+    ],
+    "warns": [
+      "Required for true ending — unlocked by keeping Lilina alive in Ch. 8"
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 9 — Western Isles route split",
+    "body": "Ch. 9 has two villages. <b>Visiting the Killer Bow village (right side) = Route A</b> (Ch. 10A/11A, Echidna + Larum). <b>Visiting the Restore village (or neither) = Route B</b> (Ch. 10B/11B, Bartre + Elffin/Elphin). Duplicate your save here to see both routes."
+  },
+  {
+    "type": "split",
+    "title": "Western Isles — Route A vs. Route B",
+    "opts": [
+      {
+        "badge": "ra",
+        "label": "Route A",
+        "cond": "Visit the Killer Bow village in Ch. 9",
+        "units": "Echidna (Hero) + Larum (Dancer)",
+        "note": "Generally preferred — Echidna is more useful than Bartre, Larum is an excellent dancer"
+      },
+      {
+        "badge": "rb",
+        "label": "Route B",
+        "cond": "Visit the Restore village (or neither village) in Ch. 9",
+        "units": "Bartre (Fighter) + Elffin/Elphin (Bard)",
+        "note": "Elffin/Elphin is equally excellent as Larum; Bartre needs heavy investment"
+      }
+    ],
+    "excl": [
+      "Echidna OR Bartre",
+      "Larum OR Elffin/Elphin"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c9",
+    "num": "Ch. 9",
+    "name": "The Misty Isles",
+    "recruits": [
+      "Fir — Turn 5: enemy on northern bridge; talk with Noah",
+      "Sin/Shin — Enemy; talk with Fir or Sue"
+    ],
+    "items": [
+      "Silver Sword (village)",
+      "Killer Bow (right village — Route A) OR Restore (left village — Route B)"
+    ],
+    "steal": [
+      "Vulneraries ×3",
+      "Antitoxins ×3"
+    ],
+    "warns": [
+      "Which village you visit determines your route (see card above)",
+      "Bring Noah (Fir) and Sue (Sin/Shin) to the northern group"
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c10a",
+        "num": "Ch. 10A",
+        "name": "The Resistance Forces",
+        "cls": "is-ra",
+        "badge": "ra",
+        "badgeText": "Route A",
+        "recruits": [
+          "Geese — Turn 5: NPC from eastern village; talk with Roy",
+          "Gonzales — Turn 6: enemy from castle; talk with Lilina"
+        ],
+        "items": [
+          "Swordreaver (village)",
+          "Wyrmslayer (end of chapter)"
+        ],
+        "steal": [
+          "Vulneraries ×3",
+          "Antitoxin"
+        ],
+        "warns": []
+      },
+      {
+        "id": "c10b",
+        "num": "Ch. 10B",
+        "name": "Caught in the Middle",
+        "cls": "is-rb",
+        "badge": "rb",
+        "badgeText": "Route B",
+        "recruits": [
+          "Gonzales — Turn 6: enemy from NW; talk with Lilina",
+          "Klein — Turn 8: enemy SE; talk with Clarine/Clarin",
+          "Thea/Tate — Turn 10: enemy; talk with Klein (not Thany — allies will fight and die)"
+        ],
+        "items": [
+          "Speedwings or Elixir (NW village — Wade/Lot get Speedwings, others get Elixir)",
+          "Dragonshield (village)",
+          "Barrier (village)",
+          "Sleep (village)",
+          "Orion's Bolt (village)",
+          "Wyrmslayer (end of chapter)"
+        ],
+        "warns": [
+          "Use Wade or Lot to visit NW and N villages for better rewards"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c11a",
+        "num": "Ch. 11A",
+        "name": "Hero of the Western Isles",
+        "cls": "is-ra",
+        "badge": "ra",
+        "badgeText": "Route A",
+        "recruits": [
+          "Larum — Automatically, turn 1",
+          "Klein — Turn 5: enemy SE; talk with Clarine/Clarin",
+          "Thea/Tate — Turn 7: enemy; talk with Klein (not Thany first)",
+          "Echidna — Turn 8: NPC from eastern house; talk with Larum"
+        ],
+        "items": [
+          "Restore (village)",
+          "Orion's Bolt (village)",
+          "Dragonshield (village)",
+          "Axereaver (village)",
+          "5000G (village)",
+          "Speedwings (village)",
+          "Angelic Robe (village)",
+          "Sleep (village)",
+          "Orion's Bolt (end, if Klein recruited + soldiers survived)",
+          "Elysian Whip (end, if Thea/Tate recruited + soldiers survived)",
+          "Hero's Crest (end, if all villages visited)"
+        ],
+        "warns": [
+          "Visit all villages!",
+          "Keep Klein's and Thea/Tate's allied soldiers alive for bonus end rewards"
+        ]
+      },
+      {
+        "id": "c11b",
+        "num": "Ch. 11B",
+        "name": "Escape to Freedom",
+        "cls": "is-rb",
+        "badge": "rb",
+        "badgeText": "Route B",
+        "recruits": [
+          "Elffin/Elphin — Automatically, turn 1",
+          "Geese — Turn 5: NPC from village; talk with Roy",
+          "Bartre — Turn 9: appears west; talk with Fir (or Roy)"
+        ],
+        "items": [
+          "Red Gem (village)",
+          "Energy Ring (end of chapter, if all civilians survived)"
+        ],
+        "warns": [
+          "Keep Elffin/Elphin alive — required for Ch. 12x on Route B",
+          "Protect all civilians for the Energy Ring"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 12 — turn limit for Ch. 12x",
+    "body": "Complete Ch. 12 in <b>≤20 turns</b> to unlock Ch. 12x. Route B players must also <b>keep Elffin/Elphin alive</b>. Save here and plan an aggressive assault."
+  },
+  {
+    "type": "ch",
+    "id": "c12",
+    "num": "Ch. 12",
+    "name": "The True Enemy",
+    "recruits": [
+      "Raigh/Ray — Talk with Lugh or Chad (western shaman; does not move)",
+      "Cath — Turn 7: third talk with Roy joins her permanently"
+    ],
+    "items": [
+      "Flux (chest)",
+      "Aircalibur (chest)",
+      "Elysian Whip (chest)",
+      "Lancereaver (chest)",
+      "Blue Gem (chest)",
+      "Brave Bow (chest)"
+    ],
+    "steal": [
+      "Vulneraries ×3",
+      "Lockpick"
+    ],
+    "warns": [
+      "Must complete in ≤20 turns for Ch. 12x!",
+      "Route B: also keep Elffin/Elphin alive"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c12x",
+    "num": "Ch. 12x",
+    "name": "The Axe of Thunder",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "items": [
+      "Chest Key (chest)",
+      "Antitoxin (chest)",
+      "Torch (chest)",
+      "Lockpick (chest)",
+      "Elixir ×3 (chest)",
+      "White Gem (chest)",
+      "Red Gem (chest)",
+      "Antitoxins (chest)",
+      "Armads — legendary axe (end of chapter)"
+    ],
+    "warns": [
+      "Required for true ending"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c13",
+    "num": "Ch. 13",
+    "name": "The Rescue Plan",
+    "recruits": [
+      "Melady/Miledy & Sin/Shin — Automatically, turn 3 (Sin joins with Melady/Miledy's group)",
+      "Perceval — Enemy; talk with Larum or Elffin/Elphin (leaves end of turn 8 if not recruited)"
+    ],
+    "items": [
+      "Body Ring (village)",
+      "Al's Sword (village)",
+      "Knight's Crest (end of chapter, if Perceval recruited + his soldiers survived)"
+    ],
+    "steal": [
+      "Vulneraries ×4"
+    ],
+    "warns": [
+      "Get the villages for Body Ring and Al's Sword",
+      "Perceval also recruitable in Ch. 15 for hard mode stat bonuses"
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 14 — two conditions for Ch. 14x",
+    "body": "Unlock Ch. 14x by: (1) finishing in <b>≤25 turns</b> AND (2) <b>keeping Sophia alive</b>. The <b>Silver Card</b> is also hidden in the desert sand here (halves all shop prices) — along with Talisman, Speedwings, Boots, Silence, Silver Blade, and Warp. Send mounted/flying units to search every tile. Forblaze is obtained at the END of Ch. 14x, not in Ch. 14 itself."
+  },
+  {
+    "type": "ch",
+    "id": "c14",
+    "num": "Ch. 14",
+    "name": "Arcadia",
+    "recruits": [
+      "Cecilia, Sophia & Igrene — Automatically, start of chapter",
+      "Garret — Turn 3: enemy; talk with Lilina or Echidna"
+    ],
+    "items": [
+      "Silver Card (hidden in sand — halves shop prices forever!)",
+      "Talisman (sand)",
+      "Speedwings (sand)",
+      "Boots (sand)",
+      "Silence (sand)",
+      "Guiding Ring (sand, requires Sophia in party)",
+      "Silver Blade (sand)",
+      "Warp (sand)"
+    ],
+    "warns": [
+      "Complete in ≤25 turns AND keep Sophia alive for Ch. 14x",
+      "Search ALL desert tiles — 7 hidden items including Silver Card and Boots",
+      "Garret: talk with Lilina or Echidna before he destroys a village"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c14x",
+    "num": "Ch. 14x",
+    "name": "The Infernal Element",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Fa/Fae — Recruit here (required for true ending)"
+    ],
+    "items": [
+      "Forblaze — legendary dark tome (end of chapter)"
+    ],
+    "warns": [
+      "Required for true ending",
+      "Fa/Fae must be in party for the true ending"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c15",
+    "num": "Ch. 15",
+    "name": "The Dragon Girl",
+    "recruits": [
+      "Perceval — Enemy; talk with Larum or Elffin/Elphin (if not recruited in Ch. 13)"
+    ],
+    "items": [
+      "Divine (village)",
+      "Hammerne (village)",
+      "Knight's Crest (end, if Perceval recruited + all 4 cavalier allies survived)"
+    ],
+    "warns": [
+      "Hammerne is extremely rare — one of only two in the game",
+      "Recruit Perceval here for hard mode stat bonuses if you skipped Ch. 13"
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 16 — do NOT kill Douglas",
+    "body": "Douglas is an enemy general. <b>Killing him locks you out of Ch. 16x</b>, required for the true ending. Have Perceval talk to him to recruit him. There are also many valuable chests — bring thieves. Save here in case of accidents."
+  },
+  {
+    "type": "ch",
+    "id": "c16",
+    "num": "Ch. 16",
+    "name": "Retaking the Capital",
+    "recruits": [
+      "Fa/Fae — Available in battle preparations",
+      "Hugh — Enemy; talk with Roy and pay 5,000–10,000G (lower pay = lower stats)",
+      "Zeiss — Turn 2: enemy; talk with Melady/Miledy",
+      "Cath — Turn 10: talk with Roy (3rd talk joins; steal lockpick first)"
+    ],
+    "items": [
+      "Berserk (chest)",
+      "Hero's Crest (chest)",
+      "Knight's Crest (chest)",
+      "Silver Bow (chest)",
+      "Rescue (chest)",
+      "5000G (chest)",
+      "Bolting (chest)",
+      "Brave Lance (chest)",
+      "Restore (chest)",
+      "Recover (chest)"
+    ],
+    "steal": [
+      "Vulneraries ×3",
+      "Lockpicks ×2",
+      "Red Gems ×2",
+      "Blue Gem",
+      "Delphi Shield"
+    ],
+    "warns": [
+      "DO NOT KILL DOUGLAS — Perceval recruits him in Ch. 16x",
+      "Delphi Shield (steal) protects against bows — very useful vs. wyverns later"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c16x",
+    "num": "Ch. 16x",
+    "name": "The Pinnacle of Light",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Douglas — Automatically, start of chapter (recruited via Perceval in Ch. 16)"
+    ],
+    "items": [
+      "Aureola — legendary light tome/staff (end of chapter)"
+    ],
+    "steal": [
+      "Vulneraries ×4"
+    ],
+    "warns": [
+      "Required for true ending"
+    ]
+  },
+  {
+    "type": "save",
+    "title": "🗂️ Save before Ch. 17 — Sacae vs. Illia route split",
+    "body": "Route is set by which pair has more total EXP: <b>Nomads (Sue + Sin/Shin) → Sacae</b> (Ch. 17B–20B, recruits Dayan). <b>Pegasus Knights (Thany + Thea/Tate) → Illia</b> (Ch. 17A–20A, recruits Juno). Check EXP in the status screen and engineer deliberately. Duplicate save to see both routes."
+  },
+  {
+    "type": "split",
+    "title": "Late game — Sacae route vs. Illia route",
+    "opts": [
+      {
+        "badge": "sacae",
+        "label": "Sacae",
+        "cond": "Sue + Sin/Shin have more total EXP than Thany + Thea/Tate",
+        "units": "Dayan (Nomadic Trooper, Ch. 20B)",
+        "note": "Ch. 17B → 18B → 19B → 20B → 20Bx (Bow of the Winds). Murgleis at end of 20Bx."
+      },
+      {
+        "badge": "illia",
+        "label": "Illia",
+        "cond": "Thany + Thea/Tate have more total EXP than Sue + Sin/Shin",
+        "units": "Juno (Falcon Knight, Ch. 20A)",
+        "note": "Ch. 17A → 18A → 19A → 20A → 20Ax (Spear of Ice). Maltet at end of 20Ax. Generally easier."
+      }
+    ],
+    "excl": [
+      "Dayan OR Juno"
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c17a",
+        "num": "Ch. 17A",
+        "name": "The Path Through the Ocean",
+        "cls": "is-illia",
+        "badge": "illia",
+        "badgeText": "Illia",
+        "items": [
+          "Tiena's Staff (village)"
+        ],
+        "steal": [
+          "Elixirs ×3",
+          "Vulneraries ×6"
+        ],
+        "warns": []
+      },
+      {
+        "id": "c17b",
+        "num": "Ch. 17B",
+        "name": "The Bishop's Teachings",
+        "cls": "is-sacae",
+        "badge": "sacae",
+        "badgeText": "Sacae",
+        "items": [
+          "Tiena's Staff (village)",
+          "Eclipse (village)"
+        ],
+        "steal": [
+          "Vulneraries ×2",
+          "Lockpicks ×2"
+        ],
+        "warns": []
+      }
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c18a",
+        "num": "Ch. 18A",
+        "name": "The Frozen River",
+        "cls": "is-illia",
+        "badge": "illia",
+        "badgeText": "Illia",
+        "items": [
+          "Goddess Icon (village)",
+          "Secret Book (village)",
+          "Guiding Ring (village)"
+        ],
+        "warns": []
+      },
+      {
+        "id": "c18b",
+        "num": "Ch. 18B",
+        "name": "The Law of Sacae",
+        "cls": "is-sacae",
+        "badge": "sacae",
+        "badgeText": "Sacae",
+        "items": [],
+        "steal": [
+          "Vulneraries ×3",
+          "Elixirs ×4"
+        ],
+        "warns": []
+      }
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c19a",
+        "num": "Ch. 19A",
+        "name": "Bitter Cold",
+        "cls": "is-illia",
+        "badge": "illia",
+        "badgeText": "Illia",
+        "recruits": [
+          "Niime/Nim — Automatically, start of chapter"
+        ],
+        "items": [
+          "Aircalibur (village)",
+          "Energy Ring (village)"
+        ],
+        "steal": [
+          "Vulneraries ×10",
+          "Elixirs ×4",
+          "Knight's Crest"
+        ],
+        "warns": []
+      },
+      {
+        "id": "c19b",
+        "num": "Ch. 19B",
+        "name": "Battle in Bulgar",
+        "cls": "is-sacae",
+        "badge": "sacae",
+        "badgeText": "Sacae",
+        "recruits": [
+          "Niime/Nim — Automatically, start of chapter"
+        ],
+        "items": [
+          "Wyrmslayer (village)",
+          "Energy Ring (village)",
+          "Goddess Icon (village)",
+          "Wo Dao (village)",
+          "Longbow (village)"
+        ],
+        "steal": [
+          "Elixirs ×2"
+        ],
+        "warns": []
+      }
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c20a",
+        "num": "Ch. 20A",
+        "name": "The Liberation of Illia",
+        "cls": "is-illia",
+        "badge": "illia",
+        "badgeText": "Illia",
+        "recruits": [
+          "Juno — NPC; talk with Thany, Thea/Tate, or Zealot"
+        ],
+        "items": [
+          "Speedwings (chest)",
+          "Axereaver (chest)",
+          "Longbow (chest)",
+          "Wo Dao (chest)",
+          "Wyrmslayer (chest)",
+          "Nosferatu (chest)",
+          "Purge (chest)",
+          "Sleep (chest)",
+          "Angelic Robe (end, if all civilians survived)"
+        ],
+        "steal": [
+          "Vulneraries ×3",
+          "Lockpicks ×3",
+          "Red Gems ×2",
+          "Blue Gem",
+          "Elysian Whip"
+        ],
+        "warns": []
+      },
+      {
+        "id": "c20b",
+        "num": "Ch. 20B",
+        "name": "The Silver Wolf",
+        "cls": "is-sacae",
+        "badge": "sacae",
+        "badgeText": "Sacae",
+        "recruits": [
+          "Dayan — Turn 3: NPC; talk with Roy, Sue, or Sin/Shin"
+        ],
+        "items": [
+          "Nosferatu (chest)",
+          "Sleep (chest)",
+          "Axereaver (chest)",
+          "Dragonshield (chest)",
+          "Guiding Ring (chest)",
+          "Blue Gem (chest)"
+        ],
+        "steal": [
+          "Vulnerary",
+          "Lockpicks ×2",
+          "Red Gems ×2",
+          "Orion's Bolt"
+        ],
+        "warns": []
+      }
+    ]
+  },
+  {
+    "type": "pair",
+    "pair": [
+      {
+        "id": "c20ax",
+        "num": "Ch. 20Ax",
+        "name": "The Spear of Ice",
+        "cls": "is-gaiden",
+        "badge": "gaiden",
+        "badgeText": "Gaiden",
+        "items": [
+          "Maltet — legendary lance (end of chapter)"
+        ],
+        "steal": [
+          "Vulneraries ×6"
+        ],
+        "warns": [
+          "Illia route — required for true ending",
+          "Conditions: complete Ch. 20A in ≤25 turns, Thany + Thea/Tate + Juno must be alive"
+        ]
+      },
+      {
+        "id": "c20bx",
+        "num": "Ch. 20Bx",
+        "name": "The Bow of the Winds",
+        "cls": "is-gaiden",
+        "badge": "gaiden",
+        "badgeText": "Gaiden",
+        "items": [
+          "Murgleis — legendary sword (end of chapter)"
+        ],
+        "steal": [
+          "Vulneraries ×7"
+        ],
+        "warns": [
+          "Sacae route — required for true ending",
+          "Conditions: complete Ch. 20B in ≤25 turns, Sue + Sin/Shin + Dayan must be alive"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c21",
+    "num": "Ch. 21",
+    "name": "The Binding Blade",
+    "recruits": [
+      "Yodel — Automatically, start of chapter"
+    ],
+    "items": [
+      "Knight's Crest (village)",
+      "Binding Blade — legendary sword, Roy promotes (end of chapter)"
+    ],
+    "steal": [
+      "Vulneraries ×10",
+      "Knight's Crest"
+    ],
+    "warns": [
+      "Roy must seize to receive the Binding Blade and promote",
+      "WITHOUT all gaidens + Melady/Miledy + Zeiss alive → game ends here (bad ending)",
+      "Ch. 21x condition: complete in ≤30 turns, Melady/Miledy AND Zeiss must be alive"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c21x",
+    "num": "Ch. 21x",
+    "name": "The Dragon's Gate",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "items": [
+      "Elixir ×3 (chests)",
+      "Apocalypse — legendary dark tome (end of chapter)",
+      "Binding Blade (end of chapter)"
+    ],
+    "steal": [
+      "Vulneraries ×2"
+    ],
+    "warns": [
+      "True ending gate! Requires: all 5 gaidens + Ch. 21 in ≤30 turns + Melady/Miledy AND Zeiss alive"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c22",
+    "num": "Ch. 22",
+    "name": "The Neverending Dream",
+    "recruits": [
+      "Cath — Turn 15: talk with Roy (if not yet joined)"
+    ],
+    "items": [
+      "Sleep (chest)",
+      "White Gem (chest)",
+      "Nosferatu (chest)",
+      "Wyrmslayer (chest)",
+      "Dragonshield (chest)",
+      "Swordreaver (chest)"
+    ],
+    "steal": [
+      "Vulneraries ×5",
+      "Lockpicks ×3",
+      "Hero's Crest"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c23",
+    "num": "Ch. 23",
+    "name": "The Palace of Bern",
+    "recruits": [
+      "Karel — Visit village with Fir or Bartre"
+    ],
+    "items": [],
+    "steal": [
+      "Guiding Ring",
+      "Red Gem",
+      "Blue Gem"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "c24",
+    "num": "Ch. 24",
+    "name": "The Final Battle",
+    "items": [],
+    "steal": [
+      "Vulneraries ×15"
+    ],
+    "warns": []
+  },
+  {
+    "type": "ch",
+    "id": "cF",
+    "num": "Final",
+    "name": "Light (True Ending)",
+    "items": [],
+    "steal": [
+      "Vulneraries (infinite)"
+    ],
+    "warns": [
+      "Roy must be promoted (received Binding Blade in Ch. 21)"
+    ]
+  }
+];

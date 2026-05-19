@@ -1,53 +1,124 @@
 # Fire Emblem Guides — Codebase Overview
 
-Static HTML site. No build step, no dependencies beyond Google Fonts and Tabler Icons (both CDN).
+React + Vite site deployed to GitHub Pages. No backend. CDN only: Google Fonts and Tabler Icons.
 
-## Files
+## Tech stack
 
-- **index.html** — Landing page with cards linking to each guide. Add a new `<a class="card">` block here whenever a new guide is created.
-- **fe6_binding_blade_guide.html** — FE6 guide (routes A/B, Western Isles + Sacae/Illia splits, 5 gaidens required for true ending)
-- **fe7_blazing_blade_guide.html** — FE7 guide (Lyn's Story + main story, Eliwood/Hector modes, Four-Fanged Offense/Pale Flower splits)
-- **fe8_sacred_stones_guide.html** — FE8 guide (Eirika/Ephraim route split after Ch. 8, trainee mechanic, no bad-ending conditions)
-- **fe-shadow-dragon-guide.html** — Shadow Dragon guide
-- **nintendo-games.html** — Nintendo games tier list/tracker (unrelated to FE guides)
+- **Vite** — build tool (`npm run dev`, `npm run build`)
+- **React 18** — rendering
+- **React Router v6** — client-side routing via `HashRouter` (works on GitHub Pages)
+- **TypeScript** — type checking
+- **Plain CSS** — global, no CSS Modules
 
-## How a guide is structured
+## Routing
 
-Each guide is a single self-contained HTML file with:
+Uses `HashRouter` — all routes are `/#/...`:
 
-1. **CSS** — Copy from any existing guide. The color palette and layout are shared across all guides. Two route-color variables to change per game (e.g. `--eirika`/`--ephraim` in FE8, `--ra`/`--rb` in FE6).
+| URL | Page |
+|-----|------|
+| `/#/` | Landing (card grid) |
+| `/#/guide/fe6` | FE6 Binding Blade guide |
+| `/#/guide/fe7` | FE7 Blazing Blade guide |
+| `/#/guide/fe8` | FE8 Sacred Stones guide |
 
-2. **Two-column layout** — Left column is the chapter checklist; right column is the tier list. On mobile it collapses to tabs.
+Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) are copied into `dist/` at build time and served as static HTML.
 
-3. **`const ITEMS` array** — The entire chapter/event data lives here. Each entry is one of:
-   - `{type:'ch', id, num, name, cls, badge, badgeText, recruits[], items[], steal[], warns[]}` — a single chapter row
-   - `{type:'pair', pair:[ch, ch]}` — two chapters side by side (for mutually exclusive route chapters)
-   - `{type:'save', title, body}` — gold callout card for save reminders and important warnings
-   - `{type:'split', title, opts[], excl[]}` — blue callout card explaining a route branch
+## File structure
 
-4. **`const CH_IDS`** — auto-derived from ITEMS; drives the progress bar. Update the "X of N" text in the two `prog-text` elements to match.
+```
+src/
+  main.tsx                    # entry point: HashRouter + App
+  App.tsx                     # routes: / → Landing, /guide/:key → GuidePage
+  types.ts                    # Item, Tier, GuideConfig interfaces
+  styles/
+    shared.css                # guide layout: two-column, chapter rows, tiers
+    landing.css               # landing page styles
+    index.css                 # global resets
+  hooks/
+    useProgress.ts            # localStorage progress state
+  guides/
+    fe6.ts / fe7.ts / fe8.ts  # GuideConfig per game
+    index.ts                  # registry: Record<string, GuideConfig>
+  data/
+    fe6-data.js / fe6-tiers.js  # ES module exports
+    fe7-data.js / fe7-tiers.js
+    fe8-data.js / fe8-tiers.js
+  components/
+    Landing.tsx               # card grid
+    GuidePage.tsx             # reads :guideKey, renders GuideShell
+    GuideShell.tsx            # two-column layout + header + mobile tabs
+    ChapterList.tsx           # maps items array
+    ChapterRow.tsx            # single chapter row
+    ChapterPair.tsx           # side-by-side pair
+    SaveCard.tsx              # gold callout
+    SplitCard.tsx             # blue callout with route options
+    SubItemList.tsx           # recruit / item / steal sub-checklist
+    TierList.tsx              # tier list
+    ProgressBar.tsx           # wide + narrow variants
+```
 
-5. **localStorage key** — Each guide uses a unique key (e.g. `'fe8_guide_v1'`). Use a new key for each new guide.
+## GuideConfig
 
-6. **Tier list HTML** — Static HTML in the right column. Uses `.tier-row.tier-s/a/b/c/d/f` rows with `.unit-chip` entries. Route-exclusive units get a border class (e.g. `.is-eirika`, `.is-ephraim`).
+Each game is one config object in `src/guides/feN.ts`:
+
+```ts
+interface GuideConfig {
+  key: string;
+  title: string;
+  subtitle: string;
+  storageKey: string;      // localStorage key — never change, or users lose progress
+  splitLabel: string;      // 'Recruits' | 'Exclusives'
+  tipBox: string;          // HTML string for the how-to-use box
+  cssVars: Record<string, string>;   // game-specific CSS custom properties
+  extraCss?: string;       // game-specific CSS rules (badge/border colors)
+  items: Item[];           // from data/feN-data.js
+  tiers: Tier[];           // from data/feN-tiers.js
+  tierPhilosophy?: string; // HTML string
+  tierTip?: string;        // HTML string
+}
+```
+
+`cssVars` are injected as an inline style on the guide wrapper — CSS custom properties cascade, so `.ch-row.is-sacae { border-left-color: var(--sacae) }` in shared.css picks them up automatically.
+
+## Data files
+
+`src/data/feN-data.js` — chapter data as `export const ITEMS = [...]`
+`src/data/feN-tiers.js` — tier data as `export const TIERS`, `TIER_PHILOSOPHY`, `TIER_TIP`
+
+Each entry in `ITEMS` is one of:
+- `{type:'ch', id, num, name, cls, badge, badgeText, recruits[], items[], steal[], warns[]}` — chapter row
+- `{type:'pair', pair:[ch, ch]}` — side-by-side mutually exclusive chapters
+- `{type:'save', title, body}` — gold callout card
+- `{type:'split', title, opts[], excl[]}` — blue callout explaining a route branch
+
+**Important:** Data files must be `.js` (not `.ts`) so Node can `import()` them directly in tests without a TypeScript loader.
 
 ## Adding a new guide
 
-1. Copy an existing guide file and rename it (e.g. `fe9_path_of_radiance_guide.html`).
-2. Update the `<title>`, header `<h1>`, and subtitle `<p>`.
-3. Replace the `ITEMS` array with the new game's chapter data.
-4. Replace the tier list HTML with the new game's units.
-5. Update the progress bar initial text ("0 of N chapters complete") and the localStorage key.
-6. Add route CSS classes if the game has routes (copy the pattern from FE6 or FE8).
-7. Add a card to `index.html`.
+1. Create `src/data/fe9-data.js` with `export const ITEMS = [...]`
+2. Create `src/data/fe9-tiers.js` with `export const TIERS`, `TIER_PHILOSOPHY`, `TIER_TIP`
+3. Create `src/guides/fe9.ts` with a `GuideConfig` object
+4. Add `fe9: fe9Config` to `src/guides/index.ts`
+5. Add a card to `src/components/Landing.tsx`
+6. Regenerate snapshots: `node tests/generate-snapshots.mjs`
 
 ## Tests
 
 Content regression tests in `tests/` — see `tests/CLAUDE.md`.
 
-## Route split patterns
+```
+node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs
+```
 
-- **No split** — just `{type:'ch'}` entries throughout (simplest)
-- **Paired chapters** — use `{type:'pair', pair:[chA, chB]}` for chapters that are mutually exclusive; players check only their route
-- **Split card** — add a `{type:'split'}` entry just before the paired chapters to explain the branch condition
-- **Save card** — add a `{type:'save'}` entry before any chapter with tricky unlock conditions or important decisions
+After an intentional content change, regenerate snapshots:
+
+```
+node tests/generate-snapshots.mjs
+```
+
+## Development
+
+```
+npm run dev      # dev server at http://localhost:5173
+npm run build    # output to dist/
+```

@@ -16,7 +16,7 @@ node tests/generate-snapshots.mjs
 
 ## Files
 
-- `extract.mjs` — shared logic: pulls `ITEMS` array and tier list HTML from a guide file
+- `extract.mjs` — shared logic: reads chapter data from `data/feN-data.js` and tier data from `data/feN-tiers.js` via Node's `vm` module (same file:// compatibility as the browser)
 - `generate-snapshots.mjs` — writes `snapshots/feN.chapters.json` and `snapshots/feN.tiers.json`
 - `fe6/fe7/fe8.test.mjs` — compare live-extracted content against snapshots
 - `snapshots/` — frozen baseline; commit changes here only when content is intentionally updated

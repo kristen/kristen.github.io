@@ -4,21 +4,15 @@ import { dirname, join } from 'node:path';
 import { extractChapters, extractTiers } from './extract.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, '..');
 const snapDir = join(__dirname, 'snapshots');
 
 mkdirSync(snapDir, { recursive: true });
 
-const guides = [
-  { key: 'fe6', file: 'fe6_binding_blade_guide.html' },
-  { key: 'fe7', file: 'fe7_blazing_blade_guide.html' },
-  { key: 'fe8', file: 'fe8_sacred_stones_guide.html' },
-];
+const guides = ['fe6', 'fe7', 'fe8'];
 
-for (const { key, file } of guides) {
-  const htmlPath = join(root, file);
-  const chapters = extractChapters(htmlPath);
-  const tiers = extractTiers(htmlPath);
+for (const key of guides) {
+  const chapters = await extractChapters(key);
+  const tiers = await extractTiers(key);
   writeFileSync(join(snapDir, `${key}.chapters.json`), JSON.stringify(chapters, null, 2) + '\n');
   writeFileSync(join(snapDir, `${key}.tiers.json`), JSON.stringify(tiers, null, 2) + '\n');
   const chCount = chapters.filter(e => e.type === 'ch').length;

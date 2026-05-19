@@ -1,5 +1,8 @@
-import { readFileSync } from 'node:fs';
-import vm from 'node:vm';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function normalizeChapter(ch) {
   return {
@@ -17,13 +20,10 @@ function normalizeChapter(ch) {
   };
 }
 
-export function extractChapters(htmlPath) {
-  const html = readFileSync(htmlPath, 'utf8');
-  const m = html.match(/const ITEMS = (\[[\s\S]*?\]);\s*\n\s*const CH_IDS/);
-  if (!m) throw new Error(`ITEMS array not found in ${htmlPath}`);
-  const ctx = {};
-  vm.runInNewContext(`result = ${m[1]}`, ctx);
-  const items = JSON.parse(JSON.stringify(ctx.result));
+export async function extractChapters(guideKey) {
+  const dataPath = join(__dirname, '..', 'src', 'data', `${guideKey}-data.js`);
+  const { ITEMS } = await import(dataPath);
+  const items = JSON.parse(JSON.stringify(ITEMS));
 
   const entries = [];
   for (const item of items) {
@@ -42,24 +42,13 @@ export function extractChapters(htmlPath) {
   return entries;
 }
 
-export function extractTiers(htmlPath) {
-  const html = readFileSync(htmlPath, 'utf8');
+export async function extractTiers(guideKey) {
+  const dataPath = join(__dirname, '..', 'src', 'data', `${guideKey}-tiers.js`);
+  const { TIERS } = await import(dataPath);
+  const rows = JSON.parse(JSON.stringify(TIERS));
   const tiers = {};
-  const tierRegex = /class="tier-row tier-([a-z])"><div class="tier-label">[^<]*<\/div><div class="tier-units">([\s\S]*?)<\/div><\/div>/g;
-  let m;
-  while ((m = tierRegex.exec(html)) !== null) {
-    const level = m[1];
-    const block = m[2];
-    const units = [];
-    const chipRegex = /class="unit-chip([^"]*)">([\s\S]*?)<small>([\s\S]*?)<\/small>/g;
-    let cm;
-    while ((cm = chipRegex.exec(block)) !== null) {
-      const extraCls = cm[1].trim() || null;
-      const name = cm[2].trim();
-      const subtitle = cm[3].trim();
-      units.push({ name, subtitle, cls: extraCls });
-    }
-    tiers[level] = units;
+  for (const tier of rows) {
+    tiers[tier.level] = tier.units;
   }
   return tiers;
 }

@@ -6,12 +6,10 @@ import { dirname, join } from 'node:path';
 import { extractChapters, extractTiers } from './extract.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, '..');
 const snapDir = join(__dirname, 'snapshots');
 
-const htmlPath = join(root, 'fe8_sacred_stones_guide.html');
-const liveChapters = extractChapters(htmlPath);
-const liveTiers = extractTiers(htmlPath);
+const liveChapters = await extractChapters('fe8');
+const liveTiers = await extractTiers('fe8');
 const snapChapters = JSON.parse(readFileSync(join(snapDir, 'fe8.chapters.json'), 'utf8'));
 const snapTiers = JSON.parse(readFileSync(join(snapDir, 'fe8.tiers.json'), 'utf8'));
 
