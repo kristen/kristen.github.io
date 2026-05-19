@@ -144,6 +144,24 @@ function render() {
   });
 }
 
+function renderTiers() {
+  const body = document.getElementById('tier-body');
+  if (!body) return;
+  let html = '';
+  if (typeof TIER_PHILOSOPHY !== 'undefined' && TIER_PHILOSOPHY)
+    html += `<div class="tip-box">${TIER_PHILOSOPHY}</div>`;
+  TIERS.forEach((tier, i) => {
+    html += `<div class="section-divider${i === 0 ? ' first' : ''}">${esc(tier.label)}</div>`;
+    const units = tier.units.map(u =>
+      `<div class="unit-chip${u.cls ? ' ' + u.cls : ''}">${esc(u.name)}<small>${esc(u.subtitle)}</small></div>`
+    ).join('\n        ');
+    html += `<div class="tier-row tier-${tier.level}"><div class="tier-label">${tier.level.toUpperCase()}</div><div class="tier-units">\n        ${units}\n      </div></div>`;
+  });
+  if (typeof TIER_TIP !== 'undefined' && TIER_TIP)
+    html += `<div class="tip-box" style="margin-top:14px">${TIER_TIP}</div>`;
+  body.innerHTML = html;
+}
+
 function showTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b =>
     b.classList.toggle('active', b.textContent.toLowerCase().startsWith(name.substring(0, 3)))

@@ -10,35 +10,59 @@ Static HTML site. No build step, no dependencies beyond Google Fonts and Tabler 
 - **fe8_sacred_stones_guide.html** — FE8 guide (Eirika/Ephraim route split after Ch. 8, trainee mechanic, no bad-ending conditions)
 - **fe-shadow-dragon-guide.html** — Shadow Dragon guide
 - **nintendo-games.html** — Nintendo games tier list/tracker (unrelated to FE guides)
+- **fe-guides-shared.css** — Shared CSS for all FE guides (color palette, layout, component styles)
+- **fe-guides-shared.js** — Shared JS for all FE guides (`render()`, `renderTiers()`, `showTab()`, etc.)
+- **data/feN-data.js** — Chapter/event data for each guide as `window.ITEMS = [...]`
+- **data/feN-tiers.js** — Tier list data for each guide as `window.TIERS`, `window.TIER_PHILOSOPHY`, `window.TIER_TIP`
 
 ## How a guide is structured
 
-Each guide is a single self-contained HTML file with:
+Each guide is a self-contained HTML file that loads shared components and data files:
 
-1. **CSS** — Copy from any existing guide. The color palette and layout are shared across all guides. Two route-color variables to change per game (e.g. `--eirika`/`--ephraim` in FE8, `--ra`/`--rb` in FE6).
+1. **Shared CSS** — `<link rel="stylesheet" href="fe-guides-shared.css">` plus a small inline `<style>` block with game-specific route/badge color variables (e.g. `--sacae`/`--illia` in FE6, `--eirika`/`--ephraim` in FE8).
 
-2. **Two-column layout** — Left column is the chapter checklist; right column is the tier list. On mobile it collapses to tabs.
+2. **Two-column layout** — Left column is the chapter checklist (`<div class="col-body" id="ch-list">`); right column is the tier list (`<div class="col-body" id="tier-body">`). Both are populated by JS. On mobile it collapses to tabs.
 
-3. **`const ITEMS` array** — The entire chapter/event data lives here. Each entry is one of:
+3. **`data/feN-data.js`** — Chapter/event data as a JS global. Each entry in `window.ITEMS` is one of:
    - `{type:'ch', id, num, name, cls, badge, badgeText, recruits[], items[], steal[], warns[]}` — a single chapter row
    - `{type:'pair', pair:[ch, ch]}` — two chapters side by side (for mutually exclusive route chapters)
    - `{type:'save', title, body}` — gold callout card for save reminders and important warnings
    - `{type:'split', title, opts[], excl[]}` — blue callout card explaining a route branch
 
-4. **`const CH_IDS`** — auto-derived from ITEMS; drives the progress bar. Update the "X of N" text in the two `prog-text` elements to match.
+4. **`data/feN-tiers.js`** — Tier list data as JS globals:
+   - `window.TIERS` — array of `{level, label, units: [{name, subtitle, cls}]}` objects (one per tier row)
+   - `window.TIER_PHILOSOPHY` — HTML string for the top tip box
+   - `window.TIER_TIP` — HTML string for the bottom tip box
 
-5. **localStorage key** — Each guide uses a unique key (e.g. `'fe8_guide_v1'`). Use a new key for each new guide.
+5. **Inline script block** — Sets two guide-specific globals before loading shared JS:
+   ```html
+   <script>
+   window.STORAGE_KEY = 'fe8_guide_v1';  // unique per guide
+   window.SPLIT_LABEL = 'Exclusives';    // or 'Recruits'
+   </script>
+   <script src="fe-guides-shared.js"></script>
+   <script src="data/fe8-data.js"></script>
+   <script src="data/fe8-tiers.js"></script>
+   <script>
+   window.CH_IDS = ITEMS.flatMap(i => i.type === 'ch' ? [i.id] : i.type === 'pair' ? i.pair.map(p => p.id) : []);
+   render();
+   renderTiers();
+   updateProgress();
+   </script>
+   ```
 
-6. **Tier list HTML** — Static HTML in the right column. Uses `.tier-row.tier-s/a/b/c/d/f` rows with `.unit-chip` entries. Route-exclusive units get a border class (e.g. `.is-eirika`, `.is-ephraim`).
+6. **localStorage key** — Each guide uses a unique key (e.g. `'fe8_guide_v1'`). Use a new key for each new guide.
+
+**Important:** Data files must be `.js` globals loaded via `<script src>`, not JSON fetched via `fetch()`. The site is sometimes opened as `file://` URLs where `fetch()` is blocked by browser security policy.
 
 ## Adding a new guide
 
 1. Copy an existing guide file and rename it (e.g. `fe9_path_of_radiance_guide.html`).
 2. Update the `<title>`, header `<h1>`, and subtitle `<p>`.
-3. Replace the `ITEMS` array with the new game's chapter data.
-4. Replace the tier list HTML with the new game's units.
-5. Update the progress bar initial text ("0 of N chapters complete") and the localStorage key.
-6. Add route CSS classes if the game has routes (copy the pattern from FE6 or FE8).
+3. Update the inline `<style>` block with game-specific route color variables.
+4. Create `data/fe9-data.js` with the chapter data as `window.ITEMS = [...]`.
+5. Create `data/fe9-tiers.js` with `window.TIERS`, `window.TIER_PHILOSOPHY`, and `window.TIER_TIP`.
+6. Update `window.STORAGE_KEY` and `window.SPLIT_LABEL` in the inline script.
 7. Add a card to `index.html`.
 
 ## Tests
