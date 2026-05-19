@@ -52,7 +52,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
 
 /* narrow: tabs */
 @media(max-width:859px){
-  body{display:flex;flex-direction:column;overflow:hidden}
+  .guide-shell{display:flex;flex-direction:column;overflow:hidden;height:100%}
   .site-header{position:relative}
   .two-col{flex:1;min-height:0;overflow:hidden;display:block}
   .col-head{display:none}

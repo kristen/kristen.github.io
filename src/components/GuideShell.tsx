@@ -14,7 +14,7 @@ export function GuideShell({ config }: Props) {
   const { done, toggle, completedCount, totalCount } = useProgress(config.storageKey, config.items);
 
   return (
-    <div style={config.cssVars as React.CSSProperties}>
+    <div className="guide-shell" style={config.cssVars as React.CSSProperties}>
       {config.extraCss && <style>{config.extraCss}</style>}
 
       <div className="site-header">
