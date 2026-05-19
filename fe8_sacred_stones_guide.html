@@ -8,12 +8,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="fe-guides-shared.css">
 <style>
-.ch-row.is-eirika  {border-left-color:#6aacda}
-.ch-row.is-ephraim {border-left-color:#5daa5d}
-.badge.eirika  {background:rgba(106,172,218,0.15);color:#6aacda}
-.badge.ephraim {background:rgba(93,170,93,0.15); color:#5daa5d}
-.unit-chip.is-eirika  {border-left-width:3px;border-left-color:#6aacda}
-.unit-chip.is-ephraim {border-left-width:3px;border-left-color:#5daa5d}
+:root {
+  --eirika:  #6aacda;
+  --ephraim: #5daa5d;
+}
+.ch-row.is-eirika  {border-left-color:var(--eirika)}
+.ch-row.is-ephraim {border-left-color:var(--ephraim)}
+.badge.eirika  {background:rgba(106,172,218,0.15);color:var(--eirika)}
+.badge.ephraim {background:rgba(93,170,93,0.15); color:var(--ephraim)}
+.unit-chip.is-eirika  {border-left-width:3px;border-left-color:var(--eirika)}
+.unit-chip.is-ephraim {border-left-width:3px;border-left-color:var(--ephraim)}
 </style>
 </head>
 <body>
