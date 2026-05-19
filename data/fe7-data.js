@@ -1,4 +1,4 @@
-[
+window.ITEMS = [
   {
     "type": "save",
     "title": "Lyn's Story — Tutorial Mode",
@@ -756,4 +756,4 @@
       "Athos handles the toughest enemies with his legendary tomes — let him"
     ]
   }
-]
+];

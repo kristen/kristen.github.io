@@ -161,15 +161,11 @@ window.STORAGE_KEY = 'fe6_guide_v4';
 window.SPLIT_LABEL = 'Recruits';
 </script>
 <script src="fe-guides-shared.js"></script>
+<script src="data/fe6-data.js"></script>
 <script>
-fetch('data/fe6-data.json')
-  .then(r => r.json())
-  .then(items => {
-    window.ITEMS = items;
-    window.CH_IDS = items.flatMap(i => i.type === 'ch' ? [i.id] : i.type === 'pair' ? i.pair.map(p => p.id) : []);
-    render();
-    updateProgress();
-  });
+window.CH_IDS = ITEMS.flatMap(i => i.type === 'ch' ? [i.id] : i.type === 'pair' ? i.pair.map(p => p.id) : []);
+render();
+updateProgress();
 </script>
 </body>
 </html>

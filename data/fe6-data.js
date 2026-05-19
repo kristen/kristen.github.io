@@ -1,4 +1,4 @@
-[
+window.ITEMS = [
   {
     "type": "ch",
     "id": "c1",
@@ -905,4 +905,4 @@
       "Roy must be promoted (received Binding Blade in Ch. 21)"
     ]
   }
-]
+];

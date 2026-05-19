@@ -1,4 +1,4 @@
-[
+window.ITEMS = [
   {
     "type": "ch",
     "id": "prologue",
@@ -501,4 +501,4 @@
       "No chapter after this — use everything"
     ]
   }
-]
+];

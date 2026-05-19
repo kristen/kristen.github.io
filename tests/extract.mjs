@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
+import vm from 'node:vm';
 
 function normalizeChapter(ch) {
   return {
@@ -19,8 +20,10 @@ function normalizeChapter(ch) {
 
 export function extractChapters(htmlPath) {
   const key = basename(htmlPath).split('_')[0]; // 'fe6', 'fe7', 'fe8'
-  const dataPath = join(dirname(htmlPath), 'data', `${key}-data.json`);
-  const items = JSON.parse(readFileSync(dataPath, 'utf8'));
+  const dataPath = join(dirname(htmlPath), 'data', `${key}-data.js`);
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync(dataPath, 'utf8'), ctx);
+  const items = JSON.parse(JSON.stringify(ctx.window.ITEMS));
 
   const entries = [];
   for (const item of items) {
