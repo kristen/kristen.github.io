@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nintendo Games Worth Your Time</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d0f14; }
+  button { font-family: inherit; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const storage = {
+  get: (key) => ({ value: localStorage.getItem(key) }),
+  set: (key, value) => localStorage.setItem(key, value),
+};
+
+const games = [
+  // NES originals
+  { title:"The Legend of Zelda",                       genre:"Action Adventure",        hours:"8–15",    systems:["NES","GBA","Switch Online"],          bestSystem:"Switch Online", tier:"C", tags:["Adventure"],                     note:"Foundational open-world adventure. Still remarkably playable. Free on Switch Online." },
+  { title:"Final Fantasy",                             genre:"Turn-based RPG",          hours:"15–20",   systems:["NES","GBA","Switch","Mobile"],         bestSystem:"Switch",        tier:"C", tags:["RPG","Classic"],                 note:"Where it all began. The Pixel Remaster on Switch is the definitive version." },
+  { title:"Dragon Quest",                              genre:"Turn-based RPG",          hours:"6–10",    systems:["NES","Mobile","Switch"],               bestSystem:"Switch",        tier:"D", tags:["RPG","Classic"],                 note:"The original JRPG. The 2024 HD-2D Remake on Switch is vastly superior." },
+  { title:"Dragon Quest III",                          genre:"Turn-based RPG",          hours:"20–30",   systems:["NES","GBA","Mobile","Switch"],         bestSystem:"Switch",        tier:"B", tags:["RPG","Classic"],                 note:"The best early DQ. The 2024 HD-2D Remake on Switch is the definitive version." },
+  // SNES
+  { title:"The Legend of Zelda: A Link to the Past",   genre:"Action Adventure",        hours:"12–20",   systems:["SNES","GBA","Switch Online"],          bestSystem:"GBA",           tier:"S", tags:["Adventure"],                     note:"Arguably the most perfectly designed Zelda. GBA version adds bonus dungeon." },
+  { title:"Super Metroid",                             genre:"Metroidvania",             hours:"8–12",    systems:["SNES","Switch Online"],               bestSystem:"Switch Online", tier:"S", tags:["Action","Exploration"],          note:"The gold standard of Metroidvania. Free on Switch Online." },
+  { title:"Chrono Trigger",                            genre:"Turn-based RPG",          hours:"20–35",   systems:["SNES","DS","Mobile","PC"],             bestSystem:"DS",            tier:"S", tags:["RPG","Classic"],                 note:"Perhaps the greatest RPG ever made. DS version adds bonus content and is the best way to play." },
+  { title:"EarthBound",                                genre:"RPG",                     hours:"25–35",   systems:["SNES","Switch Online"],               bestSystem:"Switch Online", tier:"A", tags:["RPG","Classic"],                 note:"Quirky, emotional, and unlike anything else. Free on Switch Online." },
+  { title:"Final Fantasy IV",                          genre:"Turn-based RPG",          hours:"18–25",   systems:["SNES","GBA","DS","Switch","Mobile"],   bestSystem:"Switch",        tier:"B", tags:["RPG","Classic","Story-rich"],    note:"The series' first real narrative ambition. Pixel Remaster on Switch is definitive." },
+  { title:"Final Fantasy V",                           genre:"Turn-based RPG",          hours:"30–40",   systems:["SNES","GBA","Switch","Mobile"],        bestSystem:"Switch",        tier:"B", tags:["RPG","Classic"],                 note:"The job system at its best. Pixel Remaster on Switch is definitive." },
+  { title:"Final Fantasy VI",                          genre:"Turn-based RPG",          hours:"30–45",   systems:["SNES","GBA","Switch","Mobile"],        bestSystem:"Switch",        tier:"S", tags:["RPG","Classic","Story-rich"],    note:"Many consider this the series peak. Pixel Remaster on Switch is the definitive version." },
+  { title:"Super Mario RPG",                           genre:"Action RPG",              hours:"15–20",   systems:["SNES","Switch"],                      bestSystem:"Switch",        tier:"A", tags:["RPG","Classic"],                 note:"The original Mario RPG. The 2023 Switch remake is the best way to play it." },
+  { title:"Dragon Quest V",                            genre:"Turn-based RPG",          hours:"30–40",   systems:["SNES","DS","Mobile"],                 bestSystem:"DS",            tier:"A", tags:["RPG","Classic","Story-rich"],    note:"A multigenerational family saga. DS version adds a third marriage option and extra content." },
+  { title:"Dragon Quest VI",                           genre:"Turn-based RPG",          hours:"35–50",   systems:["SNES","DS","Mobile"],                 bestSystem:"DS",            tier:"B", tags:["RPG","Classic"],                 note:"Dream world vs. real world duality with a deep job system. DS is the best version." },
+  { title:"Fire Emblem: Genealogy of the Holy War",    genre:"Tactical RPG",            hours:"50–70",   systems:["SNES"],                               bestSystem:"SNES",          tier:"A", tags:["Strategy","RPG"],                note:"Epic multigenerational story. Fan translation only — no official Western release." },
+  // N64
+  { title:"The Legend of Zelda: Ocarina of Time",      genre:"Action Adventure",        hours:"20–30",   systems:["N64","3DS","Switch Online"],           bestSystem:"3DS",           tier:"S", tags:["Adventure"],                     note:"One of the most influential games ever made. 3DS remake adds improved visuals and Master Quest." },
+  { title:"The Legend of Zelda: Majora's Mask",        genre:"Action Adventure",        hours:"15–25",   systems:["N64","3DS","Switch Online"],           bestSystem:"3DS",           tier:"S", tags:["Adventure","Story-rich"],        note:"Darker and stranger than Ocarina. 3DS remake is the most polished version." },
+  { title:"Paper Mario",                               genre:"RPG",                     hours:"20–30",   systems:["N64","Switch Online"],                bestSystem:"Switch Online", tier:"A", tags:["RPG","Classic"],                 note:"Charming turn-based RPG with clever writing. Free on Switch Online." },
+  // GBA
+  { title:"Fire Emblem: The Blazing Blade",            genre:"Tactical RPG",            hours:"25–35",   systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"A", tags:["Strategy","RPG"],                note:"The first FE released in the West. Free on Switch Online with Expansion Pack." },
+  { title:"Fire Emblem: The Sacred Stones",            genre:"Tactical RPG",            hours:"20–30",   systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"B", tags:["Strategy","RPG"],                note:"More accessible than Blazing Blade. Free on Switch Online with Expansion Pack." },
+  { title:"Golden Sun",                                genre:"RPG",                     hours:"25–35",   systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"A", tags:["RPG","Classic"],                 note:"Gorgeous GBA RPG with clever puzzle mechanics. Free on Switch Online with Expansion Pack." },
+  { title:"Golden Sun: The Lost Age",                  genre:"RPG",                     hours:"30–40",   systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"A", tags:["RPG","Classic"],                 note:"Bigger and more open than the original. Free on Switch Online with Expansion Pack." },
+  { title:"Metroid Fusion",                            genre:"Metroidvania",             hours:"6–10",    systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"B", tags:["Action","Exploration"],          note:"More linear than Super Metroid but tense and gripping. Free on Switch Online with Expansion Pack." },
+  { title:"Metroid: Zero Mission",                     genre:"Metroidvania",             hours:"4–8",     systems:["GBA","Switch Online"],                bestSystem:"Switch Online", tier:"B", tags:["Action","Exploration"],          note:"A lean, polished remake of the original Metroid. Free on Switch Online with Expansion Pack." },
+  { title:"Advance Wars",                              genre:"Turn-based Strategy",      hours:"20–30",   systems:["GBA","Switch"],                       bestSystem:"Switch",        tier:"A", tags:["Strategy","Classic"],            note:"One of the best strategy games ever made. Switch Re-Boot Camp remake has superior visuals." },
+  { title:"Advance Wars 2: Black Hole Rising",         genre:"Turn-based Strategy",      hours:"20–30",   systems:["GBA","Switch"],                       bestSystem:"Switch",        tier:"A", tags:["Strategy","Classic"],            note:"More of what made the original great. Included in Switch Re-Boot Camp." },
+  { title:"Final Fantasy Tactics Advance",             genre:"Tactical RPG",            hours:"40–60",   systems:["GBA"],                                bestSystem:"GBA",           tier:"B", tags:["Strategy","RPG"],                note:"Deep job-based tactics RPG. GBA only — no ports or remasters." },
+  { title:"Mario & Luigi: Superstar Saga",             genre:"Action RPG",              hours:"20–28",   systems:["GBA","3DS"],                          bestSystem:"GBA",           tier:"A", tags:["RPG","Classic"],                 note:"Hilarious and inventive. 3DS remake adds Bowser's Minions mode; original GBA version is beloved." },
+  // GameCube
+  { title:"The Legend of Zelda: The Wind Waker",       genre:"Action Adventure",        hours:"25–35",   systems:["GameCube","Wii U"],                   bestSystem:"Wii U",         tier:"A", tags:["Adventure","Open World"],        note:"Gorgeous cel-shaded Zelda. Wii U HD version adds Swift Sail and improved lighting." },
+  { title:"Fire Emblem: Path of Radiance",             genre:"Tactical RPG",            hours:"35–50",   systems:["GameCube"],                           bestSystem:"GameCube",      tier:"A", tags:["Strategy","RPG"],                note:"One of the series' best. GameCube only — no ports, and original discs are expensive." },
+  { title:"Paper Mario: The Thousand-Year Door",       genre:"RPG",                     hours:"30–40",   systems:["GameCube","Switch"],                  bestSystem:"Switch",        tier:"S", tags:["RPG","Classic"],                 note:"The best Paper Mario. The 2024 Switch remake is the definitive version." },
+  // DS
+  { title:"Pokémon HeartGold / SoulSilver",            genre:"RPG",                     hours:"30–40",   systems:["DS"],                                 bestSystem:"DS",            tier:"A", tags:["RPG"],                           note:"The definitive Pokémon experience. DS only — no ports." },
+  { title:"Pokémon Black / White",                     genre:"RPG",                     hours:"25–35",   systems:["DS"],                                 bestSystem:"DS",            tier:"B", tags:["RPG","Story-rich"],              note:"The most story-focused mainline Pokémon. DS only — no ports." },
+  { title:"Dragon Quest IX",                           genre:"Turn-based RPG",          hours:"40–60",   systems:["DS"],                                 bestSystem:"DS",            tier:"B", tags:["RPG","Classic"],                 note:"Massive RPG with great post-game. DS only for now." },
+  { title:"Dragon Quest V (DS)",                       genre:"Turn-based RPG",          hours:"30–40",   systems:["DS","Mobile"],                        bestSystem:"DS",            tier:"A", tags:["RPG","Classic","Story-rich"],    note:"Best version of one of the greatest JRPGs, with added story content." },
+  { title:"Dragon Quest VI (DS)",                      genre:"Turn-based RPG",          hours:"35–50",   systems:["DS","Mobile"],                        bestSystem:"DS",            tier:"B", tags:["RPG","Classic"],                 note:"The definitive version of DQ VI. Removed from mobile stores — DS is your best bet." },
+  { title:"Final Fantasy Tactics A2",                  genre:"Tactical RPG",            hours:"40–60",   systems:["DS"],                                 bestSystem:"DS",            tier:"B", tags:["Strategy","RPG"],                note:"More content and jobs than FFTA. DS only — no ports." },
+  { title:"Fire Emblem: Shadow Dragon",                genre:"Tactical RPG",            hours:"20–30",   systems:["DS"],                                 bestSystem:"DS",            tier:"C", tags:["Strategy","RPG"],                note:"Barebones remake of the original FE. DS only — no ports." },
+  { title:"The Legend of Zelda: Phantom Hourglass",    genre:"Action Adventure",        hours:"12–18",   systems:["DS"],                                 bestSystem:"DS",            tier:"C", tags:["Adventure"],                     note:"Touch-controlled Wind Waker sequel. DS only — no ports." },
+  { title:"Mario & Luigi: Bowser's Inside Story",      genre:"Action RPG",              hours:"25–30",   systems:["DS","3DS"],                           bestSystem:"DS",            tier:"A", tags:["RPG","Classic"],                 note:"The series high point. Original DS version preferred — 3DS remake adds content but felt padded." },
+  // Wii
+  { title:"The Legend of Zelda: Twilight Princess",    genre:"Action Adventure",        hours:"30–40",   systems:["Wii","GameCube","Wii U"],              bestSystem:"Wii U",         tier:"B", tags:["Adventure","Story-rich"],        note:"Epic, cinematic Zelda. Wii U HD version is the best — improved visuals and Hero Mode from the start." },
+  { title:"Xenoblade Chronicles",                      genre:"Action RPG",              hours:"60–80",   systems:["Wii","3DS","Switch"],                 bestSystem:"Switch",        tier:"S", tags:["RPG","Story-rich"],              note:"One of the greatest JRPGs ever made. Switch Definitive Edition adds a full epilogue chapter." },
+  { title:"Fire Emblem: Radiant Dawn",                 genre:"Tactical RPG",            hours:"50–70",   systems:["Wii","Switch Online"],                bestSystem:"Switch Online", tier:"B", tags:["Strategy","RPG"],                note:"Ambitious multi-POV sequel to Path of Radiance. Now on Switch Online Expansion Pack." },
+  // 3DS
+  { title:"Fire Emblem Awakening",                     genre:"Tactical RPG",            hours:"30–45",   systems:["3DS"],                                bestSystem:"3DS",           tier:"S", tags:["Strategy","RPG"],                note:"Revived the series. Casual mode, great characters, beloved story. 3DS only." },
+  { title:"Fire Emblem Fates: Conquest",               genre:"Tactical RPG",            hours:"25–35",   systems:["3DS"],                                bestSystem:"3DS",           tier:"B", tags:["Strategy","RPG"],                note:"The hardest and most tactically demanding Fates route. 3DS only." },
+  { title:"The Legend of Zelda: A Link Between Worlds",genre:"Action Adventure",        hours:"12–18",   systems:["3DS"],                                bestSystem:"3DS",           tier:"A", tags:["Adventure"],                     note:"Brilliant sequel to A Link to the Past. 3DS only." },
+  { title:"Pokémon X / Y",                             genre:"RPG",                     hours:"20–30",   systems:["3DS"],                                bestSystem:"3DS",           tier:"C", tags:["RPG"],                           note:"The leap to 3D. Accessible and charming. 3DS only." },
+  { title:"Metroid: Samus Returns",                    genre:"Metroidvania",             hours:"10–15",   systems:["3DS"],                                bestSystem:"3DS",           tier:"B", tags:["Action","Exploration"],          note:"Excellent remake of Metroid II with great melee mechanics. 3DS only." },
+  { title:"Dragon Quest VII: Fragments of the Forgotten Past", genre:"Turn-based RPG",  hours:"80–120",  systems:["3DS"],                                bestSystem:"3DS",           tier:"C", tags:["RPG","Classic"],                 note:"Enormous and slow-burning. Only for very patient players. 3DS only." },
+  { title:"Dragon Quest VIII",                         genre:"Turn-based RPG",          hours:"40–60",   systems:["PS2","3DS"],                          bestSystem:"3DS",           tier:"A", tags:["RPG","Classic"],                 note:"The most cinematic classic DQ. 3DS version adds new story content and party members." },
+  { title:"Mario & Luigi: Dream Team",                 genre:"Action RPG",              hours:"30–40",   systems:["3DS"],                                bestSystem:"3DS",           tier:"C", tags:["RPG"],                           note:"Ambitious but bloated. 3DS only." },
+  // Wii U
+  { title:"Xenoblade Chronicles X",                    genre:"Action RPG",              hours:"60–100",  systems:["Wii U","Switch"],                     bestSystem:"Switch",        tier:"B", tags:["RPG","Open World"],              note:"Massive open world with mechs. Switch port (2025) adds new content and is the best version." },
+  // Wii U / Switch
+  { title:"The Legend of Zelda: Breath of the Wild",   genre:"Action Adventure",        hours:"40–60",   systems:["Wii U","Switch"],                     bestSystem:"Switch",        tier:"S", tags:["Adventure","Open World"],        note:"Redefined open-world games. Switch version is superior — Wii U version has performance issues." },
+  // Switch
+  { title:"The Legend of Zelda: Tears of the Kingdom", genre:"Action Adventure",        hours:"50–60",   systems:["Switch"],                             bestSystem:"Switch",        tier:"A", tags:["Adventure","Open World"],        note:"Builds on BotW with incredible vertical exploration and physics-based creativity." },
+  { title:"Fire Emblem: Three Houses",                 genre:"Tactical RPG",            hours:"50–80",   systems:["Switch"],                             bestSystem:"Switch",        tier:"S", tags:["Strategy","RPG"],                note:"Deep strategy with great characters. One route ~50h; completionists do all four." },
+  { title:"Fire Emblem Engage",                        genre:"Tactical RPG",            hours:"40–50",   systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["Strategy","RPG"],                note:"Tighter, more combat-focused than Three Houses. Excellent for strategy fans." },
+  { title:"Xenoblade Chronicles 3",                    genre:"Action RPG",              hours:"70–100",  systems:["Switch"],                             bestSystem:"Switch",        tier:"A", tags:["RPG","Story-rich"],              note:"One of the best JRPG stories in years." },
+  { title:"Metroid Dread",                             genre:"Metroidvania",             hours:"10–15",   systems:["Switch"],                             bestSystem:"Switch",        tier:"A", tags:["Action","Exploration"],          note:"A triumphant return for 2D Metroid. Tight, well-paced, satisfying." },
+  { title:"Metroid Prime Remastered",                  genre:"First-Person Adventure",  hours:"12–18",   systems:["Switch"],                             bestSystem:"Switch",        tier:"S", tags:["Action","Exploration"],          note:"One of the best games ever made, now in stunning HD. Essential." },
+  { title:"Triangle Strategy",                         genre:"Tactical RPG",            hours:"40–50",   systems:["Switch","PC"],                        bestSystem:"Switch",        tier:"A", tags:["Strategy","Story-rich"],         note:"Political intrigue and excellent tactics. One of the best in the genre." },
+  { title:"Xenoblade Chronicles 2",                    genre:"Action RPG",              hours:"70–100",  systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["RPG","Story-rich"],              note:"Divisive aesthetics but an incredible story and combat system." },
+  { title:"Pokémon Legends: Arceus",                   genre:"Action RPG",              hours:"25–35",   systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["RPG","Open World"],              note:"Streamlined Pokémon with a satisfying main story you can finish without grinding." },
+  { title:"Mario + Rabbids: Sparks of Hope",           genre:"Tactical RPG",            hours:"20–30",   systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["Strategy","Family-friendly"],    note:"Surprisingly deep tactics game. Great pacing and no filler." },
+  { title:"Octopath Traveler II",                      genre:"Turn-based RPG",          hours:"50–70",   systems:["Switch","PC","PS4"],                  bestSystem:"Switch",        tier:"B", tags:["RPG","Classic"],                 note:"Gorgeous JRPG with excellent turn-based combat. Eight separate stories." },
+  { title:"Pikmin 4",                                  genre:"Strategy / Puzzle",       hours:"20–30",   systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["Strategy","Casual"],             note:"Charming, low-stress strategy game. Easy to pick up and put down." },
+  { title:"Dragon Quest XI S",                         genre:"Turn-based RPG",          hours:"60–100",  systems:["Switch","PC","PS4"],                  bestSystem:"Switch",        tier:"S", tags:["RPG","Classic","Story-rich"],    note:"The best entry point for Dragon Quest. Modern production, classic heart. Unmissable." },
+  { title:"Dragon Quest Treasures",                    genre:"Action RPG",              hours:"20–30",   systems:["Switch","PC"],                        bestSystem:"Switch",        tier:"C", tags:["RPG"],                           note:"Lighter DQ spin-off with monster-collecting. Fun but inessential." },
+  { title:"Advance Wars 1+2: Re-Boot Camp",            genre:"Turn-based Strategy",     hours:"30–50",   systems:["Switch"],                             bestSystem:"Switch",        tier:"A", tags:["Strategy","Classic"],            note:"Gorgeous remakes of two all-time strategy classics in one package." },
+  { title:"Super Mario RPG (Remake)",                  genre:"Action RPG",              hours:"15–20",   systems:["Switch"],                             bestSystem:"Switch",        tier:"A", tags:["RPG","Classic"],                 note:"Faithful, beautiful remake of the SNES classic. Best way to play it today." },
+  { title:"Paper Mario: The Thousand-Year Door (Remake)", genre:"RPG",                 hours:"30–40",   systems:["Switch"],                             bestSystem:"Switch",        tier:"S", tags:["RPG","Classic"],                 note:"The beloved GameCube classic remade in HD. The best way to play it today." },
+  { title:"Animal Crossing: New Horizons",             genre:"Life Sim",                hours:"Endless", systems:["Switch"],                             bestSystem:"Switch",        tier:"B", tags:["Relaxing","Creative"],           note:"Play 15 minutes a day or 5 hours — fully flexible to your schedule." },
+  { title:"Stardew Valley",                            genre:"Farming / Life Sim",      hours:"50+",     systems:["Switch","PC","Mobile","PS4"],          bestSystem:"Switch",        tier:"A", tags:["Relaxing","RPG-lite"],           note:"Infinitely replayable. Session length is entirely up to you." },
+];
+
+const SYSTEMS_ORDER = ["NES","SNES","N64","GBA","PS2","GameCube","DS","Wii","3DS","Wii U","Switch Online","Switch","PC","Mobile","PS4"];
+const SYSTEM_COLORS = {
+  NES:"#cc2200",SNES:"#8b1fa8",N64:"#006cb7",GBA:"#8b008b",PS2:"#00439c",
+  GameCube:"#5533aa",DS:"#c8860a",Wii:"#888","3DS":"#cc3300",
+  "Wii U":"#009ac7","Switch Online":"#c0392b",Switch:"#e4000f",
+  PC:"#1a7a3a",Mobile:"#2a7a6a",PS4:"#003087",
+};
+
+const STATUSES = [
+  { key:"none",    label:"Untracked",   emoji:"",  color:"#3a3858",bg:"transparent"},
+  { key:"wishlist",label:"Want to Play",emoji:"⭐",color:"#d4a017",bg:"#2a2010"},
+  { key:"owned",   label:"Owned",       emoji:"📦",color:"#3b9dd2",bg:"#0d2030"},
+  { key:"playing", label:"Playing",     emoji:"🎮",color:"#7c6af7",bg:"#1a1535"},
+  { key:"paused",  label:"On Hold",     emoji:"⏸",color:"#e0735c",bg:"#2a1510"},
+  { key:"beaten",  label:"Beaten",      emoji:"✅",color:"#4da87e",bg:"#0d2018"},
+];
+const STATUS_MAP = Object.fromEntries(STATUSES.map(s=>[s.key,s]));
+
+const TIERS = [
+  { key:"S", color:"#f5c842", bg:"#2a2200", label:"S — Unmissable" },
+  { key:"A", color:"#e07840", bg:"#281500", label:"A — Excellent" },
+  { key:"B", color:"#4da87e", bg:"#0d2018", label:"B — Very Good" },
+  { key:"C", color:"#3b9dd2", bg:"#0d2030", label:"C — Worth Playing" },
+  { key:"D", color:"#777",    bg:"#181818", label:"D — Mixed / Niche" },
+];
+const TIER_MAP = Object.fromEntries(TIERS.map(t=>[t.key,t]));
+
+const tagColors = {
+  RPG:"#7c6af7",Strategy:"#e0735c","Open World":"#4da87e",Adventure:"#3b9dd2",
+  Action:"#d4a017","Story-rich":"#c45b8a",Exploration:"#5bb5a2",Classic:"#8e7cc3",
+  Relaxing:"#6bab5e",Creative:"#e08d5a",Casual:"#5aabe0","Family-friendly":"#d46ba0","RPG-lite":"#7cb87c",
+};
+
+const VIEWS = ["List","Tier List"];
+
+function SystemBadge({ system, isBest }) {
+  const color = SYSTEM_COLORS[system] || "#666";
+  return (
+    <span style={{
+      display:"inline-flex",alignItems:"center",gap:"2px",
+      padding:"1px 6px",borderRadius:"4px",fontSize:"0.62rem",fontWeight:800,
+      letterSpacing:"0.05em",textTransform:"uppercase",whiteSpace:"nowrap",
+      background:isBest ? color : "transparent",
+      color:isBest ? "#fff" : color,
+      border:`1px solid ${color}${isBest?"":"66"}`,
+      opacity:isBest?1:0.75,
+    }}>
+      {isBest && <span style={{fontSize:"0.55rem",marginRight:"1px"}}>★</span>}
+      {system}
+    </span>
+  );
+}
+
+function HoursBadge({ hours }) {
+  const num = parseInt(hours);
+  const isShort = num <= 20;
+  const isEndless = isNaN(num);
+  return (
+    <span style={{
+      display:"inline-block",padding:"1px 8px",borderRadius:"999px",
+      fontSize:"0.7rem",fontWeight:700,whiteSpace:"nowrap",
+      background:isEndless?"#252535":isShort?"#152515":"#151a30",
+      color:isEndless?"#6a68a0":isShort?"#4da87e":"#5a78b0",
+    }}>⏱ {hours}h</span>
+  );
+}
+
+function TierBadge({ tier }) {
+  const t = TIER_MAP[tier];
+  if (!t) return null;
+  return (
+    <span style={{
+      display:"inline-block",padding:"1px 7px",borderRadius:"5px",
+      fontSize:"0.7rem",fontWeight:900,letterSpacing:"0.05em",
+      background:t.bg,border:`1px solid ${t.color}55`,color:t.color,
+    }}>{t.key}</span>
+  );
+}
+
+function TierPicker({ current, onChange }) {
+  const [open, setOpen] = useState(false);
+  useEffect(()=>{
+    if(!open) return;
+    const close=()=>setOpen(false);
+    document.addEventListener("click",close);
+    return ()=>document.removeEventListener("click",close);
+  },[open]);
+  const t = TIER_MAP[current];
+  return (
+    <div style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
+      <button onClick={()=>setOpen(o=>!o)} style={{
+        padding:"2px 8px",borderRadius:"5px",cursor:"pointer",fontFamily:"inherit",
+        fontSize:"0.7rem",fontWeight:900,letterSpacing:"0.05em",
+        border:t?`1px solid ${t.color}55`:"1px dashed #2e2e45",
+        background:t?t.bg:"transparent",color:t?t.color:"#3a3858",
+      }}>{t?t.key:"Tier ▾"}</button>
+      {open&&(
+        <div style={{
+          position:"absolute",right:0,top:"calc(100% + 4px)",zIndex:300,
+          background:"#161820",border:"1px solid #2a2a3e",borderRadius:"10px",
+          overflow:"hidden",minWidth:"185px",boxShadow:"0 10px 30px rgba(0,0,0,0.7)",
+        }}>
+          {[{key:null,color:"#555",bg:"transparent",label:"— Remove override"},...TIERS].map(opt=>(
+            <button key={opt.key??"none"} onClick={()=>{onChange(opt.key);setOpen(false);}} style={{
+              display:"flex",alignItems:"center",gap:"9px",width:"100%",
+              padding:"7px 13px",border:"none",
+              background:opt.key===current?(opt.bg||"#22243a"):"transparent",
+              color:opt.key===current?opt.color:"#5a5880",
+              fontSize:"0.8rem",fontWeight:opt.key===current?700:400,
+              cursor:"pointer",fontFamily:"inherit",textAlign:"left",
+            }}
+              onMouseEnter={e=>{if(opt.key!==current)e.currentTarget.style.background="#1e2030";}}
+              onMouseLeave={e=>{if(opt.key!==current)e.currentTarget.style.background="transparent";}}>
+              {opt.key?<span style={{display:"inline-block",width:"22px",height:"22px",borderRadius:"4px",background:opt.bg,border:`1px solid ${opt.color}55`,color:opt.color,fontSize:"0.78rem",fontWeight:900,textAlign:"center",lineHeight:"22px",flexShrink:0}}>{opt.key}</span>:<span style={{width:"22px",display:"inline-block"}}/>}
+              <span style={{fontSize:"0.78rem"}}>{opt.label}</span>
+              {opt.key===current&&<span style={{marginLeft:"auto",fontSize:"0.65rem"}}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StatusPicker({ current, onChange }) {
+  const [open, setOpen] = useState(false);
+  const cur = STATUS_MAP[current]||STATUSES[0];
+  useEffect(()=>{
+    if(!open) return;
+    const close=()=>setOpen(false);
+    document.addEventListener("click",close);
+    return ()=>document.removeEventListener("click",close);
+  },[open]);
+  return (
+    <div style={{position:"relative"}} onClick={e=>e.stopPropagation()}>
+      <button onClick={()=>setOpen(o=>!o)} style={{
+        display:"flex",alignItems:"center",gap:"4px",padding:"3px 9px",
+        borderRadius:"999px",border:cur.key==="none"?"1px dashed #2e2e45":`1px solid ${cur.color}55`,
+        background:cur.key==="none"?"transparent":cur.bg,
+        color:cur.key==="none"?"#3a3858":cur.color,
+        fontSize:"0.72rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit",
+        whiteSpace:"nowrap",minWidth:"95px",justifyContent:"center",
+      }}>
+        {cur.emoji&&<span>{cur.emoji}</span>}
+        <span>{cur.key==="none"?"+ Track":cur.label}</span>
+        <span style={{fontSize:"0.5rem",opacity:0.5}}>▾</span>
+      </button>
+      {open&&(
+        <div style={{
+          position:"absolute",right:0,top:"calc(100% + 4px)",zIndex:200,
+          background:"#161820",border:"1px solid #2a2a3e",borderRadius:"10px",
+          overflow:"hidden",minWidth:"148px",boxShadow:"0 10px 30px rgba(0,0,0,0.7)",
+        }}>
+          {STATUSES.map(s=>(
+            <button key={s.key} onClick={()=>{onChange(s.key);setOpen(false);}} style={{
+              display:"flex",alignItems:"center",gap:"8px",width:"100%",
+              padding:"7px 13px",border:"none",
+              background:s.key===current?(s.bg||"#22243a"):"transparent",
+              color:s.key===current?s.color:"#5a5880",
+              fontSize:"0.8rem",fontWeight:s.key===current?700:400,
+              cursor:"pointer",fontFamily:"inherit",textAlign:"left",
+            }}
+              onMouseEnter={e=>{if(s.key!==current)e.currentTarget.style.background="#1e2030";}}
+              onMouseLeave={e=>{if(s.key!==current)e.currentTarget.style.background="transparent";}}>
+              <span style={{width:"18px",textAlign:"center"}}>{s.emoji||"○"}</span>
+              <span>{s.label}</span>
+              {s.key===current&&<span style={{marginLeft:"auto",fontSize:"0.65rem"}}>✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function GameCard({ game, status, tier, onStatus, onTier, compact=false }) {
+  const isBeaten = status==="beaten";
+  const effectiveTier = tier !== undefined ? tier : game.tier;
+  return (
+    <div style={{
+      background:isBeaten?"#0e1a12":"#131520",
+      border:`1px solid ${isBeaten?"#1e3a2a":"#1e2030"}`,
+      borderRadius:"10px",padding:compact?"9px 13px":"13px 17px",
+      display:"grid",gridTemplateColumns:"1fr auto",
+      gap:"10px",alignItems:"start",opacity:isBeaten?0.68:1,
+    }}>
+      <div>
+        <div style={{display:"flex",alignItems:"center",gap:"6px",flexWrap:"wrap",marginBottom:"4px"}}>
+          <span style={{
+            fontSize:"0.95rem",fontWeight:700,
+            color:isBeaten?"#6a9875":"#ece9ff",
+            textDecoration:isBeaten?"line-through":"none",
+            textDecorationColor:"#4da87e55",
+          }}>{game.title}</span>
+          <TierBadge tier={effectiveTier}/>
+        </div>
+        <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:compact?"4px":"6px"}}>
+          {game.systems.map(sys=>(
+            <SystemBadge key={sys} system={sys} isBest={sys===game.bestSystem}/>
+          ))}
+        </div>
+        {!compact&&(
+          <>
+            <div style={{fontSize:"0.73rem",color:"#5a5878",fontStyle:"italic",marginBottom:"4px"}}>{game.genre}</div>
+            <p style={{margin:"0 0 6px",fontSize:"0.81rem",color:"#8a88b8",lineHeight:"1.5"}}>{game.note}</p>
+          </>
+        )}
+        <div style={{display:"flex",gap:"4px",flexWrap:"wrap",alignItems:"center"}}>
+          {game.tags.map(tag=>(
+            <span key={tag} style={{
+              padding:"1px 6px",borderRadius:"999px",fontSize:"0.63rem",fontWeight:600,
+              background:(tagColors[tag]||"#555")+"1a",color:tagColors[tag]||"#aaa",
+              border:`1px solid ${(tagColors[tag]||"#555")}28`,
+            }}>{tag}</span>
+          ))}
+          <HoursBadge hours={game.hours}/>
+        </div>
+      </div>
+      <div style={{flexShrink:0,display:"flex",flexDirection:"column",alignItems:"flex-end",gap:"5px"}}>
+        <StatusPicker current={status} onChange={onStatus}/>
+        <TierPicker current={tier} onChange={onTier}/>
+      </div>
+    </div>
+  );
+}
+
+function GameList() {
+  const [view, setView] = useState("List");
+  const [systemFilter, setSystemFilter] = useState("All");
+  const [tagFilter, setTagFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [tierFilter, setTierFilter] = useState("All");
+  const [userData, setUserData] = useState({});
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(()=>{
+    let merged = {};
+    for (const key of ["game-statuses","game-statuses-v2"]) {
+      try {
+        const val = localStorage.getItem(key);
+        if(val){
+          const old = JSON.parse(val);
+          Object.entries(old).forEach(([title,status])=>{
+            if(!merged[title]) merged[title]={};
+            merged[title].status = status;
+          });
+        }
+      } catch{}
+    }
+    try {
+      const val = localStorage.getItem("game-data-v3");
+      if(val){
+        const full = JSON.parse(val);
+        Object.entries(full).forEach(([title,d])=>{
+          merged[title]={...merged[title],...d};
+        });
+      }
+    } catch{}
+    setUserData(merged);
+    setLoaded(true);
+  },[]);
+
+  const save = (next) => {
+    setUserData(next);
+    try { localStorage.setItem("game-data-v3", JSON.stringify(next)); } catch{}
+  };
+
+  const setField = (title,field,value) => {
+    const next={...userData,[title]:{...(userData[title]||{}),[field]:value}};
+    save(next);
+  };
+
+  const getStatus = (title) => userData[title]?.status||"none";
+  const getUserTier = (title) => userData[title]?.tier;
+  const getEffectiveTier = (title) => userData[title]?.tier !== undefined ? userData[title].tier : games.find(g=>g.title===title)?.tier||null;
+
+  const allTags = ["All",...Array.from(new Set(games.flatMap(g=>g.tags))).sort()];
+  const activeSystems = ["All",...SYSTEMS_ORDER.filter(s=>games.some(g=>g.systems.includes(s)))];
+
+  const filtered = games.filter(g=>{
+    const sysMatch = systemFilter==="All"||g.systems.includes(systemFilter);
+    const tagMatch = tagFilter==="All"||g.tags.includes(tagFilter);
+    const gs = getStatus(g.title);
+    const statusMatch = statusFilter==="all"||(statusFilter==="tracked"&&gs!=="none")||gs===statusFilter;
+    const et = getEffectiveTier(g.title);
+    const tierMatch = tierFilter==="All"||et===tierFilter;
+    return sysMatch&&tagMatch&&statusMatch&&tierMatch;
+  });
+
+  const counts = STATUSES.slice(1).reduce((acc,s)=>{
+    acc[s.key]=games.filter(g=>getStatus(g.title)===s.key).length;
+    return acc;
+  },{});
+  const totalTracked = Object.values(counts).reduce((a,b)=>a+b,0);
+
+  if(!loaded) return (
+    <div style={{minHeight:"100vh",background:"#0d0f14",display:"flex",alignItems:"center",justifyContent:"center",color:"#3a3858",fontFamily:"Georgia,serif"}}>Loading...</div>
+  );
+
+  return (
+    <div style={{minHeight:"100vh",background:"#0d0f14",color:"#e8e6f0",fontFamily:"'Georgia','Times New Roman',serif",paddingBottom:"60px"}}>
+
+      {/* Header */}
+      <div style={{background:"linear-gradient(135deg,#1a0a2e 0%,#0d1a2e 60%,#0a1a0a 100%)",padding:"30px 24px 18px",textAlign:"center",borderBottom:"1px solid #1e1e30",position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse at 30% 50%,rgba(124,106,247,0.10) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(77,168,126,0.08) 0%,transparent 60%)",pointerEvents:"none"}}/>
+        <div style={{fontSize:"1.6rem",marginBottom:"3px"}}>🎮</div>
+        <h1 style={{fontFamily:"'Georgia',serif",fontSize:"clamp(1.1rem,4vw,1.7rem)",fontWeight:700,margin:"0 0 3px",color:"#f0eeff"}}>Nintendo Games Worth Your Time</h1>
+        <p style={{color:"#6a6890",fontSize:"0.78rem",margin:"0 0 12px"}}>No platformers · All eras · ★ = best version</p>
+        {totalTracked>0&&(
+          <div style={{display:"flex",gap:"5px",justifyContent:"center",flexWrap:"wrap",marginBottom:"12px"}}>
+            {STATUSES.slice(1).filter(s=>counts[s.key]>0).map(s=>(
+              <div key={s.key} style={{display:"flex",alignItems:"center",gap:"3px",padding:"2px 9px",borderRadius:"999px",background:s.bg,border:`1px solid ${s.color}44`,color:s.color,fontSize:"0.71rem",fontWeight:600}}>
+                <span>{s.emoji}</span><span>{counts[s.key]} {s.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={{display:"flex",gap:"6px",justifyContent:"center"}}>
+          {VIEWS.map(v=>(
+            <button key={v} onClick={()=>setView(v)} style={{padding:"5px 16px",borderRadius:"999px",border:view===v?"none":"1px solid #2e2e45",background:view===v?"#2e2e55":"transparent",color:view===v?"#c0bdff":"#4a4868",fontSize:"0.78rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{v}</button>
+          ))}
+        </div>
+      </div>
+
+      {/* LIST VIEW */}
+      {view==="List"&&(
+        <>
+          <div style={{maxWidth:"900px",margin:"0 auto",padding:"12px 16px 0"}}>
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
+              {[{key:"all",label:"All"},{key:"tracked",label:"📋 Tracked"},...STATUSES.slice(1).map(s=>({key:s.key,label:`${s.emoji} ${s.label}`}))].map(opt=>(
+                <button key={opt.key} onClick={()=>setStatusFilter(opt.key)} style={{padding:"3px 10px",borderRadius:"999px",border:statusFilter===opt.key?"none":"1px solid #252535",background:statusFilter===opt.key?"#252540":"transparent",color:statusFilter===opt.key?"#b0addd":"#4a4868",fontSize:"0.7rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{opt.label}</button>
+              ))}
+            </div>
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
+              {["All",...TIERS.map(t=>t.key)].map(tk=>{
+                const t=TIER_MAP[tk];const active=tierFilter===tk;
+                return <button key={tk} onClick={()=>setTierFilter(tk)} style={{padding:"3px 9px",borderRadius:"5px",border:active?"none":`1px solid ${t?t.color+"33":"#252535"}`,background:active?(t?t.bg:"#252540"):"transparent",color:active?(t?t.color:"#b0addd"):(t?t.color+"99":"#4a4868"),fontSize:"0.7rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{tk==="All"?"All Tiers":`${tk} — ${t?.label.split("—")[1].trim()}`}</button>;
+              })}
+            </div>
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
+              {activeSystems.map(sys=>{
+                const active=systemFilter===sys;
+                return <button key={sys} onClick={()=>setSystemFilter(sys)} style={{padding:"2px 8px",borderRadius:"4px",border:active?"none":`1px solid ${SYSTEM_COLORS[sys]||"#252535"}55`,background:active?(SYSTEM_COLORS[sys]||"#444"):"transparent",color:active?"#fff":(SYSTEM_COLORS[sys]||"#4a4868")+"99",fontSize:"0.67rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{sys}</button>;
+              })}
+            </div>
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"10px"}}>
+              {allTags.map(tag=>{const active=tagFilter===tag;return <button key={tag} onClick={()=>setTagFilter(tag)} style={{padding:"2px 7px",borderRadius:"999px",border:active?"none":"1px solid #252535",background:active?(tagColors[tag]||"#7c6af7"):"transparent",color:active?"#fff":"#4a4868",fontSize:"0.65rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{tag}</button>;})}
+            </div>
+            <p style={{color:"#2a2848",fontSize:"0.7rem",margin:"0 0 10px"}}>Showing {filtered.length} of {games.length} games</p>
+          </div>
+          <div style={{maxWidth:"900px",margin:"0 auto",padding:"0 16px",display:"flex",flexDirection:"column",gap:"8px"}}>
+            {filtered.length===0&&<div style={{textAlign:"center",color:"#3a3858",padding:"40px 0"}}>No games match this filter.</div>}
+            {filtered.map(game=>(
+              <GameCard key={game.title} game={game}
+                status={getStatus(game.title)}
+                tier={getUserTier(game.title)}
+                onStatus={s=>setField(game.title,"status",s)}
+                onTier={t=>setField(game.title,"tier",t)}/>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* TIER LIST VIEW */}
+      {view==="Tier List"&&(
+        <div style={{maxWidth:"900px",margin:"14px auto 0",padding:"0 16px",display:"flex",flexDirection:"column",gap:"8px"}}>
+          <p style={{color:"#3a3858",fontSize:"0.74rem",margin:"0 0 4px"}}>Tiers pre-set by recommendation. Override any from the list view or directly here. ★ = best version of each game.</p>
+          {TIERS.map(tier=>{
+            const tierGames=games.filter(g=>getEffectiveTier(g.title)===tier.key);
+            return (
+              <div key={tier.key} style={{display:"flex",borderRadius:"10px",overflow:"hidden",border:`1px solid ${tier.color}33`}}>
+                <div style={{width:"46px",flexShrink:0,background:tier.bg,display:"flex",alignItems:"center",justifyContent:"center",borderRight:`1px solid ${tier.color}33`}}>
+                  <span style={{fontSize:"1.3rem",fontWeight:900,color:tier.color}}>{tier.key}</span>
+                </div>
+                <div style={{flex:1,background:"#0f1018",padding:"7px 9px",display:"flex",flexDirection:"column",gap:"5px"}}>
+                  {tierGames.length===0
+                    ?<div style={{color:"#2a2848",fontSize:"0.72rem",padding:"8px 4px",fontStyle:"italic"}}>No games in this tier</div>
+                    :tierGames.map(game=>(
+                      <GameCard key={game.title} game={game}
+                        status={getStatus(game.title)}
+                        tier={getUserTier(game.title)}
+                        onStatus={s=>setField(game.title,"status",s)}
+                        onTier={t=>setField(game.title,"tier",t)}
+                        compact/>
+                    ))
+                  }
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <p style={{textAlign:"center",color:"#1a1a30",fontSize:"0.66rem",marginTop:"28px"}}>Hours via HowLongToBeat · Changes save automatically</p>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<GameList />);
+</script>
+</body>
+</html>
