@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import vm from 'node:vm';
+import { basename, dirname, join } from 'node:path';
 
 function normalizeChapter(ch) {
   return {
@@ -18,12 +18,9 @@ function normalizeChapter(ch) {
 }
 
 export function extractChapters(htmlPath) {
-  const html = readFileSync(htmlPath, 'utf8');
-  const m = html.match(/const ITEMS = (\[[\s\S]*?\]);\s*\n\s*const CH_IDS/);
-  if (!m) throw new Error(`ITEMS array not found in ${htmlPath}`);
-  const ctx = {};
-  vm.runInNewContext(`result = ${m[1]}`, ctx);
-  const items = JSON.parse(JSON.stringify(ctx.result));
+  const key = basename(htmlPath).split('_')[0]; // 'fe6', 'fe7', 'fe8'
+  const dataPath = join(dirname(htmlPath), 'data', `${key}-data.json`);
+  const items = JSON.parse(readFileSync(dataPath, 'utf8'));
 
   const entries = [];
   for (const item of items) {
