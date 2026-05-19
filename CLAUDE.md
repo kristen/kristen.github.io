@@ -41,6 +41,10 @@ Each guide is a single self-contained HTML file with:
 6. Add route CSS classes if the game has routes (copy the pattern from FE6 or FE8).
 7. Add a card to `index.html`.
 
+## Tests
+
+Content regression tests in `tests/` — see `tests/CLAUDE.md`.
+
 ## Route split patterns
 
 - **No split** — just `{type:'ch'}` entries throughout (simplest)
