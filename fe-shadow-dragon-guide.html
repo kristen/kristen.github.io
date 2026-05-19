@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fire Emblem: Shadow Dragon — Unit Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --crimson: #8b1a1a;
+    --dark: #0e0c0a;
+    --dark2: #1a1612;
+    --dark3: #252018;
+    --parchment: #f5ead8;
+    --steel: #8a9bb0;
+    --steel-light: #b8c8d8;
+    --s-rank: #ffd700;
+    --a-rank: #e87c3e;
+    --b-rank: #7cb8e8;
+    --c-rank: #8adc8a;
+    --d-rank: #b0b0b0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--dark);
+    color: var(--parchment);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(139,26,26,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(201,168,76,0.08) 0%, transparent 50%);
+  }
+  header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    position: relative;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--crimson), var(--gold), transparent);
+  }
+  .header-sub { color: var(--gold); font-style: italic; opacity: 0.8; margin-bottom: 0.5rem; letter-spacing: 0.2em; font-size: 0.9rem; }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--gold-light);
+    text-shadow: 0 0 40px rgba(201,168,76,0.3);
+    line-height: 1.2;
+  }
+  .subtitle { font-size: 1rem; color: var(--steel-light); margin-top: 0.5rem; font-style: italic; }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background: rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  .intro-box {
+    background: rgba(139,26,26,0.12);
+    border: 1px solid rgba(139,26,26,0.4);
+    border-left: 3px solid var(--crimson);
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: var(--steel-light);
+    font-size: 0.95rem;
+  }
+  .intro-box strong { color: var(--gold-light); font-style: normal; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--gold-light);
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .rank-legend {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+  }
+  .rank-pip { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .rank-badge {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 3px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6rem;
+    color: #000;
+  }
+  .rank-S { background: var(--s-rank); }
+  .rank-A { background: var(--a-rank); }
+  .rank-B { background: var(--b-rank); }
+  .rank-C { background: var(--c-rank); }
+  .rank-D { background: var(--d-rank); }
+
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .unit-card {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-top: 2px solid transparent;
+    padding: 1.1rem;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .unit-card:hover { transform: translateY(-2px); border-color: rgba(201,168,76,0.3); }
+  .unit-card.tier-S { border-top-color: var(--s-rank); }
+  .unit-card.tier-A { border-top-color: var(--a-rank); }
+  .unit-card.tier-B { border-top-color: var(--b-rank); }
+  .unit-card.tier-C { border-top-color: var(--c-rank); }
+  .unit-card.tier-D { border-top-color: var(--d-rank); }
+
+  .unit-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.7rem; }
+  .unit-name { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); }
+  .unit-class { font-size: 0.8rem; color: var(--steel-light); font-style: italic; }
+  .unit-chapter { font-size: 0.75rem; color: var(--steel); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+    margin: 0.7rem 0;
+    font-size: 0.78rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-label { color: var(--steel); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-val { color: var(--parchment); font-weight: 600; }
+  .stat-growth { color: var(--gold); font-size: 0.68rem; }
+
+  .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.5rem 0; }
+  .tag {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .tag-reclass { background: rgba(124,184,232,0.2); border: 1px solid rgba(124,184,232,0.4); color: var(--b-rank); }
+  .tag-special { background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.35); color: var(--s-rank); }
+  .tag-sacrifice { background: rgba(139,26,26,0.25); border: 1px solid rgba(139,26,26,0.5); color: #e07070; }
+  .tag-perm { background: rgba(138,220,138,0.15); border: 1px solid rgba(138,220,138,0.35); color: var(--c-rank); }
+
+  .unit-notes { font-size: 0.85rem; color: var(--steel-light); margin-top: 0.6rem; line-height: 1.5; }
+  .unit-notes strong { color: var(--gold-light); }
+
+  .recruit-list { display: flex; flex-direction: column; gap: 1rem; }
+  .recruit-card {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.2rem;
+  }
+  .recruit-card.sacrifice-unlock { border-left-color: #c04040; }
+  .recruit-name { font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 1rem; }
+  .recruit-chapter { font-size: 0.8rem; color: var(--steel); margin-bottom: 0.4rem; }
+  .recruit-how { font-size: 0.9rem; color: var(--parchment); line-height: 1.5; }
+  .recruit-note { font-size: 0.82rem; color: var(--steel-light); font-style: italic; margin-top: 0.3rem; }
+
+  .reclass-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .reclass-card {
+    background: var(--dark2);
+    border: 1px solid rgba(124,184,232,0.2);
+    padding: 1rem;
+  }
+  .reclass-unit { font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .reclass-from { font-size: 0.78rem; color: var(--steel); font-style: italic; margin-bottom: 0.5rem; }
+  .reclass-options { font-size: 0.85rem; color: var(--parchment); }
+  .reclass-options li { margin-left: 1rem; margin-bottom: 0.3rem; }
+  .reclass-why { font-size: 0.82rem; color: var(--steel-light); font-style: italic; margin-top: 0.5rem; }
+
+  .sacrifice-callout {
+    background: rgba(139,26,26,0.15);
+    border: 1px solid rgba(139,26,26,0.4);
+    border-left: 3px solid #c04040;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .sacrifice-callout h3 { font-family: 'Cinzel', serif; color: #e07070; margin-bottom: 0.4rem; font-size: 1rem; }
+
+  @media (max-width: 600px) {
+    .unit-grid, .reclass-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-sub">Nintendo DS · 2008</div>
+  <h1>Fire Emblem: Shadow Dragon</h1>
+  <div class="subtitle">Unit Guide — Rankings, Recruitment & Reclassing</div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showSection('rankings', this)">Unit Rankings</button>
+  <button class="nav-btn" onclick="showSection('recruitment', this)">Recruitment</button>
+  <button class="nav-btn" onclick="showSection('reclass', this)">Reclassing</button>
+</nav>
+
+<main>
+
+<!-- RANKINGS -->
+<section id="rankings" class="section active">
+  <h2>Unit Rankings</h2>
+  <div class="intro-box">
+    <strong>Gaiden / Sacrifice mechanic:</strong> Gaiden chapters unlock when your army drops to <strong>15 or fewer living units</strong> at the end of certain chapters. Intentionally sacrificing weak or redundant units is a valid strategy — Gaiden chapters reward you with extra recruits, Starsphere shards, and access to Tiki. Plan who you're willing to lose.
+  </div>
+
+  <div class="rank-legend">
+    <span class="rank-pip"><span class="rank-badge rank-S">S</span> Must-use</span>
+    <span class="rank-pip"><span class="rank-badge rank-A">A</span> Excellent</span>
+    <span class="rank-pip"><span class="rank-badge rank-B">B</span> Solid</span>
+    <span class="rank-pip"><span class="rank-badge rank-C">C</span> Situational</span>
+    <span class="rank-pip"><span class="rank-badge rank-D">D</span> Sacrifice candidate</span>
+  </div>
+
+  <div class="unit-grid">
+
+    <div class="unit-card tier-S">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Marth</div>
+          <div class="unit-class">Lord</div>
+          <div class="unit-chapter">Ch. 1 — Permanent</div>
+        </div>
+        <span class="rank-badge rank-S">S</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">18</div><div class="stat-growth">80%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">5</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">7</div><div class="stat-growth">70%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">6</div><div class="stat-growth">40%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-perm">Required</span>
+        <span class="tag tag-special">Falchion / Rapier</span>
+      </div>
+      <div class="unit-notes">The only unit who can seize thrones and open chests without keys. Wields the <strong>Rapier</strong> (effective vs armors/cavalry) and later the <strong>Falchion</strong> (effective vs dragons, infinite uses). High speed growth ensures consistent doubles. Not reclassable — invest in him always.</div>
+    </div>
+
+    <div class="unit-card tier-S">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Ogma</div>
+          <div class="unit-class">Mercenary → Hero</div>
+          <div class="unit-chapter">Ch. 3</div>
+        </div>
+        <span class="rank-badge rank-S">S</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">24</div><div class="stat-growth">90%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">9</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">12</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">7</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Swordmaster / Sniper</span>
+      </div>
+      <div class="unit-notes">Joins with the best base stats of any early unit. Excellent speed base lets him double most enemies immediately. Promotes to Hero for Sword+Axe. Reliable all game. Consider reclassing to <strong>Swordmaster</strong> for +15 crit if you want a crit-focused build.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Navarre</div>
+          <div class="unit-class">Myrmidon → Swordmaster</div>
+          <div class="unit-chapter">Ch. 3 (Caeda talk)</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">20</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">7</div><div class="stat-growth">30%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">13</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">5</div><div class="stat-growth">25%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Caeda must recruit</span>
+        <span class="tag tag-reclass">Reclass: Hero</span>
+      </div>
+      <div class="unit-notes">Blazing speed — nearly impossible to double in the early game. Low Str growth is his main weakness; mitigate with forged swords or Killing Edge. As Swordmaster he gains +15 crit, making him lethal. Reclass to <strong>Hero</strong> for more Str and Axe access if Str lags.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Caeda</div>
+          <div class="unit-class">Pegasus Knight → Falcon Knight</div>
+          <div class="unit-chapter">Ch. 2</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">17</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">4</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">11</div><div class="stat-growth">75%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">4</div><div class="stat-growth">20%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Wing Spear</span>
+        <span class="tag tag-reclass">Reclass: Dracoknight</span>
+      </div>
+      <div class="unit-notes">Invaluable for <strong>recruiting many enemy units</strong> — Navarre, Dolph, Macellan, Castor, Roger, Lorenz, and Matthis all require Caeda to talk to them. Her personal <strong>Wing Spear</strong> is effective vs armors and cavalry. Flying movement is essential for map traversal. Reclass to Dracoknight for Lance+Axe and more bulk.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Cain</div>
+          <div class="unit-class">Cavalier → Paladin</div>
+          <div class="unit-chapter">Ch. 1</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">20</div><div class="stat-growth">80%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">7</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">9</div><div class="stat-growth">45%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">7</div><div class="stat-growth">40%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Dracoknight / Hero</span>
+      </div>
+      <div class="unit-notes">Excellent all-rounder from the start with cavalry movement (8). Well-rounded growths with good HP. Promotes to Paladin for Sword access. Consider reclassing to <strong>Dracoknight</strong> for flying utility — a flying Cain is a terror across the mid-game.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Hardin</div>
+          <div class="unit-class">Cavalier → Paladin</div>
+          <div class="unit-chapter">Ch. 8</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">28</div><div class="stat-growth">100%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">10</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">10</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">10</div><div class="stat-growth">60%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: General / Dracoknight</span>
+      </div>
+      <div class="unit-notes"><strong>100% HP growth</strong> and 60% Def growth make him one of the most durable units in the game. Excellent base stats across the board. A near-unkillable frontliner. Great in any class — stay Paladin for mobility, or reclass to <strong>General</strong> for a nearly immortal wall.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Minerva</div>
+          <div class="unit-class">Dracoknight (already promoted)</div>
+          <div class="unit-chapter">Ch. 10 (Palla/Maria talk) or Ch. 14 auto</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">30</div><div class="stat-growth">70%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">13</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">13</div><div class="stat-growth">35%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">12</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Recruit via Palla or Maria</span>
+        <span class="tag tag-reclass">Reclass: Paladin / General</span>
+      </div>
+      <div class="unit-notes">Joins already promoted with outstanding base stats. Flying movement + Lance/Axe access makes her incredibly versatile in the mid-game. Growths are modest so her advantage narrows later, but she's worth using to endgame. Recruit her in Ch. 10 — don't wait for Ch. 14.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Linde</div>
+          <div class="unit-class">Mage → Sage</div>
+          <div class="unit-chapter">Ch. 11</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">18</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Mag</div><div class="stat-val">11</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">12</div><div class="stat-growth">55%</div></div>
+        <div class="stat-item"><div class="stat-label">Res</div><div class="stat-val">5</div><div class="stat-growth">35%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Aura (personal tome)</span>
+        <span class="tag tag-reclass">Reclass: Bishop</span>
+      </div>
+      <div class="unit-notes">Best magic unit in the game. Exceptional Magic and Speed growths. Her personal tome <strong>Aura</strong> is one of the strongest tomes available (effective vs cavalry). Extremely squishy — never leave her exposed. Worth babying into the mid-game. Promote to Sage for staff access.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Jeorge</div>
+          <div class="unit-class">Sniper (already promoted)</div>
+          <div class="unit-chapter">Ch. 14</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">28</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">12</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">13</div><div class="stat-growth">35%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">8</div><div class="stat-growth">25%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Parthia (+5 Res when equipped)</span>
+        <span class="tag tag-reclass">Reclass: Horseman</span>
+      </div>
+      <div class="unit-notes">Joins already promoted with excellent bases. His personal bow <strong>Parthia</strong> grants +5 Res when equipped — great for tanking magic. One of the best ranged units in the game. Reclass to <strong>Horseman</strong> for mounted bow utility if you want more mobility.</div>
+    </div>
+
+    <div class="unit-card tier-A">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Tiki</div>
+          <div class="unit-class">Manakete (not reclassable)</div>
+          <div class="unit-chapter">Gaiden 19x (Bantu must talk to her)</div>
+        </div>
+        <span class="rank-badge rank-A">A</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">30</div><div class="stat-growth">100%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">10</div><div class="stat-growth">20%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">9</div><div class="stat-growth">20%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">15</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Gaiden 19x — Needs Xane + Bantu</span>
+        <span class="tag tag-special">Divinestone</span>
+      </div>
+      <div class="unit-notes">Uses <strong>Divinestone</strong> to transform, granting massive Str/Def stat boosts on top of her already high bases. 100% HP growth. Available very late but exceptional in endgame. Requires completing Gaiden 19x (needs Xane) and having <strong>Bantu alive</strong> to talk to her — plan accordingly.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Abel</div>
+          <div class="unit-class">Cavalier → Paladin</div>
+          <div class="unit-chapter">Ch. 1</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">20</div><div class="stat-growth">70%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">6</div><div class="stat-growth">45%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">8</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">8</div><div class="stat-growth">45%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Dracoknight</span>
+        <span class="tag tag-sacrifice">Sacrifice if running Cain</span>
+      </div>
+      <div class="unit-notes">Slightly more defensive than Cain but less offensive. If you're using both Cain and Abel, one is redundant — Abel is the better sacrifice candidate. If kept, reclass to Dracoknight for the flying upgrade. Solid but not essential with Cain around.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Gordin</div>
+          <div class="unit-class">Archer → Sniper</div>
+          <div class="unit-chapter">Ch. 1</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">18</div><div class="stat-growth">80%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">7</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">5</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">5</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Horseman (highly recommended)</span>
+      </div>
+      <div class="unit-notes">Good Str base for an archer. Archers can't counterattack at 1-range, which is a structural weakness. Reclass to <strong>Horseman</strong> for mounted movement + Bow + Sword — this completely solves his positioning problem and is a massive upgrade. Without the reclass, he's a B at best.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Merric</div>
+          <div class="unit-class">Mage → Sage</div>
+          <div class="unit-chapter">Ch. 5</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">18</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Mag</div><div class="stat-val">8</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">9</div><div class="stat-growth">45%</div></div>
+        <div class="stat-item"><div class="stat-label">Res</div><div class="stat-val">4</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Excalibur (effective vs fliers)</span>
+        <span class="tag tag-reclass">Reclass: Bishop</span>
+      </div>
+      <div class="unit-notes">Your only mage for several chapters. Personal tome <strong>Excalibur</strong> is effective vs flying enemies — invaluable for Pegasus/Wyvern heavy maps. Overshadowed by Linde from Ch. 11 onward, but useful for a long stretch. Keep as Sage or reclass to Bishop for better staff ranks.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Draug</div>
+          <div class="unit-class">Armor Knight → General</div>
+          <div class="unit-chapter">Ch. 1</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">22</div><div class="stat-growth">90%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">8</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">3</div><div class="stat-growth">25%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">12</div><div class="stat-growth">60%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Paladin (fixes movement)</span>
+      </div>
+      <div class="unit-notes">Best armor unit in the game with massive Def and HP. Excellent chokepoint holder. His speed is terrible — he will be doubled. Reclass to <strong>Paladin</strong> to fix his mobility while keeping his high bulk. As a General he's a sitting duck for magic users and siege weapons.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Catria</div>
+          <div class="unit-class">Pegasus Knight → Falcon Knight</div>
+          <div class="unit-chapter">Ch. 10 (joins with Minerva)</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">20</div><div class="stat-growth">70%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">8</div><div class="stat-growth">40%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">13</div><div class="stat-growth">55%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">7</div><div class="stat-growth">25%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-reclass">Reclass: Dracoknight</span>
+      </div>
+      <div class="unit-notes">Better than Palla due to higher speed growth. If keeping only one White Wing alongside Caeda and Minerva, Catria is the pick. Reclass to <strong>Dracoknight</strong> for more Str and durability. If all three fliers feel redundant, Palla is the sacrifice candidate over Catria.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Palla</div>
+          <div class="unit-class">Pegasus Knight → Falcon Knight</div>
+          <div class="unit-chapter">Ch. 10 (joins with Minerva)</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">22</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">9</div><div class="stat-growth">35%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">12</div><div class="stat-growth">50%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">8</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Recruits Minerva</span>
+        <span class="tag tag-sacrifice">Sacrifice after Ch. 10</span>
+      </div>
+      <div class="unit-notes">Her main value is <strong>recruiting Minerva</strong> in Ch. 10. After that, with Caeda + Minerva + Catria already present, she's often the most expendable flier. Decent stats but overshadowed on all fronts. Good mid-game sacrifice candidate once Minerva is secured.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Wendell</div>
+          <div class="unit-class">Sage (already promoted)</div>
+          <div class="unit-chapter">Gaiden 7x</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">28</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Mag</div><div class="stat-val">10</div><div class="stat-growth">30%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">7</div><div class="stat-growth">30%</div></div>
+        <div class="stat-item"><div class="stat-label">Res</div><div class="stat-val">10</div><div class="stat-growth">30%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-sacrifice">Requires Gaiden 7x</span>
+        <span class="tag tag-reclass">Reclass: Bishop</span>
+      </div>
+      <div class="unit-notes">Joins already promoted with useful early magic stats. Low growths mean he won't scale well into the late game, but he fills the magic gap before Linde arrives. Worth the Gaiden detour. Reclass to <strong>Bishop</strong> for better staff utility if you need a dedicated healer/staffer.</div>
+    </div>
+
+    <div class="unit-card tier-B">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Xane</div>
+          <div class="unit-class">Freelancer (Chameleon)</div>
+          <div class="unit-chapter">Gaiden 19x</div>
+        </div>
+        <span class="rank-badge rank-B">B</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">—</div><div class="stat-growth">—</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">—</div><div class="stat-growth">—</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">—</div><div class="stat-growth">—</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">—</div><div class="stat-growth">—</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Unlocks Gaiden 19x / Tiki</span>
+        <span class="tag tag-special">Copies any ally's stats</span>
+      </div>
+      <div class="unit-notes">Unique — copies another ally's stats and class each turn. His personal stats are poor. His main importance is that <strong>having Xane in your army is required to trigger Gaiden 19x</strong>, where Tiki is recruited. Also a useful body who can copy your best units in a pinch.</div>
+    </div>
+
+    <div class="unit-card tier-C">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Bantu</div>
+          <div class="unit-class">Manakete (not reclassable)</div>
+          <div class="unit-chapter">Ch. 6 / returns Ch. 19x</div>
+        </div>
+        <span class="rank-badge rank-C">C</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">30</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">8</div><div class="stat-growth">10%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">5</div><div class="stat-growth">10%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">10</div><div class="stat-growth">20%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Required to recruit Tiki</span>
+      </div>
+      <div class="unit-notes">Weak Manakete with very poor growths. Do <strong>not</strong> invest exp in him. His sole purpose is that <strong>Tiki will only join if Bantu is alive and talks to her</strong> in Gaiden 19x. Keep him alive through that chapter, then sacrifice him freely afterward.</div>
+    </div>
+
+    <div class="unit-card tier-C">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Julian</div>
+          <div class="unit-class">Thief (cannot promote normally)</div>
+          <div class="unit-chapter">Ch. 3 (with Lena)</div>
+        </div>
+        <span class="rank-badge rank-C">C</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item"><div class="stat-label">HP</div><div class="stat-val">18</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Str</div><div class="stat-val">4</div><div class="stat-growth">30%</div></div>
+        <div class="stat-item"><div class="stat-label">Spd</div><div class="stat-val">12</div><div class="stat-growth">60%</div></div>
+        <div class="stat-item"><div class="stat-label">Def</div><div class="stat-val">2</div><div class="stat-growth">15%</div></div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-special">Only thief — chest/door access</span>
+        <span class="tag tag-reclass">Reclass: Assassin / Hero</span>
+      </div>
+      <div class="unit-notes">The only Thief in the game. His lockpick skill lets him open chests and doors without keys — a unique utility. Combat stats are mediocre. Reclass to <strong>Assassin</strong> for Lethality or <strong>Hero</strong> for better combat. Keep him around for treasure-heavy chapters.</div>
+    </div>
+
+    <div class="unit-card tier-D">
+      <div class="unit-header">
+        <div>
+          <div class="unit-name">Wrys, Castor, Dolph, Macellan, Roger, Matthis, Lorenz</div>
+          <div class="unit-class">Various</div>
+          <div class="unit-chapter">Ch. 3–14</div>
+        </div>
+        <span class="rank-badge rank-D">D</span>
+      </div>
+      <div class="tags">
+        <span class="tag tag-sacrifice">Prime Sacrifice Candidates</span>
+      </div>
+      <div class="unit-notes"><strong>Wrys</strong> (Ch. 3, cleric) — weakest healer, great early sacrifice. <strong>Castor</strong> (Ch. 3, Caeda talk) — mediocre hunter. <strong>Dolph &amp; Macellan</strong> (Ch. 4–5, Caeda talk) — weak armor knights. <strong>Roger</strong> (Ch. 5, Caeda talk) — weak armor. <strong>Matthis</strong> (Ch. 5, Lena/Caeda talk) — mediocre cavalier. <strong>Lorenz</strong> (Ch. 14, Caeda talk) — old general. Recruit for body count to enable Gaiden chapters, then sacrifice. Do not invest resources in any of them.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECRUITMENT -->
+<section id="recruitment" class="section">
+  <h2>Recruitment &amp; Special Conditions</h2>
+
+  <div class="sacrifice-callout">
+    <h3>Gaiden Chapter Unlock Conditions</h3>
+    Gaiden chapters unlock when your army has <strong>15 or fewer living units</strong> at the end of the preceding chapter. Red-bordered cards below indicate characters tied to Gaiden chapters. Planning which units to sacrifice — ideally D-tier units you recruited just for this — is a key part of Shadow Dragon strategy.
+  </div>
+
+  <div class="recruit-list">
+
+    <div class="recruit-card">
+      <div class="recruit-name">Navarre</div>
+      <div class="recruit-chapter">Chapter 3 · Enemy unit on the map</div>
+      <div class="recruit-how">Starts as an enemy. Have <strong>Caeda talk to him</strong> during the chapter. Do not attack or kill him. He joins immediately after the conversation.</div>
+      <div class="recruit-note">One of the best units — never miss this recruitment.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Lena &amp; Julian</div>
+      <div class="recruit-chapter">Chapter 3 · NPCs</div>
+      <div class="recruit-how">Both join automatically — no special condition. Lena is a Cleric NPC on the map; Julian is a Thief escorting her. Move a unit to their tile or reach the area to trigger them joining.</div>
+      <div class="recruit-note">Julian is the only thief in the game. Keep him alive for chest access.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Castor</div>
+      <div class="recruit-chapter">Chapter 3 · Enemy unit</div>
+      <div class="recruit-how">Starts as an enemy Hunter. Have <strong>Caeda talk to him</strong> to recruit. Mediocre unit — recruit to pad your roster for Gaiden threshold, then consider sacrificing.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Dolph &amp; Macellan</div>
+      <div class="recruit-chapter">Chapters 4–5 · Enemy Armor Knights</div>
+      <div class="recruit-how">Both are enemy units. Have <strong>Caeda talk to each</strong> individually. Recruit as sacrifice candidates for the Gaiden system.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Roger</div>
+      <div class="recruit-chapter">Chapter 5 · Enemy Armor Knight</div>
+      <div class="recruit-how">Has a crush on Caeda — have <strong>Caeda talk to him</strong>. Weak armor unit, mostly useful for the roster body count toward Gaiden chapters.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Matthis</div>
+      <div class="recruit-chapter">Chapter 5 · Enemy Cavalier</div>
+      <div class="recruit-how">Lena's brother. Have <strong>Lena talk to him</strong> (Caeda also works). Mediocre cavalier — sacrifice candidate.</div>
+    </div>
+
+    <div class="recruit-card sacrifice-unlock">
+      <div class="recruit-name">Wendell</div>
+      <div class="recruit-chapter">Gaiden 7x · Auto-recruit</div>
+      <div class="recruit-how"><strong>Gaiden 7x unlocks</strong> after Chapter 7 if you have 15 or fewer units alive. Wendell joins automatically at the start of the Gaiden map — no action needed. Already promoted Sage.</div>
+      <div class="recruit-note">Worth engineering a sacrifice to unlock — he's your only promoted magic user before Linde.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Merric</div>
+      <div class="recruit-chapter">Chapter 5 · Joins automatically</div>
+      <div class="recruit-how">Joins at the start of Chapter 5. No special condition required.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Hardin</div>
+      <div class="recruit-chapter">Chapter 8 · Joins automatically</div>
+      <div class="recruit-how">Joins at the start of Chapter 8 with his group. No special condition. Prioritize him immediately — he's one of the best units in the game.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Maria</div>
+      <div class="recruit-chapter">Chapter 10 · NPC prisoner</div>
+      <div class="recruit-how">Maria is an NPC on the map. Move any unit to her tile to rescue her and add her to your party. You need her (or Palla) to recruit Minerva.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Minerva</div>
+      <div class="recruit-chapter">Chapter 10 · Enemy commander (or Ch. 14 auto)</div>
+      <div class="recruit-how">Minerva leads the enemy Whitewings. Have <strong>Palla or Maria talk to her</strong> during Ch. 10. If not recruited here, she joins automatically as an ally at the start of <strong>Chapter 14</strong>. Always recruit in Ch. 10 — you don't want to go 4 chapters without her.</div>
+      <div class="recruit-note">Rescue Maria first on the map, then use Maria or Palla to approach Minerva.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Palla &amp; Catria</div>
+      <div class="recruit-chapter">Chapter 10 (or Ch. 14) · Auto-join with Minerva</div>
+      <div class="recruit-how">They are part of Minerva's Whitewing group and join your side automatically the moment <strong>Minerva is recruited</strong>. No separate action needed for them.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Linde</div>
+      <div class="recruit-chapter">Chapter 11 · Joins automatically</div>
+      <div class="recruit-how">Joins at the start of Chapter 11. No special condition. Invest in her immediately — she's the best magic unit in the game.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Jeorge</div>
+      <div class="recruit-chapter">Chapter 14 · Enemy unit</div>
+      <div class="recruit-how">Appears as an enemy Sniper. Have <strong>any unit talk to him</strong> (or Marth) to recruit — no special character requirement. Reach him before he's killed by other enemies.</div>
+    </div>
+
+    <div class="recruit-card">
+      <div class="recruit-name">Lorenz</div>
+      <div class="recruit-chapter">Chapter 14 · Enemy General</div>
+      <div class="recruit-how">Enemy General. Have <strong>Caeda talk to him</strong> to recruit. Weak old unit — recruit as a sacrifice candidate for later Gaiden chapters if needed.</div>
+    </div>
+
+    <div class="recruit-card sacrifice-unlock">
+      <div class="recruit-name">Midia &amp; others</div>
+      <div class="recruit-chapter">Gaiden 16x · NPC rescues</div>
+      <div class="recruit-how"><strong>Gaiden 16x unlocks</strong> after Chapter 15 with 15 or fewer units alive. Midia and several other units appear as NPCs you rescue by moving to their locations. No talk required — just reach them.</div>
+      <div class="recruit-note">Midia is a decent already-promoted Paladin, but most others from this chapter are weaker.</div>
+    </div>
+
+    <div class="recruit-card sacrifice-unlock">
+      <div class="recruit-name">Xane</div>
+      <div class="recruit-chapter">Gaiden 19x · Joins automatically</div>
+      <div class="recruit-how"><strong>Gaiden 19x unlocks</strong> after Chapter 18 with 15 or fewer units alive. Xane joins automatically on the map. His presence in your army is what <strong>makes Gaiden 19x accessible</strong> — the game checks if you have him.</div>
+      <div class="recruit-note">Critical: You must have Xane to unlock 19x, and you must complete 19x to get Tiki.</div>
+    </div>
+
+    <div class="recruit-card sacrifice-unlock">
+      <div class="recruit-name">Tiki</div>
+      <div class="recruit-chapter">Gaiden 19x · Bantu must talk to her</div>
+      <div class="recruit-how">Tiki starts as a dangerous boss-level awakened dragon in Gaiden 19x. <strong>Bantu must be alive in your party</strong> — move Bantu adjacent to Tiki and have him talk to her. She calms down and joins your party.</div>
+      <div class="recruit-note">Requirements chain: sacrifice to unlock 19x → have Xane (enables 19x) → keep Bantu alive → Bantu talks to Tiki. Plan your sacrifices carefully around keeping Bantu.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECLASSING -->
+<section id="reclass" class="section">
+  <h2>Reclassification Recommendations</h2>
+
+  <div class="intro-box">
+    Shadow Dragon's reclassing system lets most units change class. When you reclass, your level resets to 1 in the new class but carries over your accumulated stats — making units with strong base stats or high-growth units especially powerful when reclassed. The main benefits are <strong>new weapon types</strong>, <strong>movement type changes</strong> (especially gaining flying or mounted), and <strong>class skill bonuses</strong> like Swordmaster's +15 crit. Use Master Seals to promote; unpromoted units can reclass freely.
+  </div>
+
+  <div class="reclass-grid">
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Ogma</div>
+      <div class="reclass-from">Default: Mercenary → Hero</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Swordmaster</strong> — +15 crit bonus, lethal with Killing Edge builds</li>
+          <li><strong>Hero</strong> — Sword + Axe versatility, more bulk than Swordmaster</li>
+          <li><strong>Sniper</strong> — Gives 2-range coverage if your team lacks bows</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Recommended: Swordmaster for crit-focused play, Hero for all-around versatility. Both are strong — choose based on team needs.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Navarre</div>
+      <div class="reclass-from">Default: Myrmidon → Swordmaster</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Swordmaster</strong> — Keep for maximum crit rate; pairs with Killing Edge</li>
+          <li><strong>Hero</strong> — Fixes Str weakness with Axe access and more bulk</li>
+        </ul>
+      </div>
+      <div class="reclass-why">If Str is lagging in the mid-game, reclass to Hero early. If he's hitting consistently, stay Swordmaster for the crit bonus — it's one of the best in the game.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Caeda</div>
+      <div class="reclass-from">Default: Pegasus Knight → Falcon Knight</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Falcon Knight</strong> — Keeps Wing Spear usable + high speed + sword access</li>
+          <li><strong>Dracoknight</strong> — Lance + Axe, more Def and Str, loses sword weakness</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Falcon Knight is recommended — Wing Spear's effectiveness vs armors/cavalry is too valuable to lose. Only reclass if you have another flier covering her role.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Cain</div>
+      <div class="reclass-from">Default: Cavalier → Paladin</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Dracoknight</strong> — Flying mobility on an already well-rounded unit; top pick</li>
+          <li><strong>Paladin</strong> — Default; solid mounted utility with sword + lance</li>
+          <li><strong>Hero</strong> — Best raw combat if you already have enough fliers/cavalry</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Dracoknight is the top recommendation — flying movement on Cain's stats is exceptional for the mid-game. Best of both worlds if you're not already overloaded on fliers.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Gordin</div>
+      <div class="reclass-from">Default: Archer → Sniper</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Horseman</strong> — Mounted + Bow + Sword; massive mobility upgrade (top pick)</li>
+          <li><strong>Sniper</strong> — Better accuracy and damage at range, stays foot</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Horseman is transformative. It solves Gordin's core weakness (positioning) and gives him sword fallback. Strongly recommended if you're investing in him at all.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Draug</div>
+      <div class="reclass-from">Default: Armor Knight → General</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Paladin</strong> — Trades some bulk for drastically improved movement</li>
+          <li><strong>General</strong> — Maximum defense wall for chokepoint holding</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Reclass to Paladin if using him — his movement as an Armor/General is his biggest liability. As a Paladin he still has great bulk and can actually keep up with the team.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Merric</div>
+      <div class="reclass-from">Default: Mage → Sage</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Sage</strong> — Balanced magic + staff access; Excalibur stays usable</li>
+          <li><strong>Bishop</strong> — Higher staff rank, divine magic; better support role</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Stay Sage if you want him to fight. Reclass Bishop if you want a dedicated healer/staffer after Linde arrives and takes over the offensive magic role.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Linde</div>
+      <div class="reclass-from">Default: Mage → Sage</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Sage</strong> — Keep; Aura tome is irreplaceable offensively (recommended)</li>
+          <li><strong>Bishop</strong> — Only consider if you desperately need a high-rank staffer</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Keep Linde as Sage. Her Aura tome and offensive Magic/Speed growths make her the best combat mage — don't sacrifice that for staff utility.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Hardin</div>
+      <div class="reclass-from">Default: Cavalier → Paladin</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Paladin</strong> — Default; excellent mounted bruiser with solid weapon access</li>
+          <li><strong>General</strong> — Near-unkillable wall given his HP/Def growths</li>
+          <li><strong>Dracoknight</strong> — Flying mobility on one of the bulkiest units in the game</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Hardin excels in any class. Paladin is the safest default. Dracoknight if you want a flying bruiser; General if you want a near-immortal wall. All three are legitimate.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Jeorge</div>
+      <div class="reclass-from">Default: Sniper (already promoted)</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Horseman</strong> — Mounted movement + Bow + Sword; strong upgrade</li>
+          <li><strong>Sniper</strong> — Keep for Parthia's +5 Res and raw bow damage</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Horseman adds mobility but you lose Parthia's Res bonus in that class. If your team already has magic coverage, go Horseman. If you need the Res tanking, stay Sniper.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Palla / Catria</div>
+      <div class="reclass-from">Default: Pegasus Knight → Falcon Knight</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Dracoknight</strong> — More Str and Def, Lance + Axe coverage</li>
+          <li><strong>Falcon Knight</strong> — Keep for speed and sword access</li>
+        </ul>
+      </div>
+      <div class="reclass-why">If running Caeda and Minerva already, reclass one to Dracoknight for weapon variety. Catria benefits more from Dracoknight than Palla due to her better speed sustaining the speed loss.</div>
+    </div>
+
+    <div class="reclass-card">
+      <div class="reclass-unit">Julian</div>
+      <div class="reclass-from">Default: Thief</div>
+      <div class="reclass-options">
+        <ul>
+          <li><strong>Assassin</strong> — Keeps Lockpick, gains Lethality skill</li>
+          <li><strong>Hero</strong> — Good combat stats; loses thief utility</li>
+        </ul>
+      </div>
+      <div class="reclass-why">Reclass to Assassin — it keeps his lockpick utility and adds combat viability. Hero is an option if you have all chests covered and want pure combat.</div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
