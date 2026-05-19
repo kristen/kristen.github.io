@@ -1,0 +1,102 @@
+:root {
+  --bg:      #1a1410;
+  --bg2:     #221c16;
+  --bg3:     #2c2420;
+  --border:  rgba(255,220,160,0.12);
+  --border2: rgba(255,220,160,0.22);
+  --gold:    #d4a84b;
+  --text:    #e8dcc8;
+  --text2:   #9e8e78;
+  --radius:  8px;
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 16px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.landing header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.landing header h1 {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+}
+
+.landing header p {
+  font-size: 14px;
+  color: var(--text2);
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  max-width: 700px;
+  width: 100%;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  flex: 1;
+  min-width: 260px;
+  max-width: 320px;
+  transition: border-color .15s, background .15s;
+}
+
+.card:hover {
+  background: var(--bg3);
+  border-color: var(--gold);
+}
+
+.card-game {
+  font-size: 11px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.card h2 {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.card-arrow {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--gold);
+  opacity: .7;
+}
+
+.card:hover .card-arrow {
+  opacity: 1;
+}

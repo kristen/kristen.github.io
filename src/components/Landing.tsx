@@ -1,0 +1,74 @@
+import { Link } from 'react-router-dom';
+
+interface Card {
+  game: string;
+  title: string;
+  description: string;
+  href: string;
+  external?: boolean;
+}
+
+const cards: Card[] = [
+  {
+    game: 'Nintendo',
+    title: 'Games Worth Your Time',
+    description: 'Tier list and tracker across all Nintendo eras. No platformers.',
+    href: 'nintendo-games.html',
+    external: true,
+  },
+  {
+    game: 'Fire Emblem 1',
+    title: 'Shadow Dragon',
+    description: 'Chapter checklist with recruits, steals, and route splits.',
+    href: 'fe-shadow-dragon-guide.html',
+    external: true,
+  },
+  {
+    game: 'Fire Emblem 6',
+    title: 'The Binding Blade',
+    description: 'Chapter checklist with recruits, steals, and route splits.',
+    href: '#/guide/fe6',
+  },
+  {
+    game: 'Fire Emblem 7',
+    title: 'The Blazing Blade',
+    description: 'Chapter checklist with recruits, steals, and route splits.',
+    href: '#/guide/fe7',
+  },
+  {
+    game: 'Fire Emblem 8',
+    title: 'The Sacred Stones',
+    description: 'Chapter checklist with recruits, Eirika & Ephraim route split, and tier list.',
+    href: '#/guide/fe8',
+  },
+];
+
+export function Landing() {
+  return (
+    <div className="landing">
+      <header>
+        <h1>Fire Emblem Guides</h1>
+        <p>Personal chapter checklists &amp; notes</p>
+      </header>
+      <div className="cards">
+        {cards.map(card => (
+          card.external ? (
+            <a key={card.title} className="card" href={card.href}>
+              <div className="card-game">{card.game}</div>
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
+              <div className="card-arrow">Open guide →</div>
+            </a>
+          ) : (
+            <a key={card.title} className="card" href={card.href}>
+              <div className="card-game">{card.game}</div>
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
+              <div className="card-arrow">Open guide →</div>
+            </a>
+          )
+        ))}
+      </div>
+    </div>
+  );
+}
