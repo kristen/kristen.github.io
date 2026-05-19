@@ -1,6 +1,8 @@
-import { readFileSync } from 'node:fs';
-import { basename, dirname, join } from 'node:path';
-import vm from 'node:vm';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function normalizeChapter(ch) {
   return {
@@ -18,12 +20,10 @@ function normalizeChapter(ch) {
   };
 }
 
-export function extractChapters(htmlPath) {
-  const key = basename(htmlPath).split('_')[0]; // 'fe6', 'fe7', 'fe8'
-  const dataPath = join(dirname(htmlPath), 'data', `${key}-data.js`);
-  const ctx = { window: {} };
-  vm.runInNewContext(readFileSync(dataPath, 'utf8'), ctx);
-  const items = JSON.parse(JSON.stringify(ctx.window.ITEMS));
+export async function extractChapters(guideKey) {
+  const dataPath = join(__dirname, '..', 'src', 'data', `${guideKey}-data.js`);
+  const { ITEMS } = await import(dataPath);
+  const items = JSON.parse(JSON.stringify(ITEMS));
 
   const entries = [];
   for (const item of items) {
@@ -42,12 +42,10 @@ export function extractChapters(htmlPath) {
   return entries;
 }
 
-export function extractTiers(htmlPath) {
-  const key = basename(htmlPath).split('_')[0];
-  const dataPath = join(dirname(htmlPath), 'data', `${key}-tiers.js`);
-  const ctx = { window: {} };
-  vm.runInNewContext(readFileSync(dataPath, 'utf8'), ctx);
-  const rows = JSON.parse(JSON.stringify(ctx.window.TIERS));
+export async function extractTiers(guideKey) {
+  const dataPath = join(__dirname, '..', 'src', 'data', `${guideKey}-tiers.js`);
+  const { TIERS } = await import(dataPath);
+  const rows = JSON.parse(JSON.stringify(TIERS));
   const tiers = {};
   for (const tier of rows) {
     tiers[tier.level] = tier.units;
