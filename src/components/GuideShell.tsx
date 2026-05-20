@@ -14,6 +14,7 @@ export function GuideShell({ config }: Props) {
   const [activeTab, setActiveTab] = useState<'chapters' | 'tiers'>('chapters');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const chapColRef = useRef<HTMLDivElement>(null);
+  const tierColRef = useRef<HTMLDivElement>(null);
   const { done, toggle, completedCount, totalCount } = useProgress(config.storageKey, config.items);
 
   useEffect(() => {
@@ -34,11 +35,10 @@ export function GuideShell({ config }: Props) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const col = chapColRef.current;
-    if (!col) return;
-    const onScroll = () => setShowScrollTop(col.scrollTop > 300);
-    col.addEventListener('scroll', onScroll, { passive: true });
-    return () => col.removeEventListener('scroll', onScroll);
+    const cols = [chapColRef.current, tierColRef.current].filter(Boolean) as HTMLDivElement[];
+    const onScroll = () => setShowScrollTop(cols.some(c => c.scrollTop > 300));
+    cols.forEach(c => c.addEventListener('scroll', onScroll, { passive: true }));
+    return () => cols.forEach(c => c.removeEventListener('scroll', onScroll));
   }, []);
 
   return (
@@ -88,7 +88,7 @@ export function GuideShell({ config }: Props) {
           </div>
         </div>
 
-        <div className={`col col-tiers${activeTab === 'tiers' ? ' active' : ''}`} id="col-tiers">
+        <div className={`col col-tiers${activeTab === 'tiers' ? ' active' : ''}`} id="col-tiers" ref={tierColRef}>
           <div className="col-head">
             <div className="col-head-title">Unit Tier List</div>
           </div>
@@ -104,7 +104,7 @@ export function GuideShell({ config }: Props) {
       {showScrollTop && (
         <button
           className="scroll-top-btn"
-          onClick={() => chapColRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => { chapColRef.current?.scrollTo({ top: 0, behavior: 'smooth' }); tierColRef.current?.scrollTo({ top: 0, behavior: 'smooth' }); }}
           aria-label="Scroll to top"
         >
           ↑
