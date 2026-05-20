@@ -1,4 +1,5 @@
 import type { Tier } from '../types';
+import { isUnitRecruited } from '../utils/recruitedNames.js';
 
 interface Props {
   tiers: Tier[];
@@ -20,7 +21,7 @@ export function TierList({ tiers, philosophy, tip, recruitedNames }: Props) {
             <div className="tier-label">{tier.level.toUpperCase()}</div>
             <div className="tier-units">
               {tier.units.map((u, j) => {
-                const isRecruited = !!recruitedNames && u.name.split('/').some(n => recruitedNames.has(n.trim().toLowerCase()));
+                const isRecruited = !!recruitedNames && isUnitRecruited(u.name, recruitedNames);
                 return (
                   <div key={j} className={`unit-chip${u.cls ? ' ' + u.cls : ''}`}>
                     {u.name}

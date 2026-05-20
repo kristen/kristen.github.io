@@ -5,6 +5,7 @@ import { ProgressBar } from './ProgressBar';
 import { ChapterList } from './ChapterList';
 import { TierList } from './TierList';
 import { AuthButton } from './AuthButton';
+import { computeRecruitedNames } from '../utils/recruitedNames.js';
 
 interface Props {
   config: GuideConfig;
@@ -17,24 +18,10 @@ export function GuideShell({ config }: Props) {
   const tierColRef = useRef<HTMLDivElement>(null);
   const { done, toggle, completedCount, totalCount } = useProgress(config.storageKey, config.items);
 
-  const recruitedNames = useMemo(() => {
-    const result = new Set<string>();
-    for (const item of config.items) {
-      const chapters = item.type === 'ch' ? [item] : item.type === 'pair' ? item.pair : [];
-      for (const ch of chapters) {
-        (ch.recruits ?? []).forEach((recruitStr: string, idx: number) => {
-          if (done[ch.id + '_recruit' + idx]) {
-            recruitStr.split(/—|–/)[0]
-              .split(/,\s*|\s*&\s*/)
-              .map((n: string) => n.trim().toLowerCase())
-              .filter(Boolean)
-              .forEach((n: string) => result.add(n));
-          }
-        });
-      }
-    }
-    return result;
-  }, [config.items, done]);
+  const recruitedNames = useMemo(
+    () => computeRecruitedNames(config.items, done),
+    [config.items, done]
+  );
 
   useEffect(() => {
     const col = chapColRef.current;

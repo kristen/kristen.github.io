@@ -57,8 +57,10 @@ src/
     SaveCard.tsx              # gold callout
     SplitCard.tsx             # blue callout with route options
     SubItemList.tsx           # recruit / item / steal sub-checklist
-    TierList.tsx              # tier list
+    TierList.tsx              # tier list; accepts recruitedNames set to show a checkmark on recruited units
     ProgressBar.tsx           # wide + narrow variants
+  utils/
+    recruitedNames.js         # parseRecruitNames, computeRecruitedNames, isUnitRecruited — plain JS so Node tests can import it
   data/
     nintendo-games.js         # 89-game list for NintendoGames component
 ```
