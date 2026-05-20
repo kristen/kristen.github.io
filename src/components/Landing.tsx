@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { AuthButton } from './AuthButton';
 
 interface Card {
   game: string;
@@ -48,6 +48,9 @@ export function Landing() {
       <header>
         <h1>Fire Emblem Guides</h1>
         <p>Personal chapter checklists &amp; notes</p>
+        <div className="landing-auth">
+          <AuthButton />
+        </div>
       </header>
       <div className="cards">
         {cards.map(card => (

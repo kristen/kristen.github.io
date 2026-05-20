@@ -4,6 +4,7 @@ import { useProgress } from '../hooks/useProgress';
 import { ProgressBar } from './ProgressBar';
 import { ChapterList } from './ChapterList';
 import { TierList } from './TierList';
+import { AuthButton } from './AuthButton';
 
 interface Props {
   config: GuideConfig;
@@ -22,6 +23,9 @@ export function GuideShell({ config }: Props) {
         <p>{config.subtitle}</p>
         <div className="mobile-prog">
           <ProgressBar completed={completedCount} total={totalCount} variant="narrow" />
+        </div>
+        <div className="auth-slot">
+          <AuthButton />
         </div>
       </div>
 

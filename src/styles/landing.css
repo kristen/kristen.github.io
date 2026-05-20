@@ -24,6 +24,8 @@
 .landing header {
   text-align: center;
   margin-bottom: 48px;
+  position: relative;
+  width: 100%;
 }
 
 .landing header h1 {
@@ -38,6 +40,13 @@
 .landing header p {
   font-size: 14px;
   color: var(--text2);
+}
+
+.landing-auth {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
 }
 
 .cards {
