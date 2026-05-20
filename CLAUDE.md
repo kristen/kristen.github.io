@@ -21,7 +21,7 @@ Uses `HashRouter` — all routes are `/#/...`:
 | `/#/guide/fe7` | FE7 Blazing Blade guide |
 | `/#/guide/fe8` | FE8 Sacred Stones guide |
 
-Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) are copied into `dist/` at build time and served as static HTML.
+Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) live at the repo root. The CI workflow copies them into `dist/` after `npm run build` before deploying to GitHub Pages.
 
 ## File structure
 
@@ -29,7 +29,7 @@ Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) are copie
 src/
   main.tsx                    # entry point: HashRouter + App
   App.tsx                     # routes: / → Landing, /guide/:key → GuidePage
-  types.ts                    # Item, Tier, GuideConfig interfaces
+  types.ts                    # ChapterItem, PairItem, SaveItem, SplitItem, SplitOpt, TierUnit, Tier, GuideConfig, Item (union)
   styles/
     shared.css                # guide layout: two-column, chapter rows, tiers
     landing.css               # landing page styles
