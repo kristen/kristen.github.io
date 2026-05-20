@@ -25,7 +25,8 @@ export function GuideShell({ config }: Props) {
         item.type === 'pair' ? item.pair.map(p => p.id) : []
       )
       .find(id => !done[id]);
-    if (firstUnchecked && col) {
+    const anyDone = Object.values(done).some(Boolean);
+    if (firstUnchecked && col && anyDone) {
       const el = document.getElementById(firstUnchecked);
       if (el) {
         const elTop = el.getBoundingClientRect().top - col.getBoundingClientRect().top + col.scrollTop;
