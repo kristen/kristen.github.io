@@ -3,7 +3,7 @@
   <rect width="32" height="32" rx="7" fill="#1a1410"/>
 
   <!-- Sword tilted ~45deg, tip top-right, pommel bottom-left -->
-  <g transform="rotate(-45, 16, 16)">
+  <g transform="translate(16 16) rotate(-45) scale(1.25) translate(-16 -16)">
     <!-- Blade -->
     <path d="M13.5 19 L13.5 8 L16 2 L18.5 8 L18.5 19 Z" fill="#dce8f4" stroke="#8898a8" stroke-width="0.5"/>
     <!-- Blade center line -->
