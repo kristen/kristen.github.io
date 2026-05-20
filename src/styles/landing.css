@@ -78,8 +78,12 @@
   padding: 24px 28px;
   flex: 1;
   min-width: 260px;
-  max-width: 320px;
   transition: border-color .15s, background .15s;
+}
+
+.card-full {
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 .card:hover {

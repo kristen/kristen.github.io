@@ -10,19 +10,6 @@ interface Card {
 
 const cards: Card[] = [
   {
-    game: 'Nintendo',
-    title: 'Games Worth Your Time',
-    description: 'Tier list and tracker across all Nintendo eras. No platformers.',
-    href: 'nintendo-games.html',
-    external: true,
-  },
-  {
-    game: 'Fire Emblem 11',
-    title: 'Shadow Dragon',
-    description: 'Gaiden chapter checklist with recruits and unit tier list.',
-    href: '#/guide/fe11',
-  },
-  {
     game: 'Fire Emblem 6',
     title: 'The Binding Blade',
     description: 'Chapter checklist with recruits, steals, and route splits.',
@@ -40,6 +27,19 @@ const cards: Card[] = [
     description: 'Chapter checklist with recruits, Eirika & Ephraim route split, and tier list.',
     href: '#/guide/fe8',
   },
+  {
+    game: 'Fire Emblem 11',
+    title: 'Shadow Dragon',
+    description: 'Gaiden chapter checklist with recruits and unit tier list.',
+    href: '#/guide/fe11',
+  },
+  {
+    game: 'Nintendo',
+    title: 'Games Worth Your Time',
+    description: 'Tier list and tracker across all Nintendo eras. No platformers.',
+    href: 'nintendo-games.html',
+    external: true,
+  },
 ];
 
 export function Landing() {
@@ -54,21 +54,12 @@ export function Landing() {
       </header>
       <div className="cards">
         {cards.map(card => (
-          card.external ? (
-            <a key={card.title} className="card" href={card.href}>
-              <div className="card-game">{card.game}</div>
-              <h2>{card.title}</h2>
-              <p>{card.description}</p>
-              <div className="card-arrow">Open guide →</div>
-            </a>
-          ) : (
-            <a key={card.title} className="card" href={card.href}>
-              <div className="card-game">{card.game}</div>
-              <h2>{card.title}</h2>
-              <p>{card.description}</p>
-              <div className="card-arrow">Open guide →</div>
-            </a>
-          )
+          <a key={card.title} className={`card${card.external ? ' card-full' : ''}`} href={card.href}>
+            <div className="card-game">{card.game}</div>
+            <h2>{card.title}</h2>
+            <p>{card.description}</p>
+            <div className="card-arrow">Open guide →</div>
+          </a>
         ))}
       </div>
     </div>
