@@ -148,6 +148,11 @@ export const TIERS = [
         "cls": null
       },
       {
+        "name": "Ellen",
+        "subtitle": "Cleric · Ch.1 · Only healer early; outclassed by Clarine",
+        "cls": null
+      },
+      {
         "name": "Geese",
         "subtitle": "Pirate · Ch.10A/11B · Decent, class limits utility",
         "cls": null
