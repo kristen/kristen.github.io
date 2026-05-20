@@ -37,8 +37,7 @@ const cards: Card[] = [
     game: 'Nintendo',
     title: 'Games Worth Your Time',
     description: 'Tier list and tracker across all Nintendo eras. No platformers.',
-    href: 'nintendo-games.html',
-    external: true,
+    href: '#/nintendo-games',
   },
 ];
 
