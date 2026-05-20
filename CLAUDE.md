@@ -118,6 +118,19 @@ After an intentional content change, regenerate snapshots:
 node tests/generate-snapshots.mjs
 ```
 
+## Firebase
+
+Firebase (v12) is used for optional Google Sign-In and Firestore cross-device sync.
+
+- **Config:** `.env.local` (git-ignored). Required vars: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`. CI reads these from GitHub secrets.
+- **`src/lib/firebase.ts`** — initializes app/auth/db; all exports are `null` if env vars are absent (graceful no-op for guests)
+- **`src/context/AuthContext.tsx`** — `AuthProvider` wraps the app; `useAuth()` gives `{ user, signIn, signOut }`
+- **`src/components/AuthButton.tsx`** — sign-in prompt / signed-in avatar shown in the guide header
+- **`src/hooks/useProgress.ts`** — on sign-in, merges local localStorage progress with Firestore (union: any checked item stays checked); writes to both on every toggle
+- **Firestore path (FE guides):** `users/{uid}/progress/{storageKey}` — document `{ done: Record<string, boolean> }`
+- **Firestore path (nintendo-games.html):** `users/{uid}/nintendo-games/game-data-v3` — document `{ value: "<json string>" }`
+- **nintendo-games.html** uses Firebase 10.x compat CDN scripts (no bundler), same Google Sign-In + merge-on-signin pattern
+
 ## Development
 
 Requires **Node 22** (see `.nvmrc`). Vite 8 will not start on Node 21 or earlier.

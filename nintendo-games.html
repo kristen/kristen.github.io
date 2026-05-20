@@ -7,6 +7,17 @@
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyDb0D-aTlYKxb7I_4Ion6gR-alDUfEKRX0",
+    authDomain: "kristen-github-io.firebaseapp.com",
+    projectId: "kristen-github-io",
+    appId: "1:683738492265:web:3c541ee3368191f2f961f8",
+  });
+</script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0d0f14; }
@@ -132,7 +143,7 @@ const TIERS = [
   { key:"A", color:"#e07840", bg:"#281500", label:"A — Excellent" },
   { key:"B", color:"#4da87e", bg:"#0d2018", label:"B — Very Good" },
   { key:"C", color:"#3b9dd2", bg:"#0d2030", label:"C — Worth Playing" },
-  { key:"D", color:"#777",    bg:"#181818", label:"D — Mixed / Niche" },
+  { key:"D", color:"#777777",    bg:"#181818", label:"D — Mixed / Niche" },
 ];
 const TIER_MAP = Object.fromEntries(TIERS.map(t=>[t.key,t]));
 
@@ -335,8 +346,28 @@ function GameCard({ game, status, tier, onStatus, onTier, compact=false }) {
   );
 }
 
+async function fbGetGameData(uid) {
+  try {
+    const snap = await firebase.firestore()
+      .collection('users').doc(uid)
+      .collection('nintendo-games').doc('game-data-v3')
+      .get();
+    return snap.exists ? JSON.parse(snap.data().value || '{}') : {};
+  } catch { return {}; }
+}
+
+async function fbSetGameData(uid, data) {
+  try {
+    await firebase.firestore()
+      .collection('users').doc(uid)
+      .collection('nintendo-games').doc('game-data-v3')
+      .set({ value: JSON.stringify(data) });
+  } catch {}
+}
+
 function GameList() {
   const [view, setView] = useState("List");
+  const [user, setUser] = useState(null);
   const [systemFilters, setSystemFilters] = useState(new Set());
   const [tagFilters, setTagFilters] = useState(new Set());
   const [statusFilters, setStatusFilters] = useState(new Set());
@@ -357,6 +388,27 @@ function GameList() {
     setMaxHours(null); setSortBy("default");
   };
   const hasActiveFilters = systemFilters.size>0||tagFilters.size>0||statusFilters.size>0||tierFilters.size>0||maxHours!==null||sortBy!=="default";
+
+  // Subscribe to Firebase auth state
+  useEffect(()=>{
+    return firebase.auth().onAuthStateChanged(u => setUser(u));
+  },[]);
+
+  // On sign-in: merge Firestore data with local, save union back to both
+  useEffect(()=>{
+    if (!user) return;
+    fbGetGameData(user.uid).then(remote => {
+      setUserData(prev => {
+        const merged = { ...remote };
+        Object.keys(prev).forEach(title => {
+          merged[title] = { ...(remote[title] || {}), ...prev[title] };
+        });
+        try { localStorage.setItem("game-data-v3", JSON.stringify(merged)); } catch {}
+        fbSetGameData(user.uid, merged);
+        return merged;
+      });
+    });
+  },[user]);
 
   useEffect(()=>{
     (async()=>{
@@ -387,9 +439,10 @@ function GameList() {
     })();
   },[]);
 
-  const save = async (next) => {
+  const save = (next) => {
     setUserData(next);
-    try { await storage.set("game-data-v3", JSON.stringify(next)); } catch{}
+    try { localStorage.setItem("game-data-v3", JSON.stringify(next)); } catch {}
+    if (user) fbSetGameData(user.uid, next);
   };
 
   const setField = (title,field,value) => {
@@ -458,6 +511,16 @@ function GameList() {
             ))}
           </div>
         )}
+        <div style={{marginBottom:"10px"}}>
+          {user ? (
+            <div style={{display:"flex",alignItems:"center",gap:"8px",justifyContent:"center"}}>
+              <span style={{color:"#4da87e",fontSize:"0.72rem"}}>✓ Syncing as {user.displayName||user.email}</span>
+              <button onClick={()=>firebase.auth().signOut()} style={{padding:"2px 10px",borderRadius:"999px",border:"1px solid #2a3a2a",background:"transparent",color:"#3a6a4a",fontSize:"0.68rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>Sign out</button>
+            </div>
+          ) : (
+            <button onClick={()=>firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())} style={{padding:"5px 16px",borderRadius:"999px",border:"1px solid #2e2e45",background:"transparent",color:"#7c6af7",fontSize:"0.75rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>Sign in with Google to sync across devices</button>
+          )}
+        </div>
         <div style={{display:"flex",gap:"6px",justifyContent:"center"}}>
           {VIEWS.map(v=>(
             <button key={v} onClick={()=>setView(v)} style={{padding:"5px 16px",borderRadius:"999px",border:view===v?"none":"1px solid #2e2e45",background:view===v?"#2e2e55":"transparent",color:view===v?"#c0bdff":"#4a4868",fontSize:"0.78rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{v}</button>
