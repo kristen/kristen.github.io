@@ -49,6 +49,14 @@
   transform: translateY(-50%);
 }
 
+@media(max-width:859px) {
+  .landing-auth {
+    position: static;
+    transform: none;
+    margin-top: 16px;
+  }
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;

@@ -32,6 +32,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
 .site-header{background:linear-gradient(180deg,var(--bg-deepest) 0%,var(--bg-page) 100%);border-bottom:1px solid var(--border-strong);padding:18px 24px 14px;text-align:center;position:sticky;top:0;z-index:20;position:relative}
 .auth-slot{position:absolute;top:50%;right:16px;transform:translateY(-50%)}
 .auth-prompt{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+@media(max-width:859px){
+  .auth-slot{position:static;transform:none;margin-top:10px}
+  .auth-prompt{align-items:center}
+}
 .auth-prompt-label{font-size:10px;color:var(--text-muted)}
 .auth-btn{background:transparent;border:1px solid var(--gold-muted);border-radius:6px;color:var(--text-secondary);cursor:pointer;font-size:11px;font-family:inherit;padding:5px 10px;transition:border-color .15s,color .15s}
 .auth-btn:hover{border-color:var(--gold);color:var(--text-primary)}
