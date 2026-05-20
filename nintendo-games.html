@@ -337,43 +337,59 @@ function GameCard({ game, status, tier, onStatus, onTier, compact=false }) {
 
 function GameList() {
   const [view, setView] = useState("List");
-  const [systemFilter, setSystemFilter] = useState("All");
-  const [tagFilter, setTagFilter] = useState("All");
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [tierFilter, setTierFilter] = useState("All");
+  const [systemFilters, setSystemFilters] = useState(new Set());
+  const [tagFilters, setTagFilters] = useState(new Set());
+  const [statusFilters, setStatusFilters] = useState(new Set());
+  const [tierFilters, setTierFilters] = useState(new Set());
+  const [maxHours, setMaxHours] = useState(null);
+  const [sortBy, setSortBy] = useState("default");
   const [userData, setUserData] = useState({});
   const [loaded, setLoaded] = useState(false);
 
+  const toggle = (setter, key) => setter(prev => {
+    const next = new Set(prev);
+    next.has(key) ? next.delete(key) : next.add(key);
+    return next;
+  });
+  const clearFilters = () => {
+    setSystemFilters(new Set()); setTagFilters(new Set());
+    setStatusFilters(new Set()); setTierFilters(new Set());
+    setMaxHours(null); setSortBy("default");
+  };
+  const hasActiveFilters = systemFilters.size>0||tagFilters.size>0||statusFilters.size>0||tierFilters.size>0||maxHours!==null||sortBy!=="default";
+
   useEffect(()=>{
-    let merged = {};
-    for (const key of ["game-statuses","game-statuses-v2"]) {
+    (async()=>{
+      let merged = {};
+      for (const key of ["game-statuses","game-statuses-v2"]) {
+        try {
+          const r = await storage.get(key);
+          if(r?.value){
+            const old = JSON.parse(r.value);
+            Object.entries(old).forEach(([title,status])=>{
+              if(!merged[title]) merged[title]={};
+              merged[title].status = status;
+            });
+          }
+        } catch{}
+      }
       try {
-        const val = localStorage.getItem(key);
-        if(val){
-          const old = JSON.parse(val);
-          Object.entries(old).forEach(([title,status])=>{
-            if(!merged[title]) merged[title]={};
-            merged[title].status = status;
+        const r = await storage.get("game-data-v3");
+        if(r?.value){
+          const full = JSON.parse(r.value);
+          Object.entries(full).forEach(([title,d])=>{
+            merged[title]={...merged[title],...d};
           });
         }
       } catch{}
-    }
-    try {
-      const val = localStorage.getItem("game-data-v3");
-      if(val){
-        const full = JSON.parse(val);
-        Object.entries(full).forEach(([title,d])=>{
-          merged[title]={...merged[title],...d};
-        });
-      }
-    } catch{}
-    setUserData(merged);
-    setLoaded(true);
+      setUserData(merged);
+      setLoaded(true);
+    })();
   },[]);
 
-  const save = (next) => {
+  const save = async (next) => {
     setUserData(next);
-    try { localStorage.setItem("game-data-v3", JSON.stringify(next)); } catch{}
+    try { await storage.set("game-data-v3", JSON.stringify(next)); } catch{}
   };
 
   const setField = (title,field,value) => {
@@ -382,20 +398,36 @@ function GameList() {
   };
 
   const getStatus = (title) => userData[title]?.status||"none";
-  const getUserTier = (title) => userData[title]?.tier;
+  const getUserTier = (title) => userData[title]?.tier; // undefined = use default
   const getEffectiveTier = (title) => userData[title]?.tier !== undefined ? userData[title].tier : games.find(g=>g.title===title)?.tier||null;
 
   const allTags = ["All",...Array.from(new Set(games.flatMap(g=>g.tags))).sort()];
   const activeSystems = ["All",...SYSTEMS_ORDER.filter(s=>games.some(g=>g.systems.includes(s)))];
 
-  const filtered = games.filter(g=>{
-    const sysMatch = systemFilter==="All"||g.systems.includes(systemFilter);
-    const tagMatch = tagFilter==="All"||g.tags.includes(tagFilter);
+  const parseHoursMin = (h) => { const m = h.match(/\d+/); return m ? parseInt(m[0]) : 999; };
+
+  const TIME_BUCKETS = [
+    { label:"≤ 10h", max:10 },
+    { label:"≤ 20h", max:20 },
+    { label:"≤ 30h", max:30 },
+    { label:"≤ 50h", max:50 },
+    { label:"≤ 80h", max:80 },
+  ];
+
+  const filtered = games.filter(g => {
+    const sysMatch = systemFilters.size===0 || g.systems.some(s=>systemFilters.has(s));
+    const tagMatch = tagFilters.size===0 || g.tags.some(t=>tagFilters.has(t));
     const gs = getStatus(g.title);
-    const statusMatch = statusFilter==="all"||(statusFilter==="tracked"&&gs!=="none")||gs===statusFilter;
+    const statusMatch = statusFilters.size===0 || statusFilters.has(gs);
     const et = getEffectiveTier(g.title);
-    const tierMatch = tierFilter==="All"||et===tierFilter;
-    return sysMatch&&tagMatch&&statusMatch&&tierMatch;
+    const tierMatch = tierFilters.size===0 || tierFilters.has(et);
+    const timeMatch = maxHours===null || parseHoursMin(g.hours) <= maxHours;
+    return sysMatch && tagMatch && statusMatch && tierMatch && timeMatch;
+  });
+
+  const sorted = sortBy==="default" ? filtered : [...filtered].sort((a,b) => {
+    const av = parseHoursMin(a.hours), bv = parseHoursMin(b.hours);
+    return sortBy==="asc" ? av-bv : bv-av;
   });
 
   const counts = STATUSES.slice(1).reduce((acc,s)=>{
@@ -437,31 +469,62 @@ function GameList() {
       {view==="List"&&(
         <>
           <div style={{maxWidth:"900px",margin:"0 auto",padding:"12px 16px 0"}}>
-            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
-              {[{key:"all",label:"All"},{key:"tracked",label:"📋 Tracked"},...STATUSES.slice(1).map(s=>({key:s.key,label:`${s.emoji} ${s.label}`}))].map(opt=>(
-                <button key={opt.key} onClick={()=>setStatusFilter(opt.key)} style={{padding:"3px 10px",borderRadius:"999px",border:statusFilter===opt.key?"none":"1px solid #252535",background:statusFilter===opt.key?"#252540":"transparent",color:statusFilter===opt.key?"#b0addd":"#4a4868",fontSize:"0.7rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{opt.label}</button>
-              ))}
-            </div>
-            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
-              {["All",...TIERS.map(t=>t.key)].map(tk=>{
-                const t=TIER_MAP[tk];const active=tierFilter===tk;
-                return <button key={tk} onClick={()=>setTierFilter(tk)} style={{padding:"3px 9px",borderRadius:"5px",border:active?"none":`1px solid ${t?t.color+"33":"#252535"}`,background:active?(t?t.bg:"#252540"):"transparent",color:active?(t?t.color:"#b0addd"):(t?t.color+"99":"#4a4868"),fontSize:"0.7rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{tk==="All"?"All Tiers":`${tk} — ${t?.label.split("—")[1].trim()}`}</button>;
+            {/* Status — multi-select */}
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px",alignItems:"center"}}>
+              <span style={{color:"#3a3858",fontSize:"0.65rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.06em",marginRight:"2px"}}>Status</span>
+              {STATUSES.slice(1).map(s=>{
+                const on=statusFilters.has(s.key);
+                return <button key={s.key} onClick={()=>toggle(setStatusFilters,s.key)} style={{padding:"3px 10px",borderRadius:"999px",border:on?`1px solid ${s.color}88`:"1px solid #252535",background:on?s.bg:"transparent",color:on?s.color:"#4a4868",fontSize:"0.7rem",fontWeight:on?700:500,cursor:"pointer",fontFamily:"inherit"}}>{s.emoji} {s.label}</button>;
               })}
             </div>
-            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px"}}>
-              {activeSystems.map(sys=>{
-                const active=systemFilter===sys;
-                return <button key={sys} onClick={()=>setSystemFilter(sys)} style={{padding:"2px 8px",borderRadius:"4px",border:active?"none":`1px solid ${SYSTEM_COLORS[sys]||"#252535"}55`,background:active?(SYSTEM_COLORS[sys]||"#444"):"transparent",color:active?"#fff":(SYSTEM_COLORS[sys]||"#4a4868")+"99",fontSize:"0.67rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{sys}</button>;
+            {/* Tier — multi-select */}
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px",alignItems:"center"}}>
+              <span style={{color:"#3a3858",fontSize:"0.65rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.06em",marginRight:"2px"}}>Tier</span>
+              {TIERS.map(t=>{
+                const on=tierFilters.has(t.key);
+                return <button key={t.key} onClick={()=>toggle(setTierFilters,t.key)} style={{padding:"3px 9px",borderRadius:"5px",border:on?`1px solid ${t.color}88`:`1px solid ${t.color}33`,background:on?t.bg:"transparent",color:on?t.color:t.color+"77",fontSize:"0.7rem",fontWeight:on?900:500,cursor:"pointer",fontFamily:"inherit"}}>{t.key} — {t.label.split("—")[1].trim()}</button>;
               })}
             </div>
-            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"10px"}}>
-              {allTags.map(tag=>{const active=tagFilter===tag;return <button key={tag} onClick={()=>setTagFilter(tag)} style={{padding:"2px 7px",borderRadius:"999px",border:active?"none":"1px solid #252535",background:active?(tagColors[tag]||"#7c6af7"):"transparent",color:active?"#fff":"#4a4868",fontSize:"0.65rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{tag}</button>;})}
+            {/* System — multi-select */}
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px",alignItems:"center"}}>
+              <span style={{color:"#3a3858",fontSize:"0.65rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.06em",marginRight:"2px"}}>System</span>
+              {SYSTEMS_ORDER.filter(s=>games.some(g=>g.systems.includes(s))).map(sys=>{
+                const on=systemFilters.has(sys);
+                const col=SYSTEM_COLORS[sys]||"#666";
+                return <button key={sys} onClick={()=>toggle(setSystemFilters,sys)} style={{padding:"2px 8px",borderRadius:"4px",border:on?"none":`1px solid ${col}44`,background:on?col:"transparent",color:on?"#fff":col+"99",fontSize:"0.67rem",fontWeight:700,cursor:"pointer",fontFamily:"inherit"}}>{sys}</button>;
+              })}
             </div>
-            <p style={{color:"#2a2848",fontSize:"0.7rem",margin:"0 0 10px"}}>Showing {filtered.length} of {games.length} games</p>
+            {/* Tag — multi-select */}
+            <div style={{display:"flex",gap:"4px",flexWrap:"wrap",marginBottom:"6px",alignItems:"center"}}>
+              <span style={{color:"#3a3858",fontSize:"0.65rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.06em",marginRight:"2px"}}>Genre</span>
+              {Array.from(new Set(games.flatMap(g=>g.tags))).sort().map(tag=>{
+                const on=tagFilters.has(tag);
+                return <button key={tag} onClick={()=>toggle(setTagFilters,tag)} style={{padding:"2px 7px",borderRadius:"999px",border:on?"none":"1px solid #252535",background:on?(tagColors[tag]||"#7c6af7"):"transparent",color:on?"#fff":"#4a4868",fontSize:"0.65rem",fontWeight:on?700:500,cursor:"pointer",fontFamily:"inherit"}}>{tag}</button>;
+              })}
+            </div>
+            {/* Time filter + sort */}
+            <div style={{display:"flex",gap:"6px",flexWrap:"wrap",alignItems:"center",marginBottom:"8px",paddingTop:"6px",borderTop:"1px solid #1e2030"}}>
+              <span style={{color:"#3a3858",fontSize:"0.65rem",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.06em"}}>Time</span>
+              <div style={{display:"flex",gap:"3px",flexWrap:"wrap"}}>
+                <button onClick={()=>setMaxHours(null)} style={{padding:"2px 8px",borderRadius:"999px",border:maxHours===null?"none":"1px solid #252535",background:maxHours===null?"#252540":"transparent",color:maxHours===null?"#b0addd":"#4a4868",fontSize:"0.67rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>Any</button>
+                {TIME_BUCKETS.map(b=>(
+                  <button key={b.max} onClick={()=>setMaxHours(b.max)} style={{padding:"2px 8px",borderRadius:"999px",border:maxHours===b.max?"none":"1px solid #252535",background:maxHours===b.max?"#152515":"transparent",color:maxHours===b.max?"#4da87e":"#4a4868",fontSize:"0.67rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{b.label}</button>
+                ))}
+              </div>
+              <div style={{display:"flex",gap:"3px",marginLeft:"auto",flexWrap:"wrap"}}>
+                {[{key:"default",label:"Default"},{key:"asc",label:"⏱ Short→Long"},{key:"desc",label:"⏱ Long→Short"}].map(s=>(
+                  <button key={s.key} onClick={()=>setSortBy(s.key)} style={{padding:"2px 9px",borderRadius:"999px",border:sortBy===s.key?"none":"1px solid #252535",background:sortBy===s.key?"#1a1535":"transparent",color:sortBy===s.key?"#7c6af7":"#4a4868",fontSize:"0.67rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit",whiteSpace:"nowrap"}}>{s.label}</button>
+                ))}
+              </div>
+            </div>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:"10px"}}>
+              <p style={{color:"#2a2848",fontSize:"0.7rem",margin:0}}>Showing {sorted.length} of {games.length} games</p>
+              {hasActiveFilters&&<button onClick={clearFilters} style={{padding:"2px 10px",borderRadius:"999px",border:"1px solid #3a2020",background:"transparent",color:"#805050",fontSize:"0.67rem",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>✕ Clear all filters</button>}
+            </div>
           </div>
           <div style={{maxWidth:"900px",margin:"0 auto",padding:"0 16px",display:"flex",flexDirection:"column",gap:"8px"}}>
-            {filtered.length===0&&<div style={{textAlign:"center",color:"#3a3858",padding:"40px 0"}}>No games match this filter.</div>}
-            {filtered.map(game=>(
+            {sorted.length===0&&<div style={{textAlign:"center",color:"#3a3858",padding:"40px 0"}}>No games match this filter.</div>}
+            {sorted.map(game=>(
               <GameCard key={game.title} game={game}
                 status={getStatus(game.title)}
                 tier={getUserTier(game.title)}
