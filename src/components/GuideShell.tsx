@@ -101,7 +101,7 @@ export function GuideShell({ config }: Props) {
           </div>
         </div>
       </div>
-      {showScrollTop && activeTab === 'chapters' && (
+      {showScrollTop && (
         <button
           className="scroll-top-btn"
           onClick={() => chapColRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
