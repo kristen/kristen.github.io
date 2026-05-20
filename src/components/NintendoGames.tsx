@@ -45,7 +45,6 @@ const TIERS = [
   { key:"A", color:"#e07840", bg:"#281500", label:"A — Excellent" },
   { key:"B", color:"#4da87e", bg:"#0d2018", label:"B — Very Good" },
   { key:"C", color:"#3b9dd2", bg:"#0d2030", label:"C — Worth Playing" },
-  { key:"D", color:"#777777", bg:"#181818", label:"D — Mixed / Niche" },
 ];
 const TIER_MAP = Object.fromEntries(TIERS.map(t => [t.key, t]));
 
