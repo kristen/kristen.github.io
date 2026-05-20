@@ -46,7 +46,8 @@
     "badgeText": null,
     "recruits": [
       "Gilliam — Joins from the west as an ally NPC",
-      "Vanessa — Peg. Knight; arrives as reinforcement from the east"
+      "Vanessa — Peg. Knight; arrives as reinforcement from the east",
+      "Moulder — NPC ally; joins automatically after surviving"
     ],
     "items": [
       "Vulnerary (village)"
@@ -65,15 +66,22 @@
     "badge": null,
     "badgeText": null,
     "recruits": [
-      "Moulder — NPC ally; joins automatically after surviving",
-      "Ross — Visit the house with Eirika (or nearby); he and Garcia join together",
-      "Garcia — Joins with Ross; strong Fighter with good growths"
+      "Ross — Visit the house with Eirika; he and Garcia join together",
+      "Garcia — Joins with Ross; strong Fighter with good growths",
+      "Neimi — Visit the eastern house",
+      "Colm — Enemy Thief; have Neimi (or Eirika) talk to him before he moves away"
     ],
     "items": [
       "Hatchet (village)"
     ],
-    "steal": [],
+    "steal": [
+      "Antitoxin (Mercenary near Bazba)",
+      "Pure Water (Fighter outside throne room)",
+      "Chest Key (enemy)",
+      "Door Key (enemy)"
+    ],
     "warns": [
+      "Do not kill Colm — he is your only early thief",
       "Ross is a Journeyman trainee — give him early kills; his double-promotion at level 10 is worth the investment"
     ]
   },
@@ -86,16 +94,16 @@
     "badge": null,
     "badgeText": null,
     "recruits": [
-      "Neimi — Visit the eastern house",
-      "Colm — Enemy Thief; have Neimi (or Eirika) talk to him before he moves away"
+      "Artur — NPC ally Monk; arrives from the north",
+      "Lute — Visit the village; she joins automatically"
     ],
     "items": [
       "Chest Key (village)"
     ],
     "steal": [],
     "warns": [
-      "Do not kill Colm — he is your only early thief",
-      "Monsters (Revenants) are introduced here; magic and critical hits are effective"
+      "Monsters (Revenants) are introduced here; magic and critical hits are effective",
+      "Lute has the highest magic growth in the game but needs EXP to get going"
     ]
   },
   {
@@ -108,8 +116,7 @@
     "badgeText": null,
     "recruits": [
       "Natasha — NPC ally Cleric; rescue her and keep her alive",
-      "Joshua — Enemy Myrmidon; NATASHA must talk to him (he is a hired guard who can be persuaded)",
-      "Artur — NPC ally Monk; arrives from the north"
+      "Joshua — Enemy Myrmidon; NATASHA must talk to him (he is a hired guard who can be persuaded)"
     ],
     "items": [
       "Elfire (village)"
@@ -122,44 +129,64 @@
   },
   {
     "type": "ch",
+    "id": "c5x",
+    "num": "Ch. 5x",
+    "name": "Unbroken Heart",
+    "cls": null,
+    "badge": null,
+    "badgeText": null,
+    "recruits": [],
+    "items": [
+      "Elixir ×2 (chests)",
+      "Killer Lance (chest)"
+    ],
+    "steal": [
+      "Elixir (enemy)",
+      "Chest Key ×2 (Mage and Fighter, west)",
+      "Door Key (enemy)"
+    ],
+    "warns": [
+      "Mandatory interlude — you control Ephraim, Kyle, and Forde; they officially join your army in Ch. 8",
+      "Items collected here carry over to the main game",
+      "Orson appears here as an ally; he later betrays you — story context only"
+    ]
+  },
+  {
+    "type": "ch",
     "id": "c6",
     "num": "Ch. 6",
     "name": "Victims of War",
     "cls": null,
     "badge": null,
     "badgeText": null,
-    "recruits": [
-      "Lute — Visit the village; she joins automatically"
-    ],
+    "recruits": [],
     "items": [
       "Chest contents — bring Colm for the locked chests"
     ],
     "steal": [],
-    "warns": [
-      "Lute has the highest magic growth in the game but needs EXP to get going"
-    ]
+    "warns": []
   },
   {
     "type": "ch",
     "id": "c7",
     "num": "Ch. 7",
-    "name": "Silent Contenders",
+    "name": "Waterside Renvall",
     "cls": null,
     "badge": null,
     "badgeText": null,
     "recruits": [
-      "Tana — Frelian Peg. Knight; rescued or joins as story NPC ally after the chapter"
+      "Tana — Frelian Peg. Knight; rescued from Renvall; joins after the chapter"
     ],
-    "items": [],
-    "steal": [],
+    "items": [
+      "Knight Crest (chest)",
+      "Pure Water (chest)"
+    ],
+    "steal": [
+      "Energy Ring (Mage at center — high-value stat booster, raises Str/Mag)"
+    ],
     "warns": [
       "Tana is needed to recruit Cormag on Ephraim's route later — keep her trained"
     ]
-  },
-  {
-    "type": "save",
-    "title": "Save before Ch. 8 — route split at end of this chapter",
-    "body": "After Ch. 8 you permanently choose <b>Eirika's route</b> or <b>Ephraim's route</b> for this save file (Ch. 9–14 differ completely). <b>Ephraim's route is recommended for first-time players</b> — it is the only route with Tethys, the game's sole dancer. Duplicate your save here to experience both routes. The Tower of Valni also opens on the world map around this point — use it to grind skirmishes and levels at any time."
   },
   {
     "type": "ch",
@@ -175,11 +202,18 @@
       "Forde — Story join with Ephraim (Cavalier, speed-focused)"
     ],
     "items": [],
-    "steal": [],
+    "steal": [
+      "Door Key (enemy)"
+    ],
     "warns": [
       "Ephraim's party bursts in as the chapter resolves — no action needed to recruit them",
       "Choose your route when prompted after the chapter ends"
     ]
+  },
+  {
+    "type": "save",
+    "title": "Save before Ch. 8 — route split at end of this chapter",
+    "body": "After Ch. 8 you permanently choose <b>Eirika's route</b> or <b>Ephraim's route</b> for this save file (Ch. 9–14 differ completely). <b>Ephraim's route is recommended for first-time players</b> — it is the only route with Tethys, the game's sole dancer. Duplicate your save here to experience both routes. The Tower of Valni also opens on the world map around this point — use it to grind skirmishes and levels at any time."
   },
   {
     "type": "split",
@@ -221,7 +255,9 @@
     "items": [
       "Angelic Robe (village)"
     ],
-    "steal": [],
+    "steal": [
+      "Red Gem (Myrmidon)"
+    ],
     "warns": [
       "Position Gerik near Marisa quickly — she moves and will advance into your lines",
       "Do not kill Marisa; she is an excellent Swordmaster"
@@ -239,8 +275,14 @@
       "Duessel — Story join; the Obsidian, a veteran Grado general who refuses to fight his old allies",
       "Tana — Joins as NPC/story ally (escaped to find Ephraim)"
     ],
-    "items": [],
-    "steal": [],
+    "items": [
+      "Ocean Seal (chest)",
+      "Restore (chest)",
+      "2500G (chest)"
+    ],
+    "steal": [
+      "Red Gem (Archer, center)"
+    ],
     "warns": [
       "Duessel has excellent base stats as a Great Knight — deploy him immediately",
       "Keep Tana alive and trained; she is required to recruit Cormag in Ch. 10"
@@ -260,7 +302,10 @@
     "items": [
       "Chest contents — use Colm"
     ],
-    "steal": [],
+    "steal": [
+      "Red Gem (Myrmidon, north)",
+      "Talisman (Pegasus Knight reinforcement)"
+    ],
     "warns": [
       "Innes is a Ranger (promotes to Sniper or Ranger); his high Skill and Spd make him reliable"
     ]
@@ -276,7 +321,10 @@
     "recruits": [
       "Cormag — Enemy Wyvern Rider; TANA must talk to him (his brother Glen was killed on enemy orders and he seeks new purpose)"
     ],
-    "items": [],
+    "items": [
+      "Hero Crest (chest)",
+      "Torch (chest)"
+    ],
     "steal": [],
     "warns": [
       "Only Tana can recruit Cormag — have her intercept him before he engages your units",
@@ -351,7 +399,10 @@
       "Ewan — Pupil trainee; visit the house (Tethys's companion and student)",
       "Amelia — Enemy Soldier; Ephraim or Duessel talks to her"
     ],
-    "items": [],
+    "items": [
+      "Guiding Ring (chest)",
+      "Elfire (chest)"
+    ],
     "steal": [],
     "warns": [
       "TETHYS IS IRREPLACEABLE — she is the only dancer in the entire game; never put her in danger",
@@ -370,7 +421,10 @@
       "Gerik — If not recruited in Ch. 9, he joins here as an NPC ally"
     ],
     "items": [],
-    "steal": [],
+    "steal": [
+      "Red Gem (Priest near Aias)",
+      "Body Ring (Brigand reinforcement)"
+    ],
     "warns": []
   },
   {
@@ -384,8 +438,14 @@
     "recruits": [
       "L'Arachel — Joins here on Ephraim's route (with Dozla and Rennac; same recruit conditions apply)"
     ],
-    "items": [],
-    "steal": [],
+    "items": [
+      "Energy Ring (chest)",
+      "Talisman (chest)"
+    ],
+    "steal": [
+      "Red Gem (Great Knight, center)",
+      "Speedwing (Mage, south)"
+    ],
     "warns": [
       "L'Arachel recruit note: have her talk to Rennac to avoid the 10,000G fee"
     ]
@@ -400,7 +460,9 @@
     "badgeText": "Eirika",
     "recruits": [],
     "items": [
-      "Warp (hidden — check desert tile; move mounted/flying units over sand to search)"
+      "Warp (hidden — check desert tile; move mounted/flying units over sand to search)",
+      "Audhulma — Sacred Twin sword (Eirika route)",
+      "Excalibur — Sacred Twin wind tome (Eirika route)"
     ],
     "steal": [],
     "warns": [
@@ -417,8 +479,17 @@
     "badge": "ephraim",
     "badgeText": "Ephraim",
     "recruits": [],
-    "items": [],
-    "steal": [],
+    "items": [
+      "Gleipnir — Sacred Twin dark tome (Ephraim route)",
+      "Garm — Sacred Twin axe (Ephraim route)",
+      "Angelic Robe (chest)",
+      "Guiding Ring (chest)",
+      "Hammerne (chest)",
+      "10000G (chest)"
+    ],
+    "steal": [
+      "Body Ring (Archer, northwest)"
+    ],
     "warns": [
       "Final Ephraim-route chapter; routes converge at Ch. 15"
     ]
@@ -437,7 +508,9 @@
     "items": [
       "Speedwings (village)"
     ],
-    "steal": [],
+    "steal": [
+      "Guiding Ring (Shaman with Eclipse — promotes mage-type units)"
+    ],
     "warns": [
       "Knoll can become a Summoner — a unique class that summons Phantom units to block passages; niche but fun",
       "Both routes converge here — all of your route-specific characters carry forward"
@@ -458,7 +531,9 @@
     "items": [
       "Physic (village)"
     ],
-    "steal": [],
+    "steal": [
+      "Red Gem (Sage — Eirika side; or Great Knight reinforcement — Ephraim side)"
+    ],
     "warns": [
       "Myrrh's Dragonstone has limited uses — do not waste it on weak enemies",
       "Use a Hammerne staff on Myrrh's stone when it wears low"
@@ -507,11 +582,13 @@
     "badgeText": null,
     "recruits": [],
     "items": [
-      "Garm — legendary axe; dropped by the boss or obtained at end of chapter"
+      "Garm — legendary axe; dropped by the boss"
     ],
-    "steal": [],
+    "steal": [
+      "Goddess Icon (Archer to the north — raises Luck)"
+    ],
     "warns": [
-      "Boss carries Garm (Sacred Twins weapon) — kill or steal it",
+      "Boss carries Garm (Sacred Twins weapon) — kill him to obtain it",
       "Prepare for the final stretch; use remaining stat boosters now"
     ]
   },
