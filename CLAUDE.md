@@ -61,6 +61,8 @@ src/
     ProgressBar.tsx           # wide + narrow variants
   utils/
     recruitedNames.js         # parseRecruitNames, computeRecruitedNames, isUnitRecruited — plain JS so Node tests can import it
+    stealItems.js             # singularizeSteal, expandStealEntry, expandStealList — steal checkbox expansion logic
+    progressUtils.js          # getChIds, mergeProgress — progress state helpers
   data/
     nintendo-games.js         # 89-game list for NintendoGames component
 ```

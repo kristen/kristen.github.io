@@ -1,3 +1,5 @@
+import { expandStealList } from '../utils/stealItems.js';
+
 interface Props {
   chapterId: string;
   labels: string[];
@@ -5,30 +7,6 @@ interface Props {
   variant: 'recruit' | 'item' | 'steal';
   done: Record<string, boolean>;
   onToggle: (key: string) => void;
-}
-
-function singularizeSteal(name: string): string {
-  if (/ies$/i.test(name)) return name.replace(/ies$/i, 'y');
-  if (/s$/i.test(name) && !/ss$/i.test(name)) return name.replace(/s$/i, '');
-  return name;
-}
-
-function expandStealEntry(s: string): string[] {
-  s = s.trim();
-  if (/infinite/i.test(s))
-    return s.includes('farm') ? [s] : ['Vulneraries (infinite — farm as needed)'];
-  const m = s.match(/^(.+?)\s*[×x](\d+)(?:\s+.+)?$/i);
-  if (m) {
-    const base = singularizeSteal(m[1].trim());
-    const n = parseInt(m[2], 10);
-    return Array.from({ length: n }, (_, i) => `${base} (steal ${i + 1}/${n})`);
-  }
-  if (/\(|from\b/i.test(s)) return [s];
-  return [`${s} (steal)`];
-}
-
-function expandStealList(arr: string[]): string[] {
-  return arr.flatMap(expandStealEntry);
 }
 
 export function SubItemList({ chapterId, labels, keyPrefix, variant, done, onToggle }: Props) {

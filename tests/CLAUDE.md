@@ -10,13 +10,13 @@ Two kinds of tests:
 
 ```
 # All tests
-node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs tests/fe11.test.mjs tests/recruited-names.test.mjs
+node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs tests/fe11.test.mjs tests/recruited-names.test.mjs tests/steal-items.test.mjs tests/progress-utils.test.mjs
 
 # Content regressions only
 node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs tests/fe11.test.mjs
 
 # Unit tests only
-node --test tests/recruited-names.test.mjs
+node --test tests/recruited-names.test.mjs tests/steal-items.test.mjs tests/progress-utils.test.mjs
 ```
 
 After an intentional content change, regenerate snapshots and commit them alongside the data change:
@@ -31,6 +31,8 @@ node tests/generate-snapshots.mjs
 - `generate-snapshots.mjs` — writes `snapshots/feN.chapters.json` and `snapshots/feN.tiers.json`
 - `fe6/fe7/fe8/fe11.test.mjs` — compare live-extracted content against snapshots
 - `recruited-names.test.mjs` — unit tests for `src/utils/recruitedNames.js` (name parsing, set computation, unit matching)
+- `steal-items.test.mjs` — unit tests for `src/utils/stealItems.js` (singularize, expand entry, expand list)
+- `progress-utils.test.mjs` — unit tests for `src/utils/progressUtils.js` (getChIds, mergeProgress)
 - `snapshots/` — frozen baseline; commit changes here only when content is intentionally updated
 
 ## CI

@@ -3,14 +3,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import type { Item } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../lib/firebase';
-
-function getChIds(items: Item[]): string[] {
-  return items.flatMap(i => {
-    if (i.type === 'ch') return [i.id];
-    if (i.type === 'pair') return i.pair.map(p => p.id);
-    return [];
-  });
-}
+import { getChIds, mergeProgress } from '../utils/progressUtils.js';
 
 function loadLocal(storageKey: string): Record<string, boolean> {
   try {
@@ -22,14 +15,6 @@ function loadLocal(storageKey: string): Record<string, boolean> {
 
 function saveLocal(storageKey: string, done: Record<string, boolean>) {
   try { localStorage.setItem(storageKey, JSON.stringify(done)); } catch {}
-}
-
-function mergeProgress(a: Record<string, boolean>, b: Record<string, boolean>): Record<string, boolean> {
-  const result: Record<string, boolean> = { ...a };
-  for (const key of Object.keys(b)) {
-    if (b[key]) result[key] = true;
-  }
-  return result;
 }
 
 async function loadFirestore(uid: string, storageKey: string): Promise<Record<string, boolean>> {
