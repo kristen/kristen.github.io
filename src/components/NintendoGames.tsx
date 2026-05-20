@@ -241,9 +241,9 @@ function GameCard({ game, status, tier, onStatus, onTier, compact = false }: {
       border:`1px solid ${isBeaten?"#1e3a2a":"#1e2030"}`,
       borderRadius:"10px",padding:compact?"9px 13px":"13px 17px",
       display:"grid",gridTemplateColumns:"1fr auto",
-      gap:"10px",alignItems:"start",opacity:isBeaten?0.68:1,
+      gap:"10px",alignItems:"start",
     }}>
-      <div>
+      <div style={{opacity:isBeaten?0.68:1}}>
         <div style={{display:"flex",alignItems:"center",gap:"6px",flexWrap:"wrap",marginBottom:"4px"}}>
           <span style={{
             fontSize:"0.95rem",fontWeight:700,
