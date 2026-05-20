@@ -21,8 +21,9 @@ Uses `HashRouter` — all routes are `/#/...`:
 | `/#/guide/fe7` | FE7 Blazing Blade guide |
 | `/#/guide/fe8` | FE8 Sacred Stones guide |
 | `/#/guide/fe11` | FE11 Shadow Dragon guide |
+| `/#/nintendo-games` | Nintendo Games tracker |
 
-Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) live at the repo root. The CI workflow copies them into `dist/` after `npm run build` before deploying to GitHub Pages.
+One non-React page (`fe-shadow-dragon-guide.html`) lives at the repo root. The CI workflow copies it into `dist/` after `npm run build` before deploying to GitHub Pages.
 
 ## File structure
 
@@ -49,6 +50,7 @@ src/
     Landing.tsx               # card grid
     GuidePage.tsx             # reads :guideKey, renders GuideShell
     GuideShell.tsx            # two-column layout + header + mobile tabs
+    NintendoGames.tsx         # Nintendo Games tracker (/#/nintendo-games)
     ChapterList.tsx           # maps items array
     ChapterRow.tsx            # single chapter row
     ChapterPair.tsx           # side-by-side pair
@@ -57,6 +59,8 @@ src/
     SubItemList.tsx           # recruit / item / steal sub-checklist
     TierList.tsx              # tier list
     ProgressBar.tsx           # wide + narrow variants
+  data/
+    nintendo-games.js         # 89-game list for NintendoGames component
 ```
 
 ## GuideConfig
@@ -129,7 +133,7 @@ Firebase (v12) is used for optional Google Sign-In and Firestore cross-device sy
 - **`src/hooks/useProgress.ts`** — on sign-in, merges local localStorage progress with Firestore (union: any checked item stays checked); writes to both on every toggle
 - **Firestore path (FE guides):** `users/{uid}/progress/{storageKey}` — document `{ done: Record<string, boolean> }`
 - **Firestore path (nintendo-games.html):** `users/{uid}/nintendo-games/game-data-v3` — document `{ value: "<json string>" }`
-- **nintendo-games.html** uses Firebase 10.x compat CDN scripts (no bundler), same Google Sign-In + merge-on-signin pattern
+- **`src/components/NintendoGames.tsx`** uses the same `useAuth()` + modular Firebase SDK pattern; Firestore path: `users/{uid}/nintendo-games/game-data-v3`
 
 ## Development
 
