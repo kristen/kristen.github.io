@@ -12,7 +12,7 @@ export function ChapterRow({ item, done, onToggle }: Props) {
   const cls = ['ch-row', isDone ? 'done' : '', item.cls || ''].filter(Boolean).join(' ');
 
   return (
-    <div className={cls}>
+    <div className={cls} id={item.id}>
       <div className="ch-main">
         <div className="ch-header" onClick={e => { e.stopPropagation(); onToggle(item.id); }}>
           <div className="ch-check">
