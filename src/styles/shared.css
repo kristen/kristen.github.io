@@ -147,6 +147,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
 .tier-units{flex:1;padding:8px 10px;display:flex;flex-wrap:wrap;gap:5px;background:var(--bg-card)}
 .unit-chip{font-size:12px;padding:3px 9px;border-radius:8px;border:1px solid var(--border-subtle);background:var(--bg-sunken);color:var(--text-primary);line-height:1.4}
 .unit-chip small{display:block;font-size:10px;color:var(--text-muted);margin-top:1px}
+.unit-recruited-icon{font-size:9px;color:#4caf50;margin-left:4px;vertical-align:middle;position:relative;top:-1px}
 .tier-s .tier-label{background:rgba(255,127,127,0.25); color:#ff7f7f}
 .tier-a .tier-label{background:rgba(255,170,102,0.25); color:#ffaa66}
 .tier-b .tier-label{background:rgba(255,255,102,0.25); color:#efef50}

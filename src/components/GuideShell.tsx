@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import type { GuideConfig } from '../types';
 import { useProgress } from '../hooks/useProgress';
 import { ProgressBar } from './ProgressBar';
@@ -16,6 +16,25 @@ export function GuideShell({ config }: Props) {
   const chapColRef = useRef<HTMLDivElement>(null);
   const tierColRef = useRef<HTMLDivElement>(null);
   const { done, toggle, completedCount, totalCount } = useProgress(config.storageKey, config.items);
+
+  const recruitedNames = useMemo(() => {
+    const result = new Set<string>();
+    for (const item of config.items) {
+      const chapters = item.type === 'ch' ? [item] : item.type === 'pair' ? item.pair : [];
+      for (const ch of chapters) {
+        (ch.recruits ?? []).forEach((recruitStr: string, idx: number) => {
+          if (done[ch.id + '_recruit' + idx]) {
+            recruitStr.split(/—|–/)[0]
+              .split(/,\s*|\s*&\s*/)
+              .map((n: string) => n.trim().toLowerCase())
+              .filter(Boolean)
+              .forEach((n: string) => result.add(n));
+          }
+        });
+      }
+    }
+    return result;
+  }, [config.items, done]);
 
   useEffect(() => {
     const col = chapColRef.current;
@@ -98,6 +117,7 @@ export function GuideShell({ config }: Props) {
               tiers={config.tiers}
               philosophy={config.tierPhilosophy}
               tip={config.tierTip}
+              recruitedNames={recruitedNames}
             />
           </div>
         </div>
