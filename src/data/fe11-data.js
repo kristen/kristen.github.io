@@ -2,28 +2,28 @@ export const ITEMS = [
   {
     "type": "save",
     "title": "Gaiden chapter system — how to unlock optional maps",
-    "body": "End any chapter with <b>≤15 units alive in your army</b> to unlock the next Gaiden chapter. Gaiden chapters contain rare items and exclusive recruits — most importantly Wendell (7x), Midia &amp; Astram (16x), and Xane &amp; Tiki (19x). <b>Plan your sacrifices</b>: recruit Tier D units (Wrys, Castor, Dolph, Macellan, Roger, Matthis, Lorenz, Frey) as deliberate casualties when you need to drop below 16 units. Never waste stat-booster resources on them."
+    "body": "End the listed chapter with <b>≤15 units alive in your army</b> to unlock the next Gaiden chapter. Gaiden chapters contain rare items and exclusive recruits.<br><b>Gaiden 6x</b> (end Ch. 6 with ≤15) — Athena<br><b>Gaiden 12x</b> (end Ch. 12 with ≤15) — Horace<br><b>Gaiden 17x</b> (end Ch. 17 with ≤15) — Etzel<br><b>Gaiden 20x</b> (end Ch. 20 with ≤15) — Ymir<br><b>Gaiden 24x</b> (end Ch. 24 with ≤15) — Nagi<br><br><b>Plan your sacrifices</b>: recruit Tier D units (Frey, Wrys, Castor, Gordin, Bord, Darros, Roshea, Vyland, Rickard, Tomas, Boah) and intentionally let them fall when you need to drop below 16 units."
   },
   {
     "type": "ch",
     "id": "p1",
-    "num": "Prologue 1",
-    "name": "The Altean League",
+    "num": "Prologue I",
+    "name": "",
     "recruits": [
       "Marth, Jagen, Cain, Abel & Frey — Automatically, turn 1"
     ],
     "items": [],
     "warns": [
-      "One unit must be left behind as a decoy at chapter end so Marth can escape — Frey is the recommended sacrifice; he has the worst long-term potential and rejoins in Ch. 18 underleveled"
+      "One unit must be left behind as a decoy at chapter end so Marth can escape — Frey is the recommended sacrifice as he has the worst long-term potential"
     ]
   },
   {
     "type": "ch",
     "id": "p2",
-    "num": "Prologue 2",
-    "name": "The Fight at Galder",
+    "num": "Prologue II",
+    "name": "",
     "recruits": [
-      "Gordin — Automatically, turn 1 (Archer)"
+      "Gordin — Enemy; talk with Marth to recruit (Archer)"
     ],
     "items": [],
     "warns": []
@@ -31,24 +31,21 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "p3",
-    "num": "Prologue 3",
-    "name": "The Long Road",
-    "recruits": [
-      "Wrys — Automatically (Cleric; Tier D, keep only for Gaiden unit-count padding)"
-    ],
+    "num": "Prologue III",
+    "name": "",
+    "recruits": [],
     "items": [],
     "warns": []
   },
   {
     "type": "ch",
     "id": "p4",
-    "num": "Prologue 4",
-    "name": "Embarkation",
-    "recruits": [
-      "Caeda — Automatically (Pegasus Knight; joins with Wing Spear — effective vs. armor and cavalry)"
-    ],
+    "num": "Prologue IV",
+    "name": "",
+    "recruits": [],
     "items": [
-      "Wing Spear (Caeda joins with it — effective vs. armor and cavalry)"
+      "Steel Bow (village)",
+      "Vulnerary (boss drop)"
     ],
     "warns": []
   },
@@ -58,9 +55,14 @@ export const ITEMS = [
     "num": "Ch. 1",
     "name": "Marth Embarks",
     "recruits": [
-      "Draug — Automatically (Armor Knight; extremely low speed — reclass to Paladin to fix mobility)"
+      "Caeda — Automatically, turn 1 (Pegasus Knight; Wing Spear — effective vs. armor and cavalry; your best unit)",
+      "Draug — Automatically, turn 1 (Knight; terrible speed — reclass to Paladin)",
+      "Wrys — Visit the western village with Marth (Curate; Tier D, sacrifice candidate)",
+      "Norne — Automatically if you have low unit count (Archer; Tier D, conditional)"
     ],
-    "items": [],
+    "items": [
+      "10,000G (village — Marth must visit)"
+    ],
     "warns": []
   },
   {
@@ -69,12 +71,18 @@ export const ITEMS = [
     "num": "Ch. 2",
     "name": "The Pirates of Galder",
     "recruits": [
-      "Ogma — Automatically (Mercenary; best base stats of any early-game unit)"
+      "Ogma — Automatically, turn 1 (Mercenary; great base stats)",
+      "Barst — Automatically, turn 1 (Fighter; excellent growths — one of the best units in the game)",
+      "Bord — Automatically, turn 1 (Fighter; Tier D, far weaker than Barst — sacrifice candidate)",
+      "Cord — Automatically, turn 1 (Fighter; decent)",
+      "Castor — Enemy; talk with Caeda (Hunter; Tier D, sacrifice candidate)",
+      "Darros — Enemy; talk with Marth (Pirate; Tier D, sacrifice candidate)"
     ],
-    "items": [],
-    "warns": [
-      "Julian is your only thief — keep him alive and use him for every chest and door in the game"
-    ]
+    "items": [
+      "5,000G (village)",
+      "Steel Sword (boss drop)"
+    ],
+    "warns": []
   },
   {
     "type": "ch",
@@ -82,30 +90,34 @@ export const ITEMS = [
     "num": "Ch. 3",
     "name": "A Brush in the Teeth",
     "recruits": [
-      "Navarre — Talk with Caeda (enemy Myrmidon; blazing speed; talk before he walks into your units)",
-      "Lena — NPC ally (Cleric; keep her alive)",
-      "Julian — NPC ally; appears with Lena (Thief; your only unit for chests and doors)",
-      "Castor — Talk with Caeda (enemy Hunter; Tier D, sacrifice candidate)"
+      "Julian — Automatically, turn 1 (Thief; your only lock-pick unit — never let him die)",
+      "Lena — Automatically, turn 1 (Cleric; high staff rank, can use Warp when found — excellent support)",
+      "Navarre — Enemy; talk with Caeda (Myrmidon; blazing speed; talk before he reaches your front line)"
     ],
-    "items": [],
+    "items": [
+      "Devil Axe (village)",
+      "Mend (boss drop)",
+      "15,000G (received at chapter end)"
+    ],
     "warns": [
-      "Lena and Julian start as NPC allies in danger — rush Caeda toward them to prevent deaths",
-      "Talk to Navarre with Caeda before he walks into your front line"
+      "Have Caeda talk to Navarre before he walks into your units"
     ]
   },
   {
     "type": "ch",
     "id": "c4",
     "num": "Ch. 4",
-    "name": "Battle of the Pass",
+    "name": "Battle in the Lea",
     "recruits": [
-      "Dolph — Talk with Caeda (enemy Armor Knight; Tier D, sacrifice candidate)",
-      "Macellan — Talk with Caeda (enemy Armor Knight; Tier D, sacrifice candidate)"
+      "Merric — Visit the western village with Marth (Mage; joins with Excalibur — effective vs. fliers)",
+      "Matthis — Enemy; talk with Lena (Cavalier; Lena's brother; mediocre mounted unit)"
     ],
-    "items": [],
-    "warns": [
-      "Dolph and Macellan are armored enemies — have Caeda reach them before your combat units do"
-    ]
+    "items": [
+      "5,000G (village)",
+      "Ridersbane (boss drop)",
+      "Silver Sword (received at chapter end)"
+    ],
+    "warns": []
   },
   {
     "type": "ch",
@@ -113,15 +125,20 @@ export const ITEMS = [
     "num": "Ch. 5",
     "name": "Champions of Aurelis",
     "recruits": [
-      "Roger — Talk with Caeda (enemy Cavalier; Tier D, sacrifice candidate)",
-      "Merric — Automatically (Mage; joins with Excalibur — effective vs. fliers)",
-      "Matthis — Talk with Lena or Caeda (enemy Cavalier; Lena's brother; Tier D)"
+      "Hardin — Automatically, turn 1 (Cavalier; 100% HP and 60% Def growth — exceptional tank)",
+      "Wolf — Automatically, turn 1 (Horseman; top-tier offensive unit with great growths)",
+      "Sedgar — Automatically, turn 1 (Horseman; extraordinary growths, reclass to General for near-immortal stats)",
+      "Roshea — Automatically, turn 1 (Cavalier; Tier D, sacrifice candidate)",
+      "Vyland — Automatically, turn 1 (Cavalier; Tier D, sacrifice candidate)",
+      "Wendell — Enemy; talk with Marth or Merric (already promoted Sage; usable immediately)"
     ],
     "items": [
-      "Excalibur (Merric joins with it — effective vs. fliers)"
+      "Firestone (village — dragon stone, give to Bantu or sell)",
+      "Silver Lance (boss drop)"
     ],
     "warns": [
-      "Roger and Matthis are enemies — have Caeda or Lena talk to them before your units attack"
+      "Wolf and Sedgar are hidden gems — both are easily overlooked but rank among the best units in the game with the right reclassing",
+      "Wendell is an enemy Sage — have Marth or Merric talk to him before combat"
     ]
   },
   {
@@ -130,11 +147,35 @@ export const ITEMS = [
     "num": "Ch. 6",
     "name": "Fire Emblem",
     "recruits": [
-      "Bantu — Automatically (Manakete; Tier C — keep alive to recruit Tiki in Gaiden 19x)"
+      "Rickard — Enemy; talk with Marth or Julian (Thief; Tier D — Julian handles locks, Rickard is sacrifice filler)"
+    ],
+    "items": [
+      "Bullion (S) (chest)",
+      "Physic (chest)",
+      "Seraph Robe (chest — raises max HP)",
+      "Armorslayer (chest)",
+      "Killing Edge (chest)",
+      "Fire Emblem (received at chapter end — key artifact)"
+    ],
+    "warns": [
+      "End this chapter with ≤15 units alive to unlock Gaiden 6x (Athena, a Myrmidon)",
+      "This chapter has 5 chests — Julian or Rickard needed to open them all"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c6x",
+    "num": "Gaiden 6x",
+    "name": "In War's Grip",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Athena — Visit the village with Marth (Myrmidon; decent speed and skill)"
     ],
     "items": [],
     "warns": [
-      "Keep Bantu alive for the ENTIRE game — he is the only way to recruit Tiki in Gaiden 19x. Never invest EXP in him, but never let him die."
+      "Only available if you ended Ch. 6 with ≤15 units alive"
     ]
   },
   {
@@ -142,26 +183,14 @@ export const ITEMS = [
     "id": "c7",
     "num": "Ch. 7",
     "name": "Lefcandith Gauntlet",
-    "recruits": [],
-    "items": [],
-    "warns": [
-      "End this chapter with ≤15 units alive to unlock Gaiden 7x — Wendell, a free pre-promoted Sage, joins there"
-    ]
-  },
-  {
-    "type": "ch",
-    "id": "c7x",
-    "num": "Gaiden 7x",
-    "name": "Wendell's Prison",
-    "cls": "is-gaiden",
-    "badge": "gaiden",
-    "badgeText": "Gaiden",
     "recruits": [
-      "Wendell — Automatically (already promoted Sage; usable immediately; low growths)"
+      "Bantu — Visit the village with Marth (Manakete; Tier C — keep alive all game to recruit Tiki in Ch. 19)"
     ],
-    "items": [],
+    "items": [
+      "Silver Axe (boss drop)"
+    ],
     "warns": [
-      "Only available if you ended Ch. 7 with ≤15 units alive"
+      "Keep Bantu alive for the ENTIRE game — he is the only way to recruit Tiki in Ch. 19. Never invest EXP in him, but never let him die."
     ]
   },
   {
@@ -170,9 +199,13 @@ export const ITEMS = [
     "num": "Ch. 8",
     "name": "Port Warren",
     "recruits": [
-      "Hardin — Automatically (Cavalier; 100% HP growth and 60% Def growth — one of the best units in the game)"
+      "Caesar — Automatically, turn 1 (Mercenary; decent swordsman)",
+      "Radd — Automatically, turn 1 (Myrmidon; decent speed)",
+      "Roger — Enemy; talk with Caeda (Knight; Tier B, armor utility)"
     ],
-    "items": [],
+    "items": [
+      "Levin Sword (boss drop)"
+    ],
     "warns": []
   },
   {
@@ -180,10 +213,16 @@ export const ITEMS = [
     "id": "c9",
     "num": "Ch. 9",
     "name": "The Pyrathi Dragon",
-    "recruits": [],
-    "items": [],
+    "recruits": [
+      "Jeorge — Visit the village with Marth (already promoted Sniper; joins with Parthia — grants +5 Res when equipped)"
+    ],
+    "items": [
+      "Bullion (M) (chest)",
+      "Goddess Icon (chest — raises Luck)",
+      "Wyrmslayer (chest — effective vs. Manaketes)"
+    ],
     "warns": [
-      "Manakete boss — Marth's Rapier is not effective vs. manaketes; bring silver weapons or forge steel weapons for reliable damage"
+      "Manakete boss — Marth's Rapier is not effective vs. Manaketes; use the Wyrmslayer from this chapter's chest or silver weapons"
     ]
   },
   {
@@ -192,15 +231,17 @@ export const ITEMS = [
     "num": "Ch. 10",
     "name": "Princess Minerva",
     "recruits": [
-      "Maria — Rescue from the castle interior (Bishop; Minerva's sister; needed to recruit Minerva)",
-      "Minerva — Talk with Palla or Maria (enemy Dracoknight boss; outstanding pre-promote, joins promoted)",
-      "Palla — Automatically joins alongside Minerva (Pegasus Knight)",
-      "Catria — Automatically joins alongside Minerva (Pegasus Knight; better speed growth than Palla)"
+      "Maria — Enemy; talk with Marth (Bishop; Minerva's sister — must recruit her first to unlock Minerva)",
+      "Minerva — Enemy; talk with Marth after recruiting Maria (Dracoknight boss; outstanding pre-promote with high Str)"
     ],
-    "items": [],
+    "items": [
+      "Levin Sword (chest)",
+      "Physic (chest)",
+      "Speedwings (boss drop — raises Speed)"
+    ],
     "warns": [
-      "Reach Maria inside the castle and rescue her before she is killed",
-      "Talk to Minerva with Palla or Maria — she will not join otherwise; she is the chapter boss"
+      "Recruit Maria first by talking to her with Marth, then talk to Minerva with Marth — Minerva will not join without Maria",
+      "Minerva is the chapter boss; do not let your units attack her before Marth talks to her"
     ]
   },
   {
@@ -209,30 +250,76 @@ export const ITEMS = [
     "num": "Ch. 11",
     "name": "Knorda Market",
     "recruits": [
-      "Linde — Automatically (Mage; joins with Aura — effective vs. cavalry; best magic unit in the game)"
+      "Linde — Visit the village with Marth (Mage; joins with Aura — effective vs. cavalry; strong magic unit)",
+      "Jake — Enemy; talk with Caeda after visiting the village (Ballistician; 10-range ballista attacks — devastating on defense)"
     ],
     "items": [
-      "Aura (Linde joins with it — effective vs. cavalry)"
+      "Energy Drop (boss drop — raises Strength)"
     ],
-    "warns": []
+    "warns": [
+      "Visit the village with Marth first, then have Caeda talk to Jake to recruit him",
+      "Jake is a Ballistician — he can only act on terrain that supports his ballista; plan his placement"
+    ]
   },
   {
     "type": "ch",
     "id": "c12",
     "num": "Ch. 12",
     "name": "The Ageless Palace",
-    "recruits": [],
-    "items": [],
-    "warns": []
+    "recruits": [
+      "Midia — Automatically, turn 1 (Paladin; Tier D — joins underleveled relative to promoted enemies)",
+      "Dolph — Automatically, turn 1 (Knight; Tier B, sacrifice candidate)",
+      "Macellan — Automatically, turn 1 (Knight; Tier B, sacrifice candidate)",
+      "Tomas — Automatically, turn 1 (Archer; Tier D, sacrifice candidate)",
+      "Boah — Automatically, turn 1 (Bishop; Tier D — outclassed by Lena and Wendell)"
+    ],
+    "items": [
+      "Master Seal (chest)",
+      "Bullion (L) (chest)",
+      "Arms Scroll (chest — raises weapon rank)",
+      "Silver Sword (chest)",
+      "Dragonpike (chest — effective vs. Manaketes)",
+      "Boots (chest — permanently raises Move)",
+      "Parthia (received at chapter end — second copy of Jeorge's bow)"
+    ],
+    "warns": [
+      "End this chapter with ≤15 units alive to unlock Gaiden 12x (Horace, a General)",
+      "The Boots are a permanent movement upgrade — give them to a unit who benefits most from extra range (Marth, a mage, or a healer)"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c12x",
+    "num": "Gaiden 12x",
+    "name": "A Traitor's Worth",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Horace — Clear the chapter without killing him (General; pre-promoted, decent tank)"
+    ],
+    "items": [
+      "Killer Lance (village)",
+      "Blizzard (village)"
+    ],
+    "warns": [
+      "Only available if you ended Ch. 12 with ≤15 units alive",
+      "Horace appears as a specific enemy General — do not kill him; he joins after the chapter"
+    ]
   },
   {
     "type": "ch",
     "id": "c13",
     "num": "Ch. 13",
     "name": "The Wooden Cavalry",
-    "recruits": [],
+    "recruits": [
+      "Beck — Visit the village with Marth (Ballistician; same ballista utility as Jake)",
+      "Astram — Enemy; talk with Midia (Hero; decent stats — requires Midia to be alive and deployed)"
+    ],
     "items": [],
-    "warns": []
+    "warns": [
+      "Have Midia deployed and talk to Astram with her before your units attack him"
+    ]
   },
   {
     "type": "ch",
@@ -240,14 +327,17 @@ export const ITEMS = [
     "num": "Ch. 14",
     "name": "Land of Sorrow",
     "recruits": [
-      "Jeorge — Talk with any unit (already promoted Sniper; joins with Parthia — grants +5 Res when equipped)",
-      "Lorenz — Talk with Caeda (old General; Tier D, recruit only for unit-count management)"
+      "Palla — Enemy; talk with Marth (Pegasus Knight; reliable flier; can reclass to Dracoknight)",
+      "Catria — Enemy; talk with Marth (Pegasus Knight; better speed growth than Palla)"
     ],
     "items": [
-      "Parthia (Jeorge joins with it — unique bow, grants +5 Res when equipped)"
+      "Thoron (village — strong lightning tome)",
+      "Silver Card (chest — 50% off shop prices, very useful)",
+      "Bullion (S) (chest)",
+      "Killer Bow (boss drop)"
     ],
     "warns": [
-      "Lorenz is a sacrifice candidate — recruit him only to have a spare unit for Gaiden unlocks"
+      "Palla and Catria are enemy fliers — have Marth talk to each of them before they are attacked"
     ]
   },
   {
@@ -256,37 +346,27 @@ export const ITEMS = [
     "num": "Ch. 15",
     "name": "An Oasis of Magic",
     "recruits": [],
-    "items": [],
-    "warns": [
-      "End this chapter with ≤15 units alive to unlock Gaiden 16x — Midia and Astram are rescued there; both are solid units"
-    ]
-  },
-  {
-    "type": "ch",
-    "id": "c16x",
-    "num": "Gaiden 16x",
-    "name": "Khadein",
-    "cls": "is-gaiden",
-    "badge": "gaiden",
-    "badgeText": "Gaiden",
-    "recruits": [
-      "Midia — Rescue the NPC prisoner (Paladin; reliable mounted unit)",
-      "Astram — Rescue the NPC prisoner (Hero; excellent base stats)"
+    "items": [
+      "Energy Drop (chest — raises Strength)",
+      "Talisman (chest — raises Resistance)"
     ],
-    "items": [],
-    "warns": [
-      "Only available if you ended Ch. 15 with ≤15 units alive",
-      "Midia and Astram are prisoners in the map — reach them before they die"
-    ]
+    "warns": []
   },
   {
     "type": "ch",
     "id": "c16",
     "num": "Ch. 16",
     "name": "The Battle for Altea",
-    "recruits": [],
-    "items": [],
-    "warns": []
+    "recruits": [
+      "Arran OR Samson — Mutually exclusive: visit the left village with Marth for Arran (Paladin), right village for Samson (Hero); both are Tier D",
+      "Xane — Enemy; talk with Marth (Chameleon; copies any deployed ally's class and stats each turn)"
+    ],
+    "items": [
+      "Dracoshield (boss drop — raises Defense)"
+    ],
+    "warns": [
+      "You can only recruit Arran OR Samson — choose one village and skip the other"
+    ]
   },
   {
     "type": "ch",
@@ -294,8 +374,43 @@ export const ITEMS = [
     "num": "Ch. 17",
     "name": "Star and Savior",
     "recruits": [],
-    "items": [],
-    "warns": []
+    "items": [
+      "Warp (chest — teleports any ally; give to Lena immediately)",
+      "Killer Bow (chest)",
+      "Dracoshield (chest)",
+      "Master Seal (chest)",
+      "Devil Sword (chest)",
+      "Silver Bow (chest)",
+      "Secret Book (chest — raises Skill)",
+      "Speedwings (boss drop)"
+    ],
+    "warns": [
+      "End this chapter with ≤15 units alive to unlock Gaiden 17x (Etzel, a Sorcerer)",
+      "Warp is one of the best staves in the game — give it to Lena who already has the rank to use it"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c17x",
+    "num": "Gaiden 17x",
+    "name": "Helena Castle",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Etzel — Clear the chapter without killing him (Sorcerer; pre-promoted dark mage)"
+    ],
+    "items": [
+      "Warp (chest)",
+      "Poleax (chest — effective vs. cavalry/horses)",
+      "Longbow (chest — 2–3 range bow)",
+      "Wo Dao (chest — Myrmidon/Swordmaster personal sword)",
+      "Wing Spear (chest — second copy of Caeda's personal weapon)"
+    ],
+    "warns": [
+      "Only available if you ended Ch. 17 with ≤15 units alive",
+      "Etzel is a specific enemy Sorcerer — do not kill him; he joins after the chapter"
+    ]
   },
   {
     "type": "ch",
@@ -303,52 +418,78 @@ export const ITEMS = [
     "num": "Ch. 18",
     "name": "The Sable Order",
     "recruits": [
-      "Frey — Returns (Cavalier; separated since Prologue 1 and severely underleveled; Tier D, sacrifice candidate)"
-    ],
-    "items": [],
-    "warns": [
-      "End this chapter with ≤15 units alive to unlock Gaiden 19x — this is the most important gaiden (Xane and Tiki). Bantu MUST still be alive.",
-      "Frey returns with very low stats from missing the entire mid-game; useful only as a Gaiden-unlock sacrifice"
-    ]
-  },
-  {
-    "type": "ch",
-    "id": "c19x",
-    "num": "Gaiden 19x",
-    "name": "The Dragon's Altar",
-    "cls": "is-gaiden",
-    "badge": "gaiden",
-    "badgeText": "Gaiden",
-    "recruits": [
-      "Xane — Automatically (Chameleon; copies any deployed ally's class and stats each turn — unique utility)",
-      "Tiki — Have Bantu talk to her (Manakete; 100% HP growth; uses Divinestone; one of the best late-game units)"
+      "Est — Enemy; talk with Marth (Pegasus Knight; joins very late and severely underleveled — Tier D)"
     ],
     "items": [
-      "Divinestone (Tiki joins with it)"
+      "Master Seal (boss drop)"
     ],
-    "warns": [
-      "Only available if you ended Ch. 18 with ≤15 units alive",
-      "Bantu must be alive and deployed — walk Bantu up to Tiki and have him talk to her to recruit her",
-      "Missing this gaiden means permanently missing Xane and Tiki, the two strongest late-game units"
-    ]
+    "warns": []
   },
   {
     "type": "ch",
     "id": "c19",
     "num": "Ch. 19",
-    "name": "Return of the Prince",
-    "recruits": [],
-    "items": [],
-    "warns": []
+    "name": "Manakete Princess",
+    "recruits": [
+      "Tiki — Enemy; talk with Bantu (Manakete; 100% HP growth; Divinestone; one of the best late-game units — requires Bantu alive)"
+    ],
+    "items": [
+      "Starsphere (chest — part of the Binding Shield set)",
+      "Geosphere (chest — part of the Binding Shield set)",
+      "Lightsphere (chest — part of the Binding Shield set)",
+      "Master Seal (chest)",
+      "Speedwings (chest)",
+      "Seraph Robe (chest)",
+      "Bullion (XL) (chest)",
+      "Bolganone (chest — powerful fire tome)",
+      "Spirit Dust (chest — raises Magic)"
+    ],
+    "warns": [
+      "Bantu must be alive and deployed — walk Bantu up to Tiki and talk to her",
+      "This chapter has 9 chests — bring Julian and ensure you have enough movement to reach them all",
+      "The Starsphere, Geosphere, and Lightsphere are components of the Binding Shield — collect all three"
+    ]
   },
   {
     "type": "ch",
     "id": "c20",
     "num": "Ch. 20",
-    "name": "Crusade for Gra",
-    "recruits": [],
-    "items": [],
-    "warns": []
+    "name": "Camus the Sable",
+    "recruits": [
+      "Lorenz — Enemy; talk with Marth or Caeda (General; old and slow — Tier D, recruit for Gaiden filler only)"
+    ],
+    "items": [
+      "Hammerne (village — repairs a broken weapon to full uses; give to Lena)",
+      "Gradivus (boss drop — legendary silver lance, infinite uses)"
+    ],
+    "warns": [
+      "End this chapter with ≤15 units alive to unlock Gaiden 20x (Ymir)",
+      "Camus (the boss) drops Gradivus, a legendary lance — do not miss it",
+      "Hammerne is best used on Warp, Physic, or Gradivus to restore uses"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c20x",
+    "num": "Gaiden 20x",
+    "name": "The Lair of Fire",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Ymir — Talk with Marth and complete the chapter (Warrior; decent late-game axe fighter)"
+    ],
+    "items": [
+      "Killer Lance (chest)",
+      "Killer Bow (chest)",
+      "Wo Dao (chest)",
+      "Killer Axe (chest)",
+      "Poleax (chest)",
+      "Longbow (chest)"
+    ],
+    "warns": [
+      "Only available if you ended Ch. 20 with ≤15 units alive"
+    ]
   },
   {
     "type": "ch",
@@ -356,7 +497,9 @@ export const ITEMS = [
     "num": "Ch. 21",
     "name": "Clash in Macedon",
     "recruits": [],
-    "items": [],
+    "items": [
+      "Master Seal (boss drop)"
+    ],
     "warns": []
   },
   {
@@ -365,27 +508,76 @@ export const ITEMS = [
     "num": "Ch. 22",
     "name": "A Knight-Filled Sky",
     "recruits": [],
-    "items": [],
+    "items": [
+      "Starlight (village — spell needed to use Aum staff in the ending)",
+      "Iote's Shield (boss drop — nullifies flier weakness to bows)"
+    ],
     "warns": []
   },
   {
     "type": "ch",
     "id": "c23",
     "num": "Ch. 23",
-    "name": "The Palace of Valhalla",
+    "name": "Dark Pontifex",
     "recruits": [],
-    "items": [],
-    "warns": []
+    "items": [
+      "Bullion (S) (chest)",
+      "Talisman (chest)",
+      "Falchion (boss drop — Marth's legendary sword; only weapon that can kill Medeus)"
+    ],
+    "warns": [
+      "The boss drops the Falchion — do not miss it; it is required to finish the game",
+      "Equip Falchion on Marth before the final chapter"
+    ]
   },
   {
     "type": "ch",
     "id": "c24",
     "num": "Ch. 24",
     "name": "The Dragonkin Realm",
+    "recruits": [
+      "Elice — Automatically, turn 1 (Cleric; Marth's sister; Aum staff user — Tier D, joins at endgame)",
+      "Gotoh — Automatically if not doing Gaiden 24x (already promoted Sage; auto-joins for final chapter support)"
+    ],
+    "items": [
+      "Aum (chest — used by Elice; restores a fallen ally to life, single use)"
+    ],
+    "warns": [
+      "End this chapter with ≤15 units alive to unlock Gaiden 24x (Nagi, an alternate Falchion user)",
+      "Aum can revive one fallen unit — save it for someone important"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c24x",
+    "num": "Gaiden 24x",
+    "name": "The Alterspire",
+    "cls": "is-gaiden",
+    "badge": "gaiden",
+    "badgeText": "Gaiden",
+    "recruits": [
+      "Nagi — Clear the chapter (Manakete; alternate wielder of the Falchion)"
+    ],
+    "items": [
+      "Excalibur (chest — powerful wind tome, effective vs. fliers)",
+      "Aura (chest — powerful light tome, effective vs. cavalry)",
+      "Falchion — weaker version (received at chapter end)"
+    ],
+    "warns": [
+      "Only available if you ended Ch. 24 with ≤15 units alive",
+      "Completing this gaiden means Gotoh does NOT join for the final chapter"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "ce",
+    "num": "Epilogue",
+    "name": "Chosen by Fate",
     "recruits": [],
     "items": [],
     "warns": [
-      "Medeus, the Shadow Dragon, can only be defeated by Marth wielding the Falchion — ensure Marth has it equipped for the final battle"
+      "Medeus, the Shadow Dragon, can only be damaged by Marth wielding the Falchion — ensure Marth has it equipped",
+      "Medeus has very high Defense; use the Falchion and support with magic users for chip damage"
     ]
   }
 ];

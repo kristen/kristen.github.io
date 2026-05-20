@@ -1,171 +1,296 @@
 {
   "s": [
     {
-      "name": "Marth",
-      "subtitle": "Lord · P-1 · Required; only unit who can seize and open chests; has Rapier (vs. cavalry/armor) and late-game Falchion (vs. dragons)",
+      "name": "Caeda",
+      "subtitle": "Pegasus Knight · Ch. 1 · #1 unit in the game — Wing Spear shreds cavalry, knights, and generals (most bosses); recruits the most units via talk after Marth",
       "cls": null
     },
     {
-      "name": "Ogma",
-      "subtitle": "Mercenary · Ch. 2 · Best early base stats; can reclass to Swordmaster (crit) or Sniper",
+      "name": "Sedgar",
+      "subtitle": "Horseman · Ch. 5 · Hidden gem — extraordinary growth rates; reclass to General for near-immortal stats or Hero for offense",
+      "cls": null
+    },
+    {
+      "name": "Wolf",
+      "subtitle": "Horseman · Ch. 5 · Top offensive unit with great growths; highly flexible via reclassing",
+      "cls": null
+    },
+    {
+      "name": "Minerva",
+      "subtitle": "Dracoknight · Ch. 10 · Outstanding pre-promote; high base Str, mobility, and weapon ranks; can reclass to Paladin or General",
+      "cls": null
+    },
+    {
+      "name": "Barst",
+      "subtitle": "Fighter · Ch. 2 · Deceptively excellent growths; one of the strongest long-term investments in the game",
+      "cls": null
+    },
+    {
+      "name": "Lena",
+      "subtitle": "Cleric · Ch. 3 · Best support unit; high staff rank at join means she can use Warp as soon as you find it; irreplaceable utility",
       "cls": null
     }
   ],
   "a": [
     {
-      "name": "Navarre",
-      "subtitle": "Myrmidon · Ch. 3 · Blazing speed (13 base); talk with Caeda; can reclass to Hero",
-      "cls": null
-    },
-    {
-      "name": "Caeda",
-      "subtitle": "Pegasus Knight · P-4 · Wing Spear vs. armor/cavalry; recruits many units via talk; can reclass to Dracoknight",
-      "cls": null
-    },
-    {
       "name": "Cain",
-      "subtitle": "Cavalier · P-1 · Well-rounded all-rounder; can reclass to Dracoknight or Hero",
+      "subtitle": "Cavalier · P-1 · Well-rounded all-rounder; great growths; can reclass to Dracoknight or Hero",
+      "cls": null
+    },
+    {
+      "name": "Abel",
+      "subtitle": "Cavalier · P-1 · Slightly more defensive than Cain; can reclass to Dracoknight",
+      "cls": null
+    },
+    {
+      "name": "Jagen",
+      "subtitle": "Paladin · P-1 · Classic Jagen archetype — exceptional early bases, low growths; more valuable on higher difficulties; can reclass to Dracoknight",
+      "cls": null
+    },
+    {
+      "name": "Ogma",
+      "subtitle": "Mercenary · Ch. 2 · Great early base stats; reliable fighter; can reclass to Swordmaster or Sniper",
       "cls": null
     },
     {
       "name": "Hardin",
-      "subtitle": "Cavalier · Ch. 8 · 100% HP growth, 60% Def growth; can reclass to General or Dracoknight",
+      "subtitle": "Cavalier · Ch. 5 · 100% HP growth, 60% Def growth; dominant tank; can reclass to General or Dracoknight",
       "cls": null
     },
     {
-      "name": "Minerva",
-      "subtitle": "Dracoknight · Ch. 10 · Outstanding pre-promote; high base Str; can reclass to Paladin or General",
+      "name": "Navarre",
+      "subtitle": "Myrmidon · Ch. 3 · Blazing speed; talk with Caeda; can reclass to Hero",
       "cls": null
     },
     {
-      "name": "Linde",
-      "subtitle": "Mage · Ch. 11 · Best magic unit; joins with Aura (vs. cavalry); can reclass to Bishop",
+      "name": "Merric",
+      "subtitle": "Mage · Ch. 4 · Joins with Excalibur (vs. fliers); only mage before Linde; can reclass to Bishop",
+      "cls": null
+    },
+    {
+      "name": "Wendell",
+      "subtitle": "Sage · Ch. 5 · Already promoted Sage; low growths but immediately useful; talk with Marth or Merric",
+      "cls": null
+    },
+    {
+      "name": "Catria",
+      "subtitle": "Pegasus Knight · Ch. 14 · Better speed growth than Palla (55%); can reclass to Dracoknight",
+      "cls": null
+    },
+    {
+      "name": "Palla",
+      "subtitle": "Pegasus Knight · Ch. 14 · Reliable flier; talk with Marth; can reclass to Dracoknight",
       "cls": null
     },
     {
       "name": "Jeorge",
-      "subtitle": "Sniper · Ch. 14 · Pre-promote; joins with Parthia (grants +5 Res when equipped); can reclass to Horseman",
+      "subtitle": "Sniper · Ch. 9 · Pre-promote; joins with Parthia (grants +5 Res); can reclass to Horseman",
       "cls": null
     },
     {
-      "name": "Tiki",
-      "subtitle": "Manakete · Gaiden 19x · 100% HP growth; uses Divinestone; requires Bantu alive to recruit",
+      "name": "Jake",
+      "subtitle": "Ballistician · Ch. 11 · Incomparable 10-range ballista attacks; devastating on defense; talk with Caeda",
+      "cls": null
+    },
+    {
+      "name": "Beck",
+      "subtitle": "Ballistician · Ch. 13 · Same ballista utility as Jake; visit village with Marth",
+      "cls": null
+    },
+    {
+      "name": "Marth",
+      "subtitle": "Lord · P-1 · Required; only unit who can seize and open chests; Rapier vs. cavalry/armor; receives Falchion in Ch. 23 for final boss",
+      "cls": null
+    },
+    {
+      "name": "Xane",
+      "subtitle": "Chameleon · Ch. 16 · Copies any deployed ally's class and stats each turn; unique and endlessly flexible",
       "cls": null
     }
   ],
   "b": [
     {
-      "name": "Jagen",
-      "subtitle": "Paladin · P-1 · Classic Jagen archetype; strong early mounted utility; low growths, fades mid-game",
+      "name": "Tiki",
+      "subtitle": "Manakete · Ch. 19 · 100% HP growth; Divinestone; joins late but dominant — requires Bantu alive; talk with Bantu",
       "cls": null
     },
     {
-      "name": "Abel",
-      "subtitle": "Cavalier · P-1 · More defensive than Cain; can reclass to Dracoknight",
+      "name": "Linde",
+      "subtitle": "Mage · Ch. 11 · Strong mage; joins with Aura (vs. cavalry); can reclass to Bishop",
       "cls": null
     },
     {
-      "name": "Merric",
-      "subtitle": "Mage · Ch. 5 · Only mage for several early chapters; joins with Excalibur (vs. fliers); can reclass to Bishop",
+      "name": "Julian",
+      "subtitle": "Thief · Ch. 3 · Only lock-pick unit; can open all chests and doors; never let him die; can reclass to Assassin",
       "cls": null
     },
     {
-      "name": "Draug",
-      "subtitle": "Armor Knight · Ch. 1 · Best armor unit; terrible speed — reclass to Paladin to fix mobility",
+      "name": "Caesar",
+      "subtitle": "Mercenary · Ch. 8 · Decent base stats; solid swordsman for mid-game",
       "cls": null
     },
     {
-      "name": "Gordin",
-      "subtitle": "Archer · P-2 · Low speed (5 base) — strongly recommend reclassing to Horseman for mobility",
+      "name": "Radd",
+      "subtitle": "Myrmidon · Ch. 8 · Decent speed; complements Caesar; both join together",
       "cls": null
     },
     {
-      "name": "Palla",
-      "subtitle": "Pegasus Knight · Ch. 10 · Joins with Minerva; reliable flier; can reclass to Dracoknight",
+      "name": "Cord",
+      "subtitle": "Fighter · Ch. 2 · Decent Fighter; overshadowed by Barst but serviceable",
       "cls": null
     },
     {
-      "name": "Catria",
-      "subtitle": "Pegasus Knight · Ch. 10 · Better speed growth than Palla (55%); can reclass to Dracoknight",
+      "name": "Maria",
+      "subtitle": "Cleric · Ch. 10 · Talk with Marth to free her, then use her to unlock Minerva; decent healer after that",
       "cls": null
     },
     {
-      "name": "Wendell",
-      "subtitle": "Sage · Gaiden 7x · Already promoted; low growths but usable immediately; can reclass to Bishop",
+      "name": "Dolph",
+      "subtitle": "Knight · Ch. 12 · Joins automatically with the Ch. 12 group; sacrifice candidate or niche armor utility",
       "cls": null
     },
     {
-      "name": "Xane",
-      "subtitle": "Chameleon · Gaiden 19x · Copies any ally's class and stats each turn; unique and versatile filler",
+      "name": "Macellan",
+      "subtitle": "Knight · Ch. 12 · Same situation as Dolph; joins automatically in Ch. 12",
       "cls": null
     },
     {
-      "name": "Astram",
-      "subtitle": "Hero · Gaiden 16x · Solid base stats, reliable fighter; worth rescuing from Gaiden 16x",
+      "name": "Roger",
+      "subtitle": "Knight · Ch. 8 · Talk with Caeda; armor knight with same issues as Dolph/Macellan",
       "cls": null
     }
   ],
   "c": [
     {
+      "name": "Draug",
+      "subtitle": "Knight · Ch. 1 · Terrible speed (3) — reclass to Paladin to be viable; still falls behind cavaliers",
+      "cls": null
+    },
+    {
       "name": "Bantu",
-      "subtitle": "Manakete · Ch. 6 · Terrible growths — keep alive solely to recruit Tiki in Gaiden 19x; never invest EXP",
+      "subtitle": "Manakete · Ch. 7 · Terrible growths — keep alive solely to recruit Tiki in Ch. 19; never invest EXP",
       "cls": null
     },
     {
-      "name": "Julian",
-      "subtitle": "Thief · Ch. 3 · Only unit that can open chests and doors; never let him die; can reclass to Assassin",
+      "name": "Athena",
+      "subtitle": "Myrmidon · Gaiden 6x · Decent speed and skill; joins via Gaiden 6x village",
       "cls": null
     },
     {
-      "name": "Maria",
-      "subtitle": "Bishop · Ch. 10 · Rescue her to unlock Minerva; decent healer but outclassed by Linde",
+      "name": "Astram",
+      "subtitle": "Hero · Ch. 13 · Talk with Midia; solid stats but joins later than ideal",
       "cls": null
     },
     {
-      "name": "Midia",
-      "subtitle": "Paladin · Gaiden 16x · Solid mounted unit; late join via Gaiden 16x rescue",
+      "name": "Matthis",
+      "subtitle": "Cavalier · Ch. 4 · Lena's brother; talk with Lena; mediocre but mounted",
+      "cls": null
+    },
+    {
+      "name": "Etzel",
+      "subtitle": "Sorcerer · Gaiden 17x · Late join but pre-promoted dark mage; don't kill him in 17x",
+      "cls": null
+    },
+    {
+      "name": "Horace",
+      "subtitle": "General · Gaiden 12x · Pre-promoted General; don't kill him in Gaiden 12x to recruit",
+      "cls": null
+    },
+    {
+      "name": "Ymir",
+      "subtitle": "Warrior · Gaiden 20x · Talk with Marth and complete the chapter; decent Warrior late",
       "cls": null
     }
   ],
   "d": [
     {
       "name": "Wrys",
-      "subtitle": "Cleric · P-3 · Weakest healer; recruit and sacrifice to unlock Gaidens",
+      "subtitle": "Curate · Ch. 1 · Weakest healer; visit village with Marth; primary sacrifice candidate",
       "cls": null
     },
     {
       "name": "Castor",
-      "subtitle": "Hunter · Ch. 3 · Mediocre; talk with Caeda; sacrifice candidate",
+      "subtitle": "Hunter · Ch. 2 · Mediocre; talk with Caeda; sacrifice candidate",
       "cls": null
     },
     {
-      "name": "Dolph",
-      "subtitle": "Armor Knight · Ch. 4 · Weak armor; talk with Caeda; sacrifice candidate",
+      "name": "Gordin",
+      "subtitle": "Archer · P-2 · Low speed; poor growths; consider reclassing to Horseman or use as sacrifice",
       "cls": null
     },
     {
-      "name": "Macellan",
-      "subtitle": "Armor Knight · Ch. 4 · Weak armor; talk with Caeda; sacrifice candidate",
+      "name": "Bord",
+      "subtitle": "Fighter · Ch. 2 · Joins with Barst and Cord; significantly weaker than Barst; sacrifice candidate",
       "cls": null
     },
     {
-      "name": "Roger",
-      "subtitle": "Cavalier · Ch. 5 · Mediocre; talk with Caeda; sacrifice candidate",
-      "cls": null
-    },
-    {
-      "name": "Matthis",
-      "subtitle": "Cavalier · Ch. 5 · Lena's brother; talk with Lena or Caeda; sacrifice candidate",
-      "cls": null
-    },
-    {
-      "name": "Lorenz",
-      "subtitle": "General · Ch. 14 · Old and slow; talk with Caeda; recruit only for unit-count management",
+      "name": "Darros",
+      "subtitle": "Pirate · Ch. 2 · Talk with Marth; mediocre pirate unit; sacrifice candidate",
       "cls": null
     },
     {
       "name": "Frey",
-      "subtitle": "Cavalier · P-1/Ch. 18 · Sacrifice in P-1; returns in Ch. 18 severely underleveled",
+      "subtitle": "Cavalier · P-1 · Recommended sacrifice in P-1 to let Marth escape; does not rejoin",
+      "cls": null
+    },
+    {
+      "name": "Norne",
+      "subtitle": "Archer · Ch. 1 · Conditional recruit (joins if you have low unit count); weak archer",
+      "cls": null
+    },
+    {
+      "name": "Roshea",
+      "subtitle": "Cavalier · Ch. 5 · Below-average cavalier; joins with the Aurelis group; sacrifice candidate",
+      "cls": null
+    },
+    {
+      "name": "Vyland",
+      "subtitle": "Cavalier · Ch. 5 · Same as Roshea; joins as filler; sacrifice candidate",
+      "cls": null
+    },
+    {
+      "name": "Rickard",
+      "subtitle": "Thief · Ch. 6 · Second thief; Julian handles locks; Rickard is pure sacrifice filler",
+      "cls": null
+    },
+    {
+      "name": "Tomas",
+      "subtitle": "Archer · Ch. 12 · Joins with Midia group; weak archer; sacrifice candidate",
+      "cls": null
+    },
+    {
+      "name": "Boah",
+      "subtitle": "Bishop · Ch. 12 · Old bishop; joins with Midia group; outclassed by Lena and Wendell",
+      "cls": null
+    },
+    {
+      "name": "Midia",
+      "subtitle": "Paladin · Ch. 12 · Auto-join; decent mounted unit but joins underleveled relative to promoted enemies",
+      "cls": null
+    },
+    {
+      "name": "Est",
+      "subtitle": "Pegasus Knight · Ch. 18 · Baby flier of the trio; joins very late and severely underleveled",
+      "cls": null
+    },
+    {
+      "name": "Lorenz",
+      "subtitle": "General · Ch. 20 · Old and slow; talk with Marth or Caeda; recruit only for Gaiden unlock filler",
+      "cls": null
+    },
+    {
+      "name": "Arran / Samson",
+      "subtitle": "Paladin / Hero · Ch. 16 · Mutually exclusive village choice; both are weak late-game pre-promotes",
+      "cls": null
+    },
+    {
+      "name": "Nagi",
+      "subtitle": "Manakete · Gaiden 24x · Alternate wielder of Falchion; clear Gaiden 24x to recruit",
+      "cls": null
+    },
+    {
+      "name": "Elice",
+      "subtitle": "Cleric · Ch. 24 · Marth's sister; auto-join in Ch. 24; Aum staff user but joins at the end",
       "cls": null
     }
   ]
