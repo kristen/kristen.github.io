@@ -54,6 +54,9 @@
     position: static;
     transform: none;
     margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
   }
 }
 

@@ -10,22 +10,28 @@ import { auth } from '../lib/firebase';
 
 interface AuthContextValue {
   user: User | null;
+  loading: boolean;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
+  loading: true,
   signIn: async () => {},
   signOut: async () => {},
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(!!auth);
 
   useEffect(() => {
     if (!auth) return;
-    return onAuthStateChanged(auth, setUser);
+    return onAuthStateChanged(auth, u => {
+      setUser(u);
+      setLoading(false);
+    });
   }, []);
 
   async function signIn() {
@@ -39,7 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,9 +1,9 @@
 import { useAuth } from '../context/AuthContext';
 
 export function AuthButton() {
-  const { user, signIn, signOut } = useAuth();
+  const { user, loading, signIn, signOut } = useAuth();
 
-  if (!import.meta.env.VITE_FIREBASE_API_KEY) return null;
+  if (!import.meta.env.VITE_FIREBASE_API_KEY || loading) return null;
 
   if (user) {
     const initials = (user.displayName ?? user.email ?? '?')

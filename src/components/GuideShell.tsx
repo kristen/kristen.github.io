@@ -21,11 +21,11 @@ export function GuideShell({ config }: Props) {
       <div className="site-header">
         <h1>{config.title}</h1>
         <p>{config.subtitle}</p>
-        <div className="mobile-prog">
-          <ProgressBar completed={completedCount} total={totalCount} variant="narrow" />
-        </div>
         <div className="auth-slot">
           <AuthButton />
+        </div>
+        <div className="mobile-prog">
+          <ProgressBar completed={completedCount} total={totalCount} variant="narrow" />
         </div>
       </div>
 
