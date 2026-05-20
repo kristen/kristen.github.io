@@ -25,7 +25,7 @@ interface UserGameData {
 const SYSTEMS_ORDER = ["NES","SNES","N64","GBA","PS2","GameCube","DS","Wii","3DS","Wii U","Switch Online","Switch","PC","Mobile","PS4"];
 const SYSTEM_COLORS: Record<string, string> = {
   NES:"#cc2200",SNES:"#8b1fa8",N64:"#006cb7",GBA:"#8b008b",PS2:"#00439c",
-  GameCube:"#5533aa",DS:"#c8860a",Wii:"#888","3DS":"#cc3300",
+  GameCube:"#5533aa",DS:"#c8860a",Wii:"#888888","3DS":"#cc3300",
   "Wii U":"#009ac7","Switch Online":"#c0392b",Switch:"#e4000f",
   PC:"#1a7a3a",Mobile:"#2a7a6a",PS4:"#003087",
 };
@@ -45,7 +45,7 @@ const TIERS = [
   { key:"A", color:"#e07840", bg:"#281500", label:"A — Excellent" },
   { key:"B", color:"#4da87e", bg:"#0d2018", label:"B — Very Good" },
   { key:"C", color:"#3b9dd2", bg:"#0d2030", label:"C — Worth Playing" },
-  { key:"D", color:"#777",    bg:"#181818", label:"D — Mixed / Niche" },
+  { key:"D", color:"#777777", bg:"#181818", label:"D — Mixed / Niche" },
 ];
 const TIER_MAP = Object.fromEntries(TIERS.map(t => [t.key, t]));
 
@@ -399,7 +399,7 @@ export function NintendoGames() {
     <div style={{minHeight:"100vh",background:"#0d0f14",color:"#e8e6f0",fontFamily:"'Georgia','Times New Roman',serif",paddingBottom:"60px"}}>
 
       {/* Header */}
-      <div style={{background:"linear-gradient(135deg,#1a0a2e 0%,#0d1a2e 60%,#0a1a0a 100%)",padding:"30px 24px 18px",textAlign:"center",borderBottom:"1px solid #1e1e30",position:"relative",overflow:"hidden"}}>
+      <div style={{background:"linear-gradient(135deg,#1a0a2e 0%,#0d1a2e 60%,#0a1a0a 100%)",padding:"30px 24px 18px",textAlign:"center",borderBottom:"1px solid #1e1e30",position:"relative",overflow:"visible"}}>
         <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse at 30% 50%,rgba(124,106,247,0.10) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(77,168,126,0.08) 0%,transparent 60%)",pointerEvents:"none"}}/>
         <div style={{fontSize:"1.6rem",marginBottom:"3px"}}>🎮</div>
         <h1 style={{fontFamily:"'Georgia',serif",fontSize:"clamp(1.1rem,4vw,1.7rem)",fontWeight:700,margin:"0 0 3px",color:"#f0eeff"}}>Nintendo Games Worth Your Time</h1>
@@ -413,7 +413,7 @@ export function NintendoGames() {
             ))}
           </div>
         )}
-        <div style={{marginBottom:"10px"}}>
+        <div className="auth-slot">
           <AuthButton />
         </div>
         <div style={{display:"flex",gap:"6px",justifyContent:"center"}}>
