@@ -8,7 +8,7 @@ const snapDir = join(__dirname, 'snapshots');
 
 mkdirSync(snapDir, { recursive: true });
 
-const guides = ['fe6', 'fe7', 'fe8'];
+const guides = ['fe6', 'fe7', 'fe8', 'fe11'];
 
 for (const key of guides) {
   const chapters = await extractChapters(key);

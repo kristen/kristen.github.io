@@ -20,6 +20,7 @@ Uses `HashRouter` — all routes are `/#/...`:
 | `/#/guide/fe6` | FE6 Binding Blade guide |
 | `/#/guide/fe7` | FE7 Blazing Blade guide |
 | `/#/guide/fe8` | FE8 Sacred Stones guide |
+| `/#/guide/fe11` | FE11 Shadow Dragon guide |
 
 Non-React pages (`nintendo-games.html`, `fe-shadow-dragon-guide.html`) live at the repo root. The CI workflow copies them into `dist/` after `npm run build` before deploying to GitHub Pages.
 
@@ -37,12 +38,13 @@ src/
   hooks/
     useProgress.ts            # localStorage progress state
   guides/
-    fe6.ts / fe7.ts / fe8.ts  # GuideConfig per game
+    fe6.ts / fe7.ts / fe8.ts / fe11.ts  # GuideConfig per game
     index.ts                  # registry: Record<string, GuideConfig>
   data/
     fe6-data.js / fe6-tiers.js  # ES module exports
     fe7-data.js / fe7-tiers.js
     fe8-data.js / fe8-tiers.js
+    fe11-data.js / fe11-tiers.js
   components/
     Landing.tsx               # card grid
     GuidePage.tsx             # reads :guideKey, renders GuideShell
@@ -107,7 +109,7 @@ Each entry in `ITEMS` is one of:
 Content regression tests in `tests/` — see `tests/CLAUDE.md`.
 
 ```
-node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs
+node --test tests/fe6.test.mjs tests/fe7.test.mjs tests/fe8.test.mjs tests/fe11.test.mjs
 ```
 
 After an intentional content change, regenerate snapshots:
@@ -118,7 +120,12 @@ node tests/generate-snapshots.mjs
 
 ## Development
 
+Requires **Node 22** (see `.nvmrc`). Vite 8 will not start on Node 21 or earlier.
+
 ```
-npm run dev      # dev server at http://localhost:5173
-npm run build    # output to dist/
+npm run dev          # dev server at http://localhost:5173 (requires Node 22 already active)
+npm run dev:nvm      # sources nvm and switches to Node 22 automatically, then starts dev server
+npm run build        # output to dist/
 ```
+
+If the shell session has the wrong Node version, use `npm run dev:nvm` — it sources `$NVM_DIR/nvm.sh` and runs `nvm use` (reads `.nvmrc`) before starting Vite.

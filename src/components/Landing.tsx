@@ -19,9 +19,8 @@ const cards: Card[] = [
   {
     game: 'Fire Emblem 11',
     title: 'Shadow Dragon',
-    description: 'Chapter checklist with recruits, steals, and route splits.',
-    href: 'fe-shadow-dragon-guide.html',
-    external: true,
+    description: 'Gaiden chapter checklist with recruits and unit tier list.',
+    href: '#/guide/fe11',
   },
   {
     game: 'Fire Emblem 6',

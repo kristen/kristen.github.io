@@ -1,0 +1,194 @@
+export const TIER_PHILOSOPHY = "<b>Tier philosophy:</b> Rated for a normal-mode run aiming to recruit everything and clear all Gaiden chapters. Shadow Dragon DS's reclassing system is a major factor — several mid-tier units jump dramatically with a class change. The Gaiden unlock system makes Tier D units strategically necessary as deliberate sacrifices to keep your army under 16 units.";
+export const TIERS = [
+  {
+    "level": "s",
+    "label": "S — Core team, always deploy",
+    "units": [
+      {
+        "name": "Marth",
+        "subtitle": "Lord · P-1 · Required; only unit who can seize and open chests; has Rapier (vs. cavalry/armor) and late-game Falchion (vs. dragons)",
+        "cls": null
+      },
+      {
+        "name": "Ogma",
+        "subtitle": "Mercenary · Ch. 2 · Best early base stats; can reclass to Swordmaster (crit) or Sniper",
+        "cls": null
+      }
+    ]
+  },
+  {
+    "level": "a",
+    "label": "A — Invest freely, strong payoff",
+    "units": [
+      {
+        "name": "Navarre",
+        "subtitle": "Myrmidon · Ch. 3 · Blazing speed (13 base); talk with Caeda; can reclass to Hero",
+        "cls": null
+      },
+      {
+        "name": "Caeda",
+        "subtitle": "Pegasus Knight · P-4 · Wing Spear vs. armor/cavalry; recruits many units via talk; can reclass to Dracoknight",
+        "cls": null
+      },
+      {
+        "name": "Cain",
+        "subtitle": "Cavalier · P-1 · Well-rounded all-rounder; can reclass to Dracoknight or Hero",
+        "cls": null
+      },
+      {
+        "name": "Hardin",
+        "subtitle": "Cavalier · Ch. 8 · 100% HP growth, 60% Def growth; can reclass to General or Dracoknight",
+        "cls": null
+      },
+      {
+        "name": "Minerva",
+        "subtitle": "Dracoknight · Ch. 10 · Outstanding pre-promote; high base Str; can reclass to Paladin or General",
+        "cls": null
+      },
+      {
+        "name": "Linde",
+        "subtitle": "Mage · Ch. 11 · Best magic unit; joins with Aura (vs. cavalry); can reclass to Bishop",
+        "cls": null
+      },
+      {
+        "name": "Jeorge",
+        "subtitle": "Sniper · Ch. 14 · Pre-promote; joins with Parthia (grants +5 Res when equipped); can reclass to Horseman",
+        "cls": null
+      },
+      {
+        "name": "Tiki",
+        "subtitle": "Manakete · Gaiden 19x · 100% HP growth; uses Divinestone; requires Bantu alive to recruit",
+        "cls": null
+      }
+    ]
+  },
+  {
+    "level": "b",
+    "label": "B — Solid contributors",
+    "units": [
+      {
+        "name": "Jagen",
+        "subtitle": "Paladin · P-1 · Classic Jagen archetype; strong early mounted utility; low growths, fades mid-game",
+        "cls": null
+      },
+      {
+        "name": "Abel",
+        "subtitle": "Cavalier · P-1 · More defensive than Cain; can reclass to Dracoknight",
+        "cls": null
+      },
+      {
+        "name": "Merric",
+        "subtitle": "Mage · Ch. 5 · Only mage for several early chapters; joins with Excalibur (vs. fliers); can reclass to Bishop",
+        "cls": null
+      },
+      {
+        "name": "Draug",
+        "subtitle": "Armor Knight · Ch. 1 · Best armor unit; terrible speed — reclass to Paladin to fix mobility",
+        "cls": null
+      },
+      {
+        "name": "Gordin",
+        "subtitle": "Archer · P-2 · Low speed (5 base) — strongly recommend reclassing to Horseman for mobility",
+        "cls": null
+      },
+      {
+        "name": "Palla",
+        "subtitle": "Pegasus Knight · Ch. 10 · Joins with Minerva; reliable flier; can reclass to Dracoknight",
+        "cls": null
+      },
+      {
+        "name": "Catria",
+        "subtitle": "Pegasus Knight · Ch. 10 · Better speed growth than Palla (55%); can reclass to Dracoknight",
+        "cls": null
+      },
+      {
+        "name": "Wendell",
+        "subtitle": "Sage · Gaiden 7x · Already promoted; low growths but usable immediately; can reclass to Bishop",
+        "cls": null
+      },
+      {
+        "name": "Xane",
+        "subtitle": "Chameleon · Gaiden 19x · Copies any ally's class and stats each turn; unique and versatile filler",
+        "cls": null
+      },
+      {
+        "name": "Astram",
+        "subtitle": "Hero · Gaiden 16x · Solid base stats, reliable fighter; worth rescuing from Gaiden 16x",
+        "cls": null
+      }
+    ]
+  },
+  {
+    "level": "c",
+    "label": "C — Usable but outclassed",
+    "units": [
+      {
+        "name": "Bantu",
+        "subtitle": "Manakete · Ch. 6 · Terrible growths — keep alive solely to recruit Tiki in Gaiden 19x; never invest EXP",
+        "cls": null
+      },
+      {
+        "name": "Julian",
+        "subtitle": "Thief · Ch. 3 · Only unit that can open chests and doors; never let him die; can reclass to Assassin",
+        "cls": null
+      },
+      {
+        "name": "Maria",
+        "subtitle": "Bishop · Ch. 10 · Rescue her to unlock Minerva; decent healer but outclassed by Linde",
+        "cls": null
+      },
+      {
+        "name": "Midia",
+        "subtitle": "Paladin · Gaiden 16x · Solid mounted unit; late join via Gaiden 16x rescue",
+        "cls": null
+      }
+    ]
+  },
+  {
+    "level": "d",
+    "label": "D — Sacrifice candidates for Gaiden unlocks",
+    "units": [
+      {
+        "name": "Wrys",
+        "subtitle": "Cleric · P-3 · Weakest healer; recruit and sacrifice to unlock Gaidens",
+        "cls": null
+      },
+      {
+        "name": "Castor",
+        "subtitle": "Hunter · Ch. 3 · Mediocre; talk with Caeda; sacrifice candidate",
+        "cls": null
+      },
+      {
+        "name": "Dolph",
+        "subtitle": "Armor Knight · Ch. 4 · Weak armor; talk with Caeda; sacrifice candidate",
+        "cls": null
+      },
+      {
+        "name": "Macellan",
+        "subtitle": "Armor Knight · Ch. 4 · Weak armor; talk with Caeda; sacrifice candidate",
+        "cls": null
+      },
+      {
+        "name": "Roger",
+        "subtitle": "Cavalier · Ch. 5 · Mediocre; talk with Caeda; sacrifice candidate",
+        "cls": null
+      },
+      {
+        "name": "Matthis",
+        "subtitle": "Cavalier · Ch. 5 · Lena's brother; talk with Lena or Caeda; sacrifice candidate",
+        "cls": null
+      },
+      {
+        "name": "Lorenz",
+        "subtitle": "General · Ch. 14 · Old and slow; talk with Caeda; recruit only for unit-count management",
+        "cls": null
+      },
+      {
+        "name": "Frey",
+        "subtitle": "Cavalier · P-1/Ch. 18 · Sacrifice in P-1; returns in Ch. 18 severely underleveled",
+        "cls": null
+      }
+    ]
+  }
+];
+export const TIER_TIP = "<b>Bantu (C tier)</b> must survive the entire game — he is required to recruit Tiki in Gaiden 19x. Never give him combat EXP; just keep him out of danger.\n        <b>Julian</b> is your only thief; he can open all chests and doors and should never die, but don't waste combat resources on him.\n        <b>Sacrifice strategy</b>: recruit Tier D units for the army headcount, then deliberately let them fall in the chapter just before a Gaiden you want to unlock. End the chapter at ≤15 units to trigger the next Gaiden.";
