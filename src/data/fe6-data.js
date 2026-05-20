@@ -5,7 +5,7 @@ export const ITEMS = [
     "num": "Ch. 1",
     "name": "Dawn of Destiny",
     "recruits": [
-      "Roy, Marcus, Alen, Lance, Wolt & Bors — Automatically, turn 1"
+      "Roy, Marcus, Alan, Lance, Wolt & Bors — Automatically, turn 1"
     ],
     "items": [
       "5000G (village)"
@@ -19,7 +19,7 @@ export const ITEMS = [
     "name": "The Princess of Bern",
     "recruits": [
       "Merlinus & Ellen — Automatically, turn 1",
-      "Dieck, Thany, Wade & Lot — Automatically, turn 2"
+      "Dieck, Thany, Ward & Lot — Automatically, turn 2"
     ],
     "items": [
       "Armourslayer (village)"
@@ -51,8 +51,8 @@ export const ITEMS = [
     "num": "Ch. 4",
     "name": "Collapse of the Alliance",
     "recruits": [
-      "Clarine/Clarin — Turn 3: leaves castle; talks to Roy automatically (have Roy near castle)",
-      "Rutger/Rutoga — Turn 6: talk with Clarine/Clarin (keep units back; he has Killing Edge)"
+      "Clarine — Turn 3: leaves castle; talks to Roy automatically (have Roy near castle)",
+      "Rutger — Turn 6: talk with Clarine (keep units back; he has Killing Edge)"
     ],
     "items": [
       "Angelic Robe (village)",
@@ -63,7 +63,7 @@ export const ITEMS = [
       "Vulneraries ×4"
     ],
     "warns": [
-      "Turn 6: Rutger/Rutoga and reinforcements are deadly if units are near the castle"
+      "Turn 6: Rutger and reinforcements are deadly if units are near the castle"
     ]
   },
   {
@@ -273,11 +273,11 @@ export const ITEMS = [
         "badgeText": "Route B",
         "recruits": [
           "Gonzales — Turn 6: enemy from NW; talk with Lilina",
-          "Klein — Turn 8: enemy SE; talk with Clarine/Clarin",
+          "Klein — Turn 8: enemy SE; talk with Clarine",
           "Thea/Tate — Turn 10: enemy; talk with Klein (not Thany — allies will fight and die)"
         ],
         "items": [
-          "Speedwings or Elixir (NW village — Wade/Lot get Speedwings, others get Elixir)",
+          "Speedwings or Elixir (NW village — Ward/Lot get Speedwings, others get Elixir)",
           "Dragonshield (village)",
           "Barrier (village)",
           "Sleep (village)",
@@ -285,7 +285,7 @@ export const ITEMS = [
           "Wyrmslayer (end of chapter)"
         ],
         "warns": [
-          "Use Wade or Lot to visit NW and N villages for better rewards"
+          "Use Ward or Lot to visit NW and N villages for better rewards"
         ]
       }
     ]
@@ -302,7 +302,7 @@ export const ITEMS = [
         "badgeText": "Route A",
         "recruits": [
           "Larum — Automatically, turn 1",
-          "Klein — Turn 5: enemy SE; talk with Clarine/Clarin",
+          "Klein — Turn 5: enemy SE; talk with Clarine",
           "Thea/Tate — Turn 7: enemy; talk with Klein (not Thany first)",
           "Echidna — Turn 8: NPC from eastern house; talk with Larum"
         ],
