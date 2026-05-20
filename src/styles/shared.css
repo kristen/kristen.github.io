@@ -106,9 +106,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
 .tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
 .tag{font-size:11px;padding:3px 8px;border-radius:8px;display:flex;align-items:center;gap:4px;line-height:1.3}
 .tag i{font-size:11px}
-.tag.unit {background:var(--blue-subtle);   color:var(--blue)}
 .tag.warn {background:var(--red-subtle);    color:var(--red)}
-.tag.steal{background:var(--amber-subtle);  color:var(--amber)}
 
 /* sub-item checklist */
 .sub-items{display:flex;flex-direction:column;gap:2px;margin-top:6px;padding-left:1px}

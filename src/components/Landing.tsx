@@ -5,7 +5,6 @@ interface Card {
   title: string;
   description: string;
   href: string;
-  external?: boolean;
 }
 
 const cards: Card[] = [
@@ -53,7 +52,7 @@ export function Landing() {
       </header>
       <div className="cards">
         {cards.map(card => (
-          <a key={card.title} className={`card${card.external ? ' card-full' : ''}`} href={card.href}>
+          <a key={card.title} className="card" href={card.href}>
             <div className="card-game">{card.game}</div>
             <h2>{card.title}</h2>
             <p>{card.description}</p>

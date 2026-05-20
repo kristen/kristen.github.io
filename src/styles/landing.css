@@ -81,11 +81,6 @@
   transition: border-color .15s, background .15s;
 }
 
-.card-full {
-  flex: 0 0 100%;
-  max-width: 100%;
-}
-
 .card:hover {
   background: var(--bg3);
   border-color: var(--gold);
