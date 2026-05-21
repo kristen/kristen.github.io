@@ -129,5 +129,5 @@ test('isUnitRecruited: empty set → false', () => {
 
 test('isUnitRecruited: case-insensitive', () => {
   const names = new Set(['clarine']);
-  assert.ok(isUnitRecruited('Clarine/Clarin', names));
+  assert.ok(isUnitRecruited('Clarine', names));
 });

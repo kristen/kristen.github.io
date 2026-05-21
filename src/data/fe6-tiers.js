@@ -15,7 +15,7 @@ export const TIERS = [
         "cls": null
       },
       {
-        "name": "Clarine/Clarin",
+        "name": "Clarine",
         "subtitle": "Troubadour · Ch.4 · Mounted healer, invaluable",
         "cls": null
       },
