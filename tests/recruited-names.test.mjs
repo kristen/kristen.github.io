@@ -109,18 +109,18 @@ test('isUnitRecruited: simple name match', () => {
 });
 
 test('isUnitRecruited: slash variant — first matches', () => {
-  const names = new Set(['wendy']);
-  assert.ok(isUnitRecruited('Wendy/Gwendolyn', names));
+  const names = new Set(['niime']);
+  assert.ok(isUnitRecruited('Niime/Nim', names));
 });
 
 test('isUnitRecruited: slash variant — second matches', () => {
-  const names = new Set(['gwendolyn']);
-  assert.ok(isUnitRecruited('Wendy/Gwendolyn', names));
+  const names = new Set(['nim']);
+  assert.ok(isUnitRecruited('Niime/Nim', names));
 });
 
 test('isUnitRecruited: slash variant — neither matches', () => {
   const names = new Set(['lugh']);
-  assert.ok(!isUnitRecruited('Wendy/Gwendolyn', names));
+  assert.ok(!isUnitRecruited('Niime/Nim', names));
 });
 
 test('isUnitRecruited: empty set → false', () => {
