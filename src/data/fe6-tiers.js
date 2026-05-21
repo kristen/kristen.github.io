@@ -41,13 +41,13 @@ export const TIERS = [
     "label": "A — Invest freely, strong payoff",
     "units": [
       {
-        "name": "Alen",
+        "name": "Alan",
         "subtitle": "Cavalier · Ch.1 · Well-rounded, great growths",
         "cls": null
       },
       {
         "name": "Lance",
-        "subtitle": "Cavalier · Ch.1 · Alen's equal, both are core",
+        "subtitle": "Cavalier · Ch.1 · Alan's equal, both are core",
         "cls": null
       },
       {
