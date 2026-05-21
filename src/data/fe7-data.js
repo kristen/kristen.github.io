@@ -2,7 +2,7 @@ export const ITEMS = [
   {
     "type": "save",
     "title": "Lyn's Story — Tutorial Mode",
-    "body": "Lyn's Story is the tutorial. <b>Stats and levels carry over</b> to the main story. If you skip it, Lyn-mode characters rejoin in Ch. 15 at reduced base stats. Teal borders mark Lyn's Story chapters. All characters here automatically rejoin the main cast at <b>Ch. 15 (Noble Lady of Caelin)</b>."
+    "body": "Lyn's Story is the tutorial. <b>Stats and levels carry over</b> to the main story. If you skip it, Lyn-mode characters rejoin in Noble Lady of Caelin at reduced base stats. Green borders mark Lyn's Story chapters. All characters here automatically rejoin the main cast at <b>Noble Lady of Caelin (E.15 / H.16)</b>."
   },
   {
     "type": "ch",
@@ -167,13 +167,16 @@ export const ITEMS = [
   {
     "type": "save",
     "title": "Main Story begins — choose Eliwood or Hector's Story",
-    "body": "From here you choose <b>Eliwood's Story</b> (standard, 30 chapters + gaidens) or <b>Hector's Story</b> (harder, 32 chapters + 8 gaidens, 6 exclusive chapters). Chapters with an orange <b>Hector</b> badge are exclusive to Hector's mode. Both stories share most chapters but numbering shifts in Hector's mode due to the extra chapters."
+    "body": "From here you choose <b>Eliwood's Story</b> (standard) or <b>Hector's Story</b> (harder, adds 6 exclusive chapters). <b>Chapter numbers shift in Hector mode</b> because of inserted chapters — shared chapters show both numbers as <b>E.XX / H.XX</b>. Orange badges = Hector-exclusive. Pink badges = Eliwood-exclusive. Orange borders = Hector-exclusive chapters."
   },
   {
     "type": "ch",
     "id": "c11",
-    "num": "Ch. 11",
+    "num": "E.11",
     "name": "Taking Leave",
+    "cls": "is-eliwood",
+    "badge": "eliwood",
+    "badgeText": "Eliwood",
     "recruits": [
       "Lowen — Automatically at start",
       "Rebecca — Automatically at start",
@@ -183,7 +186,25 @@ export const ITEMS = [
       "Knight's Crest (village)",
       "Vulnerary (village)"
     ],
-    "warns": []
+    "warns": [
+      "ELIWOOD MODE ONLY — Hector's Ch. 11 is 'Another Journey'"
+    ]
+  },
+  {
+    "type": "ch",
+    "id": "c11h",
+    "num": "H.11",
+    "name": "Another Journey",
+    "cls": "is-hector",
+    "badge": "hector",
+    "badgeText": "Hector",
+    "recruits": [
+      "Oswin — Automatically joins Hector at the start (Hector mode only)"
+    ],
+    "items": [],
+    "warns": [
+      "HECTOR MODE ONLY — Eliwood's Ch. 11 is 'Taking Leave'"
+    ]
   },
   {
     "type": "ch",
@@ -192,7 +213,8 @@ export const ITEMS = [
     "name": "Birds of a Feather",
     "recruits": [
       "Hector — Automatically joins (Eliwood mode; he and his party merge with yours)",
-      "Oswin — Automatically joins with Hector"
+      "Oswin — Joins with Hector in Eliwood mode (joins in H.11 in Hector mode)",
+      "Lowen, Rebecca, Marcus — Join here in Hector mode (joined in E.11 in Eliwood mode)"
     ],
     "items": [],
     "warns": []
@@ -258,8 +280,25 @@ export const ITEMS = [
   },
   {
     "type": "ch",
+    "id": "c15h",
+    "num": "H.15",
+    "name": "Talons Alight",
+    "cls": "is-hector",
+    "badge": "hector",
+    "badgeText": "Hector",
+    "recruits": [
+      "Fiora — NPC Pegasus Knight; talk with Florina (Fiora is Florina's older sister)"
+    ],
+    "items": [],
+    "warns": [
+      "HECTOR MODE ONLY — does not appear in Eliwood's Story",
+      "In Eliwood mode, Fiora joins differently around E.19"
+    ]
+  },
+  {
+    "type": "ch",
     "id": "c15",
-    "num": "Ch. 15",
+    "num": "E.15 / H.16",
     "name": "Noble Lady of Caelin",
     "recruits": [
       "Lyn, Sain, Kent, Florina, Wil, Dorcas, Serra, Erk, Lucius, Matthew, Ninian, Nils & Guy — All Lyn's Story units rejoin at levels from tutorial"
@@ -272,25 +311,8 @@ export const ITEMS = [
   },
   {
     "type": "ch",
-    "id": "c15h",
-    "num": "Hector Ch. 15",
-    "name": "Talons Alight",
-    "cls": "is-hector",
-    "badge": "hector",
-    "badgeText": "Hector",
-    "recruits": [
-      "Fiora — NPC Pegasus Knight; talk with Florina (Fiora is Florina's older sister)"
-    ],
-    "items": [],
-    "warns": [
-      "HECTOR MODE ONLY — does not appear in Eliwood's Story",
-      "In Eliwood mode, Fiora joins differently around Ch. 19"
-    ]
-  },
-  {
-    "type": "ch",
     "id": "c16",
-    "num": "Ch. 16",
+    "num": "E.16 / H.17",
     "name": "Whereabouts Unknown",
     "items": [],
     "warns": [
@@ -300,7 +322,7 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c16x",
-    "num": "Ch. 16x",
+    "num": "E.16x / H.17x",
     "name": "The Port of Badon",
     "cls": "is-gaiden",
     "badge": "gaiden",
@@ -310,15 +332,15 @@ export const ITEMS = [
       "Devil Axe (village)"
     ],
     "warns": [
-      "Unlock: keep ≥1 Caelin soldier alive in Ch. 16",
-      "DO NOT defeat Dart here — he appears as an enemy pirate; killing him locks you out of recruiting him in Ch. 17",
+      "Unlock: keep ≥1 Caelin soldier alive in E.16/H.17",
+      "DO NOT defeat Dart here — he appears as an enemy pirate; killing him locks you out of recruiting him in E.17/H.18",
       "Arena available — great for grinding levels, weapon ranks, supports, and gold"
     ]
   },
   {
     "type": "ch",
     "id": "c17",
-    "num": "Ch. 17",
+    "num": "E.17 / H.18",
     "name": "Pirate Ship",
     "recruits": [
       "Dart — Enemy pirate; talk with Rebecca (they grew up together)"
@@ -337,13 +359,13 @@ export const ITEMS = [
   },
   {
     "type": "save",
-    "title": "Save before Ch. 18 — gaiden unlock",
-    "body": "Complete Ch. 18 (The Dread Isle) in <b>≤15 turns</b> to unlock Ch. 18x (Imprisoner of Magic). Hawkeye also joins here as an NPC — <b>keep him alive</b>, he is needed for the Ch. 22x unlock conditions."
+    "title": "Save before E.18/H.19 — gaiden unlock",
+    "body": "Complete E.18/H.19 (The Dread Isle) in <b>≤15 turns</b> to unlock E.18x/H.19x (Imprisoner of Magic). Hawkeye also joins here as an NPC — <b>keep him alive</b>, he is needed for the E.22x/H.23x unlock conditions."
   },
   {
     "type": "ch",
     "id": "c18",
-    "num": "Ch. 18",
+    "num": "E.18 / H.19",
     "name": "The Dread Isle",
     "recruits": [
       "Hawkeye — NPC ally; joins your party automatically after the chapter"
@@ -352,14 +374,14 @@ export const ITEMS = [
       "Elfire (village)"
     ],
     "warns": [
-      "Complete in ≤15 turns to unlock Ch. 18x",
-      "Keep Hawkeye alive through this chapter — required for Ch. 22x unlock"
+      "Complete in ≤15 turns to unlock E.18x/H.19x",
+      "Keep Hawkeye alive through this chapter — required for E.22x/H.23x unlock"
     ]
   },
   {
     "type": "ch",
     "id": "c18x",
-    "num": "Ch. 18x",
+    "num": "E.18x / H.19x",
     "name": "Imprisoner of Magic",
     "cls": "is-gaiden",
     "badge": "gaiden",
@@ -372,18 +394,18 @@ export const ITEMS = [
       "Vulneraries"
     ],
     "warns": [
-      "Unlock: complete Ch. 18 in ≤15 turns",
-      "Defeat Kishuna (magic seal enemy) — required for Hector mode Ch. 19xx unlock"
+      "Unlock: complete E.18/H.19 in ≤15 turns",
+      "Defeat Kishuna (magic seal enemy) — required for Hector mode H.20x unlock"
     ]
   },
   {
     "type": "ch",
     "id": "c19",
-    "num": "Ch. 19",
+    "num": "E.19 / H.20",
     "name": "Dragon's Gate",
     "recruits": [
       "Heath — Enemy wyvern rider; talk with Lyn or Priscilla (he questions his loyalty to the Black Fang)",
-      "Fiora — NPC (Eliwood mode); talk with Florina to recruit (Hector mode players already have her from Ch. 15H)",
+      "Fiora — NPC (Eliwood mode only); talk with Florina to recruit (Hector mode players already have her from H.15)",
       "Legault — Enemy thief (former Black Fang); appears from stairs early in the chapter; talk with Eliwood, Hector, or Lyn — will likely have already opened the eastern chests"
     ],
     "items": [
@@ -403,9 +425,9 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c19xx",
-    "num": "Hector Ch. 19xx",
+    "num": "H.20x",
     "name": "A Glimpse in Time",
-    "cls": "is-gaiden",
+    "cls": "is-hector",
     "badge": "hector",
     "badgeText": "Hector",
     "items": [
@@ -413,13 +435,13 @@ export const ITEMS = [
     ],
     "warns": [
       "HECTOR MODE ONLY",
-      "Unlock: Nils reached Level 7+ during Lyn's Story AND Kishuna was defeated in Ch. 18x/19x"
+      "Unlock: Nils reached Level 7+ during Lyn's Story AND Kishuna was defeated in E.18x/H.19x"
     ]
   },
   {
     "type": "ch",
     "id": "c20",
-    "num": "Ch. 20",
+    "num": "E.20 / H.21",
     "name": "New Resolve",
     "items": [],
     "warns": [
@@ -429,22 +451,22 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c21",
-    "num": "Ch. 21",
+    "num": "E.21 / H.22",
     "name": "Kinship's Bond",
     "items": [],
     "warns": [
-      "Secret shop in the top-left room (left of the pillar) — requires Member Card from Ch. 19 to access"
+      "Secret shop in the top-left room (left of the pillar) — requires Member Card from E.19/H.20 to access"
     ]
   },
   {
     "type": "save",
-    "title": "Save before Ch. 22 — gaiden unlock conditions",
-    "body": "To unlock Ch. 22x (Genesis): <b>Hawkeye must be alive</b> AND you must earn <b>700+ total EXP</b> in Ch. 22 (Living Legend). Send all units into the fog to fight — the more enemies killed, the better. Also: Pent and Louise join as NPCs — protect them to secure their permanent recruitment."
+    "title": "Save before E.22/H.23 — gaiden unlock conditions",
+    "body": "To unlock E.22x/H.23x (Genesis): <b>Hawkeye must be alive</b> AND you must earn <b>700+ total EXP</b> in E.22/H.23 (Living Legend). Send all units into the fog to fight — the more enemies killed, the better. Also: Pent and Louise join as NPCs — protect them to secure their permanent recruitment."
   },
   {
     "type": "ch",
     "id": "c22",
-    "num": "Ch. 22",
+    "num": "E.22 / H.23",
     "name": "Living Legend",
     "recruits": [
       "Pent — NPC allied Sage; joins permanently after the chapter (best pre-promote in the game)",
@@ -454,8 +476,8 @@ export const ITEMS = [
       "Elixir (Athos gifts at chapter start)"
     ],
     "warns": [
-      "Earn 700+ total EXP this chapter to unlock Ch. 22x — farm as many enemies as possible",
-      "Keep Hawkeye alive (also required for 22x)",
+      "Earn 700+ total EXP this chapter to unlock E.22x/H.23x — farm as many enemies as possible",
+      "Keep Hawkeye alive (also required for E.22x/H.23x)",
       "Keep Pent and Louise alive — they join after the chapter",
       "Fog of War sandstorm — bring Torch staves or units with high vision radius"
     ]
@@ -463,7 +485,7 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c22x",
-    "num": "Ch. 22x",
+    "num": "E.22x / H.23x",
     "name": "Genesis",
     "cls": "is-gaiden",
     "badge": "gaiden",
@@ -472,12 +494,12 @@ export const ITEMS = [
       "Various stat boosters and rare items"
     ],
     "warns": [
-      "Unlock: Hawkeye alive + 700+ EXP earned in Ch. 22"
+      "Unlock: Hawkeye alive + 700+ EXP earned in E.22/H.23"
     ]
   },
   {
     "type": "save",
-    "title": "Save before Ch. 23 — Four-Fanged Offense split",
+    "title": "Save before E.23/H.24 — Four-Fanged Offense split",
     "body": "Ch. 23 has two versions based on your <b>lords' combined level</b>. <b>Lloyd version</b> (Fog of War, harder) if lords' combined level is ≤49. <b>Linus version</b> (no Fog of War, easier) if ≥50. Your choice determines whether <b>Wallace</b> (Lloyd route) or <b>Geitz</b> (Linus route) is recruitable. Duplicate save to see both."
   },
   {
@@ -508,7 +530,7 @@ export const ITEMS = [
     "pair": [
       {
         "id": "c23a",
-        "num": "Ch. 23A",
+        "num": "E.23A / H.24A",
         "name": "Four-Fanged Offense (Lloyd)",
         "cls": "is-ra",
         "badge": "ra",
@@ -524,7 +546,7 @@ export const ITEMS = [
       },
       {
         "id": "c23b",
-        "num": "Ch. 23B",
+        "num": "E.23B / H.24B",
         "name": "Four-Fanged Offense (Linus)",
         "cls": "is-rb",
         "badge": "rb",
@@ -541,8 +563,25 @@ export const ITEMS = [
   },
   {
     "type": "ch",
+    "id": "c25h",
+    "num": "H.25",
+    "name": "Crazed Beast",
+    "cls": "is-hector",
+    "badge": "hector",
+    "badgeText": "Hector",
+    "recruits": [
+      "Farina — Pay 20,000G to recruit (Hector mode only)"
+    ],
+    "items": [],
+    "warns": [
+      "HECTOR MODE ONLY — does not appear in Eliwood's Story",
+      "Farina costs 20,000G — only worthwhile if you need a third flier; Florina and Fiora are strictly better"
+    ]
+  },
+  {
+    "type": "ch",
     "id": "c24",
-    "num": "Ch. 24",
+    "num": "E.24 / H.26",
     "name": "Unfulfilled Heart",
     "recruits": [
       "Nino — NPC ally Mage; joins at start of chapter",
@@ -551,13 +590,13 @@ export const ITEMS = [
     "items": [],
     "warns": [
       "CRITICAL: Have Nino talk to Jaffar — he will not join otherwise",
-      "Both Nino AND Jaffar must survive Ch. 24 AND Ch. 26 to unlock Ch. 26x (Night of Farewells)",
+      "Both Nino AND Jaffar must survive E.24/H.26 AND E.26/H.28 to unlock E.26x/H.28x (Night of Farewells)",
       "Jaffar is one of the best units in the game despite late join"
     ]
   },
   {
     "type": "save",
-    "title": "Save before Ch. 25 — Pale Flower split + Harken vs. Karel",
+    "title": "Save before E.25/H.27 — Pale Flower split + Harken vs. Karel",
     "body": "Ch. 25 has two versions. <b>Kenneth version</b> if your magic users (Serra, Erk, Priscilla, Lucius) gained more EXP than your physical users (Dorcas, Bartre, Guy, Raven). <b>Jerme version</b> otherwise. Additionally, either <b>Harken</b> or <b>Karel</b> is recruitable this chapter — they are mutually exclusive. See Ch. 25 notes for specific conditions per version."
   },
   {
@@ -589,7 +628,7 @@ export const ITEMS = [
     "pair": [
       {
         "id": "c25a",
-        "num": "Ch. 25A",
+        "num": "E.25A / H.27A",
         "name": "Pale Flower (Kenneth)",
         "cls": "is-ra",
         "badge": "ra",
@@ -606,7 +645,7 @@ export const ITEMS = [
       },
       {
         "id": "c25b",
-        "num": "Ch. 25B",
+        "num": "E.25B / H.27B",
         "name": "Pale Flower (Jerme)",
         "cls": "is-rb",
         "badge": "rb",
@@ -625,27 +664,27 @@ export const ITEMS = [
   },
   {
     "type": "save",
-    "title": "Save before Ch. 26 — Ch. 26x unlock",
-    "body": "Unlock Ch. 26x (Night of Farewells) by: <b>Nino recruited in Ch. 24</b>, <b>Jaffar recruited in Ch. 24 via Nino</b>, and <b>both survive through Ch. 26</b>. If either dies at any point after Ch. 24, the gaiden is locked. Save here as insurance."
+    "title": "Save before E.26/H.28 — E.26x/H.28x unlock",
+    "body": "Unlock E.26x/H.28x (Night of Farewells) by: <b>Nino recruited in E.24/H.26</b>, <b>Jaffar recruited in E.24/H.26 via Nino</b>, and <b>both survive through E.26/H.28</b>. If either dies at any point after E.24/H.26, the gaiden is locked. Save here as insurance."
   },
   {
     "type": "ch",
     "id": "c26",
-    "num": "Ch. 26",
+    "num": "E.26 / H.28",
     "name": "Battle Before Dawn",
     "items": [],
     "steal": [
       "Vulneraries"
     ],
     "warns": [
-      "Keep Nino AND Jaffar alive — required for Ch. 26x",
+      "Keep Nino AND Jaffar alive — required for E.26x/H.28x",
       "Reinforcements are plentiful and dangerous; do not overextend"
     ]
   },
   {
     "type": "ch",
     "id": "c26x",
-    "num": "Ch. 26x",
+    "num": "E.26x / H.28x",
     "name": "Night of Farewells",
     "cls": "is-gaiden",
     "badge": "gaiden",
@@ -655,20 +694,20 @@ export const ITEMS = [
       "Various stat boosters"
     ],
     "warns": [
-      "Unlock: Nino talked to Jaffar in Ch. 24, both survived through Ch. 26"
+      "Unlock: Nino talked to Jaffar in E.24/H.26, both survived through E.26/H.28"
     ]
   },
   {
     "type": "ch",
     "id": "c27",
-    "num": "Ch. 27",
+    "num": "E.27 / H.29",
     "name": "Cog of Destiny",
     "items": [
       "Warp (chest — the ONLY obtainable Warp staff in the entire game; do not miss it)",
       "Iron Rune (held by boss — only one in the game; protects against crits)"
     ],
     "warns": [
-      "Boss is whichever of Lloyd/Linus was NOT fought in Ch. 23 — same character, other brother",
+      "Boss is whichever of Lloyd/Linus was NOT fought in E.23/H.24 — same character, other brother",
       "GET THE WARP STAFF from the chest — it is irreplaceable",
       "Steal or defeat the boss for the Iron Rune",
       "Dangerous chapter: fast Valkyries, Druids with Luna, and multiple status staves",
@@ -679,7 +718,7 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c28",
-    "num": "Ch. 28",
+    "num": "E.28 / H.30",
     "name": "Valorous Roland",
     "recruits": [
       "Isadora — NPC Paladin; joins after a story event"
@@ -696,7 +735,7 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c29",
-    "num": "Ch. 29",
+    "num": "E.29 / H.31",
     "name": "Sands of Time",
     "items": [],
     "warns": [
@@ -706,26 +745,25 @@ export const ITEMS = [
   {
     "type": "ch",
     "id": "c31x",
-    "num": "Hector Ch. 31x",
+    "num": "H.31x",
     "name": "Battle Preparations",
-    "cls": "is-gaiden",
+    "cls": "is-hector",
     "badge": "hector",
     "badgeText": "Hector",
     "recruits": [
-      "Karla — Enemy Swordmaster; Bartre must be a promoted Warrior at Level 5+ before the chapter starts — she challenges him to a duel, then joins if he survives",
-      "Farina — costs 20,000G (Hector mode, available around Ch. 25 onwards)"
+      "Karla — Enemy Swordmaster; Bartre must be a promoted Warrior at Level 5+ before the chapter starts — she challenges him to a duel, then joins if he survives"
     ],
     "items": [],
     "warns": [
       "HECTOR MODE ONLY",
-      "Unlock: complete Ch. 31 (Sands of Time in Hector's numbering) in ≤20 turns",
+      "Unlock: complete E.29/H.31 (Sands of Time) in ≤20 turns",
       "Karla: Bartre must be a Level 5+ Warrior (promoted) before this chapter — plan ahead"
     ]
   },
   {
     "type": "ch",
     "id": "c30",
-    "num": "Ch. 30",
+    "num": "E.30 / H.32",
     "name": "Victory or Death",
     "recruits": [
       "Renault — Visit ruins to the north within 11 turns (last recruitable character; Bishop pre-promote with A-rank staves)"
