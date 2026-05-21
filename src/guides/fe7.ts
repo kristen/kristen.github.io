@@ -11,13 +11,13 @@ export const fe7Config: GuideConfig = {
   storageKey: 'fe7_guide_v1',
   splitLabel: 'Recruits',
   tipBox: `<b>How to use:</b> Click a row to mark the chapter done. <b>Blue</b> recruit rows, <b>green</b> items, <b>gold</b> steals — each has its own checkbox.
-        Teal borders = Lyn's Story. Orange borders = Hector-exclusive. Red = gaiden. Blue/purple = split routes.
+        Green borders = Lyn's Story. Orange borders = Hector-exclusive. Red = gaiden. Blue/purple = split routes.
         <b>Gold cards</b> = save reminders. <b>Blue cards</b> = branch explanation.
         Recruitment data from <a href="https://serenesforest.net/blazing-sword/" style="color:var(--gold)">Serenes Forest</a>; verify item details there.`,
   cssVars: {
     '--hector':    '#d4924a',
-    '--lyn':       '#4aa8a8',
-    '--lyn-label': '#6acaca',
+    '--lyn':       '#5a9e5a',
+    '--lyn-label': '#7ac07a',
   },
   extraCss: `
 .ch-row.is-gaiden{border-left-color:var(--red)}
@@ -29,7 +29,7 @@ export const fe7Config: GuideConfig = {
 .badge.ra     {background:var(--blue-subtle);   color:var(--blue)}
 .badge.rb     {background:var(--purple-subtle); color:var(--purple)}
 .badge.hector {background:rgba(212,146,74,0.15); color:var(--hector)}
-.badge.lyn    {background:rgba(74,168,168,0.15);color:var(--lyn-label)}
+.badge.lyn    {background:rgba(90,158,90,0.15);color:var(--lyn-label)}
 .unit-chip.is-hector{border-left-width:3px;border-left-color:var(--hector)}
 .unit-chip.is-lyn   {border-left-width:3px;border-left-color:var(--lyn)}
 .unit-chip.is-ra    {border-left-width:3px;border-left-color:var(--blue)}

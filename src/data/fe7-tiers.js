@@ -18,6 +18,11 @@ export const TIERS = [
         "name": "Ninian",
         "subtitle": "Dancer · Lyn Ch. 7 · Double-move utility; unavailable after Ch. 28",
         "cls": null
+      },
+      {
+        "name": "Nils",
+        "subtitle": "Bard · Lyn Ch. 7 · Same refresh utility as Ninian; sole refresh unit after Ch. 28",
+        "cls": null
       }
     ]
   },
@@ -100,6 +105,21 @@ export const TIERS = [
         "name": "Louise",
         "subtitle": "Sniper · Ch. 22 · Joins with Pent; solid pre-promote bow user",
         "cls": null
+      },
+      {
+        "name": "Rath",
+        "subtitle": "Nomad · Lyn Ch. 6 · Mobile bow user; solid growths, available all game",
+        "cls": null
+      },
+      {
+        "name": "Karel",
+        "subtitle": "Swordmaster · Ch. 25 · Mutually exclusive with Harken; high Skl/Spd, joins late",
+        "cls": null
+      },
+      {
+        "name": "Harken",
+        "subtitle": "Hero · Ch. 25 · Mutually exclusive with Karel; higher Str/HP, generally preferred",
+        "cls": null
       }
     ]
   },
@@ -155,6 +175,11 @@ export const TIERS = [
       {
         "name": "Nino",
         "subtitle": "Mage · Ch. 24 · Joins severely underleveled; great growths if invested",
+        "cls": null
+      },
+      {
+        "name": "Vaida",
+        "subtitle": "Wyvern Lord · Ch. 27 · Pre-promote; great bulk but low Spd, joins very late",
         "cls": null
       }
     ]
