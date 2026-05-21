@@ -13,8 +13,7 @@ interface Props {
 }
 
 export function GuideShell({ config }: Props) {
-  const [activeTab, setActiveTab] = useState<'chapters' | 'tiers'>('chapters');
-  const [tierSubTab, setTierSubTab] = useState<'tiers' | 'reclass'>('tiers');
+  const [activeTab, setActiveTab] = useState<'chapters' | 'tiers' | 'reclass'>('chapters');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const chapColRef = useRef<HTMLDivElement>(null);
   const tierColRef = useRef<HTMLDivElement>(null);
@@ -78,6 +77,14 @@ export function GuideShell({ config }: Props) {
         >
           Tier List
         </button>
+        {config.reclass && (
+          <button
+            className={`tab-btn${activeTab === 'reclass' ? ' active' : ''}`}
+            onClick={() => setActiveTab('reclass')}
+          >
+            Reclassing
+          </button>
+        )}
       </div>
 
       <div className="two-col">
@@ -97,7 +104,7 @@ export function GuideShell({ config }: Props) {
           </div>
         </div>
 
-        <div className={`col col-tiers${activeTab === 'tiers' ? ' active' : ''}`} id="col-tiers" ref={tierColRef}>
+        <div className={`col col-tiers${activeTab === 'tiers' || activeTab === 'reclass' ? ' active' : ''}`} id="col-tiers" ref={tierColRef}>
           <div className="col-head">
             <div className="col-head-title">Unit Tier List</div>
           </div>
@@ -105,20 +112,20 @@ export function GuideShell({ config }: Props) {
             {config.reclass && (
               <div className="tier-sub-tabs">
                 <button
-                  className={`tier-sub-btn${tierSubTab === 'tiers' ? ' active' : ''}`}
-                  onClick={() => setTierSubTab('tiers')}
+                  className={`tier-sub-btn${activeTab !== 'reclass' ? ' active' : ''}`}
+                  onClick={() => setActiveTab('tiers')}
                 >
                   Tier List
                 </button>
                 <button
-                  className={`tier-sub-btn${tierSubTab === 'reclass' ? ' active' : ''}`}
-                  onClick={() => setTierSubTab('reclass')}
+                  className={`tier-sub-btn${activeTab === 'reclass' ? ' active' : ''}`}
+                  onClick={() => setActiveTab('reclass')}
                 >
                   Reclassing
                 </button>
               </div>
             )}
-            {tierSubTab === 'tiers' || !config.reclass ? (
+            {activeTab !== 'reclass' || !config.reclass ? (
               <TierList
                 tiers={config.tiers}
                 philosophy={config.tierPhilosophy}

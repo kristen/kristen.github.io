@@ -76,6 +76,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
   .tab-btn:hover{color:var(--text-primary)}
   .tab-btn.active{background:var(--bg-page);border-color:var(--border-strong);border-bottom-color:var(--bg-page);color:var(--gold)}
   .mobile-prog{margin-top:8px;margin-bottom:0}
+  .tier-sub-tabs{display:none}
   .prog-text{font-size:12px;color:var(--text-secondary);margin-bottom:5px}
   .prog-bar-wrap{height:5px;background:var(--bg-track);border-radius:3px;overflow:hidden}
   .prog-bar{height:100%;background:var(--green);border-radius:3px;transition:width .35s ease}

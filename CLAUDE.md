@@ -49,7 +49,8 @@ src/
     Landing.tsx               # card grid
     GuidePage.tsx             # reads :guideKey, renders GuideShell
     GuideShell.tsx            # two-column layout + header + mobile tabs;
-                              #   shows "Tier List / Reclassing" sub-tabs if config.reclass is set
+                              #   activeTab: 'chapters'|'tiers'|'reclass' — 3 mobile tabs when config.reclass is set;
+                              #   desktop shows sub-tabs inside the tier column; mobile sub-tabs are hidden via CSS
     NintendoGames.tsx         # Nintendo Games tracker (/#/nintendo-games)
     ChapterList.tsx           # maps items array
     ChapterRow.tsx            # single chapter row
