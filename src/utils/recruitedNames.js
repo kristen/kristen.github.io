@@ -34,7 +34,7 @@ export function computeRecruitedNames(items, done) {
 
 /**
  * Returns true if a tier unit name matches any name in the recruited set.
- * Handles slash-separated alternate names, e.g. "Rutger/Rutoga".
+ * Handles slash-separated alternate names, e.g. "Wendy/Gwendolyn".
  */
 export function isUnitRecruited(unitName, recruitedNames) {
   return unitName.split('/').some(n => recruitedNames.has(n.trim().toLowerCase()));
