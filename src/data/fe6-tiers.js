@@ -25,6 +25,11 @@ export const TIERS = [
         "cls": null
       },
       {
+        "name": "Melady/Miledy",
+        "subtitle": "Wyvern · Ch.13 · Flies anywhere, best overall stats",
+        "cls": null
+      },
+      {
         "name": "Larum",
         "subtitle": "Dancer · Ch.11A · double-move utility",
         "cls": "is-ra"
@@ -53,11 +58,6 @@ export const TIERS = [
       {
         "name": "Thany",
         "subtitle": "Peg. Knight · Ch.2 · Flying utility, rescue Roy",
-        "cls": null
-      },
-      {
-        "name": "Melady/Miledy",
-        "subtitle": "Wyvern · Ch.13 · Top flier, best base stats",
         "cls": null
       },
       {
@@ -245,18 +245,18 @@ export const TIERS = [
     "label": "F — Avoid",
     "units": [
       {
-        "name": "Chad",
-        "subtitle": "Thief · Ch.3 · Cannot promote in FE6",
-        "cls": null
-      },
-      {
         "name": "Astohl",
-        "subtitle": "Thief · Ch.8 · Same thief promotion problem",
+        "subtitle": "Thief · Ch.8 · Best thief combat; still cannot promote",
         "cls": null
       },
       {
         "name": "Cath",
         "subtitle": "Thief · Ch.12 · Hard to recruit (3 talks), same limits",
+        "cls": null
+      },
+      {
+        "name": "Chad",
+        "subtitle": "Thief · Ch.3 · Cannot promote in FE6",
         "cls": null
       },
       {
