@@ -5,6 +5,7 @@ import { ProgressBar } from './ProgressBar';
 import { ChapterList } from './ChapterList';
 import { TierList } from './TierList';
 import { ReclassGuide } from './ReclassGuide';
+import { PromotionGuide } from './PromotionGuide';
 import { AuthButton } from './AuthButton';
 import { computeRecruitedNames } from '../utils/recruitedNames.js';
 
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function GuideShell({ config }: Props) {
-  const [activeTab, setActiveTab] = useState<'chapters' | 'tiers' | 'reclass'>('chapters');
+  const [activeTab, setActiveTab] = useState<'chapters' | 'tiers' | 'reclass' | 'promotions'>('chapters');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const chapColRef = useRef<HTMLDivElement>(null);
   const tierColRef = useRef<HTMLDivElement>(null);
@@ -85,6 +86,14 @@ export function GuideShell({ config }: Props) {
             Reclassing
           </button>
         )}
+        {config.promotions && (
+          <button
+            className={`tab-btn${activeTab === 'promotions' ? ' active' : ''}`}
+            onClick={() => setActiveTab('promotions')}
+          >
+            Promotions
+          </button>
+        )}
       </div>
 
       <div className="two-col">
@@ -104,36 +113,48 @@ export function GuideShell({ config }: Props) {
           </div>
         </div>
 
-        <div className={`col col-tiers${activeTab === 'tiers' || activeTab === 'reclass' ? ' active' : ''}`} id="col-tiers" ref={tierColRef}>
+        <div className={`col col-tiers${activeTab === 'tiers' || activeTab === 'reclass' || activeTab === 'promotions' ? ' active' : ''}`} id="col-tiers" ref={tierColRef}>
           <div className="col-head">
             <div className="col-head-title">Unit Tier List</div>
           </div>
           <div className="col-body" id="tier-body">
-            {config.reclass && (
+            {(config.reclass || config.promotions) && (
               <div className="tier-sub-tabs">
                 <button
-                  className={`tier-sub-btn${activeTab !== 'reclass' ? ' active' : ''}`}
+                  className={`tier-sub-btn${activeTab === 'tiers' ? ' active' : ''}`}
                   onClick={() => setActiveTab('tiers')}
                 >
                   Tier List
                 </button>
-                <button
-                  className={`tier-sub-btn${activeTab === 'reclass' ? ' active' : ''}`}
-                  onClick={() => setActiveTab('reclass')}
-                >
-                  Reclassing
-                </button>
+                {config.reclass && (
+                  <button
+                    className={`tier-sub-btn${activeTab === 'reclass' ? ' active' : ''}`}
+                    onClick={() => setActiveTab('reclass')}
+                  >
+                    Reclassing
+                  </button>
+                )}
+                {config.promotions && (
+                  <button
+                    className={`tier-sub-btn${activeTab === 'promotions' ? ' active' : ''}`}
+                    onClick={() => setActiveTab('promotions')}
+                  >
+                    Promotions
+                  </button>
+                )}
               </div>
             )}
-            {activeTab !== 'reclass' || !config.reclass ? (
+            {activeTab === 'promotions' && config.promotions ? (
+              <PromotionGuide entries={config.promotions} done={done} onToggle={toggle} />
+            ) : activeTab === 'reclass' && config.reclass ? (
+              <ReclassGuide entries={config.reclass} />
+            ) : (
               <TierList
                 tiers={config.tiers}
                 philosophy={config.tierPhilosophy}
                 tip={config.tierTip}
                 recruitedNames={recruitedNames}
               />
-            ) : (
-              <ReclassGuide entries={config.reclass} />
             )}
           </div>
         </div>

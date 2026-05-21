@@ -52,6 +52,20 @@ export interface ReclassEntry {
   recommended: string;
 }
 
+export interface PromotionRecipient {
+  name: string;
+  cls: string;
+  priority: string;
+  note: string;
+}
+
+export interface PromotionEntry {
+  item: string;
+  promotes: string[];
+  count: number;
+  units: PromotionRecipient[];
+}
+
 export interface TierUnit {
   name: string;
   subtitle: string;
@@ -78,4 +92,5 @@ export interface GuideConfig {
   tierPhilosophy?: string;
   tierTip?: string;
   reclass?: ReclassEntry[];
+  promotions?: PromotionEntry[];
 }

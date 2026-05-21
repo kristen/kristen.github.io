@@ -173,3 +173,24 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-page);color:
 .reclass-options li::before{content:'›';position:absolute;left:0;color:var(--blue)}
 .reclass-cls{color:var(--text-primary);font-weight:500}
 .reclass-recommended{font-size:11px;color:var(--text-muted);font-style:italic;border-top:1px solid var(--border-subtle);padding-top:7px;line-height:1.5}
+
+/* promotion items guide */
+.promo-grid{display:flex;flex-direction:column;gap:10px}
+.promo-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-left:3px solid var(--gold-muted);border-radius:var(--border-radius);padding:11px 13px}
+.promo-card-header{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:5px}
+.promo-item-name{font-family:'Crimson Pro',Georgia,serif;font-size:15px;font-weight:600;color:var(--gold)}
+.promo-count{font-size:11px;color:var(--text-muted);white-space:nowrap}
+.promo-promotes{list-style:none;display:flex;flex-direction:column;gap:2px;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border-subtle)}
+.promo-promotes li{font-size:11px;color:var(--text-secondary);font-style:italic;padding-left:10px;position:relative}
+.promo-promotes li::before{content:'›';position:absolute;left:0;color:var(--gold-muted)}
+.promo-units{display:flex;flex-direction:column;gap:3px}
+.promo-unit-row{display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:4px 3px;border-radius:4px;transition:background .1s}
+.promo-unit-row:hover{background:rgba(255,255,255,0.03)}
+.promo-unit-row .sub-check{flex-shrink:0;margin-top:1px}
+.promo-unit-info{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;flex-shrink:0}
+.promo-priority{font-size:10px;padding:1px 6px;border-radius:6px;background:var(--bg-sunken);color:var(--text-muted);border:1px solid var(--border-subtle);white-space:nowrap;flex-shrink:0}
+.promo-unit-name-text{font-size:13px;font-weight:500;color:var(--text-primary);transition:color .1s}
+.promo-unit-cls{font-size:11px;color:var(--text-muted);font-style:italic}
+.promo-unit-note{font-size:11px;color:var(--text-secondary);line-height:1.4;flex:1;min-width:0}
+.promo-unit-row.is-done .promo-unit-name-text{color:var(--text-muted);text-decoration:line-through}
+.promo-unit-row.is-done .promo-unit-note{color:var(--text-muted);opacity:.6}

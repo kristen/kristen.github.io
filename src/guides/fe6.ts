@@ -2,7 +2,7 @@ import type { GuideConfig } from '../types';
 // @ts-expect-error js data file
 import { ITEMS } from '../data/fe6-data.js';
 // @ts-expect-error js data file
-import { TIERS, TIER_PHILOSOPHY, TIER_TIP } from '../data/fe6-tiers.js';
+import { TIERS, TIER_PHILOSOPHY, TIER_TIP, PROMOTIONS } from '../data/fe6-tiers.js';
 
 export const fe6Config: GuideConfig = {
   key: 'fe6',
@@ -39,4 +39,5 @@ export const fe6Config: GuideConfig = {
   tiers: TIERS,
   tierPhilosophy: TIER_PHILOSOPHY,
   tierTip: TIER_TIP,
+  promotions: PROMOTIONS,
 };

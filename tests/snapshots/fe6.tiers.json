@@ -123,6 +123,16 @@
       "name": "Thea/Tate",
       "subtitle": "Peg. Knight · Ch.10B/11A · Thany's sister, reliable",
       "cls": null
+    },
+    {
+      "name": "Zeiss",
+      "subtitle": "Wyvern Rider · Ch.16 · Talk with Miledy; great growths, needs investment",
+      "cls": null
+    },
+    {
+      "name": "Karel",
+      "subtitle": "Swordmaster · Ch.23 · Village with Fir or Bartre; elite stats for the final stretch",
+      "cls": null
     }
   ],
   "c": [
@@ -158,7 +168,7 @@
     },
     {
       "name": "Bartre",
-      "subtitle": "Fighter · Ch.11B · Route B only; needs heavy investment",
+      "subtitle": "Warrior · Ch.11B · Talk with Roy or Fir; Route B only",
       "cls": "is-rb"
     },
     {
@@ -174,6 +184,16 @@
     {
       "name": "Raigh/Ray",
       "subtitle": "Shaman · Ch.12 · Dark magic niche, slow developer",
+      "cls": null
+    },
+    {
+      "name": "Hugh",
+      "subtitle": "Mage · Ch.16 · Talk with Roy; pay 5–10k gold, mediocre growths",
+      "cls": null
+    },
+    {
+      "name": "Douglas",
+      "subtitle": "General · Ch.16x · Pre-promote; great bulk, crippling 5 move",
       "cls": null
     }
   ],
@@ -216,6 +236,11 @@
     {
       "name": "Fa/Fae",
       "subtitle": "Manakete · True ending req · Rarely useful in combat",
+      "cls": null
+    },
+    {
+      "name": "Yodel",
+      "subtitle": "Bishop · Ch.21 · Automatic; Staff S for end game, joins too late to matter",
       "cls": null
     }
   ],

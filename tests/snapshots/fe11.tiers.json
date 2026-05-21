@@ -106,19 +106,19 @@
       "name": "Xane",
       "subtitle": "Chameleon · Ch. 16 · Copies any deployed ally's class and stats each turn; unique and endlessly flexible",
       "cls": null
-    }
-  ],
-  "b": [
-    {
-      "name": "Tiki",
-      "subtitle": "Manakete · Ch. 19 · 100% HP growth; Divinestone; joins late but dominant — requires Bantu alive; talk with Bantu",
-      "cls": null
     },
     {
       "name": "Linde",
-      "subtitle": "Mage · Ch. 11 · Strong mage; joins with Aura (vs. cavalry); can reclass to Bishop",
+      "subtitle": "Mage · Ch. 11 · Best magic unit; Aura tome (effective vs. cavalry); excellent Magic and Speed growths; can reclass to Bishop",
       "cls": null
     },
+    {
+      "name": "Tiki",
+      "subtitle": "Manakete · Ch. 19x · 100% HP growth; Divinestone; dominant late-game — requires Bantu alive to recruit; talk with Bantu",
+      "cls": null
+    }
+  ],
+  "b": [
     {
       "name": "Julian",
       "subtitle": "Thief · Ch. 3 · Only lock-pick unit; can open all chests and doors; never let him die; can reclass to Assassin",
