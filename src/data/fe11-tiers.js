@@ -114,6 +114,16 @@ export const TIERS = [
         "name": "Xane",
         "subtitle": "Chameleon · Ch. 16 · Copies any deployed ally's class and stats each turn; unique and endlessly flexible",
         "cls": null
+      },
+      {
+        "name": "Linde",
+        "subtitle": "Mage · Ch. 11 · Best magic unit; Aura tome (effective vs. cavalry); excellent Magic and Speed growths; can reclass to Bishop",
+        "cls": null
+      },
+      {
+        "name": "Tiki",
+        "subtitle": "Manakete · Ch. 19x · 100% HP growth; Divinestone; dominant late-game — requires Bantu alive to recruit; talk with Bantu",
+        "cls": null
       }
     ]
   },
@@ -121,16 +131,6 @@ export const TIERS = [
     "level": "b",
     "label": "B — Solid, needs some investment",
     "units": [
-      {
-        "name": "Tiki",
-        "subtitle": "Manakete · Ch. 19 · 100% HP growth; Divinestone; joins late but dominant — requires Bantu alive; talk with Bantu",
-        "cls": null
-      },
-      {
-        "name": "Linde",
-        "subtitle": "Mage · Ch. 11 · Strong mage; joins with Aura (vs. cavalry); can reclass to Bishop",
-        "cls": null
-      },
       {
         "name": "Julian",
         "subtitle": "Thief · Ch. 3 · Only lock-pick unit; can open all chests and doors; never let him die; can reclass to Assassin",
@@ -316,4 +316,118 @@ export const TIERS = [
     ]
   }
 ];
+export const RECLASS = [
+  {
+    "name": "Ogma",
+    "from": "Mercenary → Hero",
+    "options": [
+      { "cls": "Swordmaster", "note": "+15 crit bonus; lethal with Killing Edge builds" },
+      { "cls": "Hero", "note": "Sword + Axe versatility; more bulk than Swordmaster" },
+      { "cls": "Sniper", "note": "2-range coverage if your team lacks bows" }
+    ],
+    "recommended": "Swordmaster for crit-focused play, Hero for all-around versatility — both are strong."
+  },
+  {
+    "name": "Navarre",
+    "from": "Myrmidon → Swordmaster",
+    "options": [
+      { "cls": "Swordmaster", "note": "Keep for maximum crit rate; pairs well with Killing Edge" },
+      { "cls": "Hero", "note": "Fixes Str weakness with Axe access and more bulk" }
+    ],
+    "recommended": "Stay Swordmaster if he's hitting consistently. Reclass Hero early if Str is lagging in mid-game."
+  },
+  {
+    "name": "Caeda",
+    "from": "Pegasus Knight → Falcon Knight",
+    "options": [
+      { "cls": "Falcon Knight", "note": "Keeps Wing Spear usable + high Speed + Sword access" },
+      { "cls": "Dracoknight", "note": "Lance + Axe, more Def and Str, loses sword weakness" }
+    ],
+    "recommended": "Falcon Knight is recommended — Wing Spear's effectiveness vs armors/cavalry is too valuable to lose."
+  },
+  {
+    "name": "Cain",
+    "from": "Cavalier → Paladin",
+    "options": [
+      { "cls": "Dracoknight", "note": "Flying mobility on an already well-rounded unit; top pick" },
+      { "cls": "Paladin", "note": "Default; solid mounted utility with Sword + Lance" },
+      { "cls": "Hero", "note": "Best raw combat if you already have enough fliers/cavalry" }
+    ],
+    "recommended": "Dracoknight is the top pick — flying movement on Cain's stats is exceptional for the mid-game."
+  },
+  {
+    "name": "Gordin",
+    "from": "Archer → Sniper",
+    "options": [
+      { "cls": "Horseman", "note": "Mounted + Bow + Sword; massive mobility upgrade — top pick" },
+      { "cls": "Sniper", "note": "Better accuracy and damage at range; stays foot" }
+    ],
+    "recommended": "Horseman is transformative — it solves Gordin's positioning problem and gives him Sword fallback."
+  },
+  {
+    "name": "Draug",
+    "from": "Armor Knight → General",
+    "options": [
+      { "cls": "Paladin", "note": "Trades some bulk for drastically improved movement" },
+      { "cls": "General", "note": "Maximum defense wall for chokepoint holding" }
+    ],
+    "recommended": "Reclass to Paladin if using him — his movement as an Armor/General is his biggest liability."
+  },
+  {
+    "name": "Merric",
+    "from": "Mage → Sage",
+    "options": [
+      { "cls": "Sage", "note": "Balanced magic + staff access; Excalibur stays usable" },
+      { "cls": "Bishop", "note": "Higher staff rank, divine magic; better support role" }
+    ],
+    "recommended": "Stay Sage if you want him to fight. Reclass Bishop if you want a dedicated healer/staffer after Linde arrives."
+  },
+  {
+    "name": "Linde",
+    "from": "Mage → Sage",
+    "options": [
+      { "cls": "Sage", "note": "Keep; Aura tome is irreplaceable offensively (recommended)" },
+      { "cls": "Bishop", "note": "Only consider if you desperately need a high-rank staffer" }
+    ],
+    "recommended": "Keep Linde as Sage — her Aura tome and offensive growths make her the best combat mage; don't trade that for staff utility."
+  },
+  {
+    "name": "Hardin",
+    "from": "Cavalier → Paladin",
+    "options": [
+      { "cls": "Paladin", "note": "Default; excellent mounted bruiser with solid weapon access" },
+      { "cls": "General", "note": "Near-unkillable wall given his HP/Def growths" },
+      { "cls": "Dracoknight", "note": "Flying mobility on one of the bulkiest units in the game" }
+    ],
+    "recommended": "Hardin excels in any class. Paladin is the safe default; Dracoknight if you want a flying bruiser."
+  },
+  {
+    "name": "Jeorge",
+    "from": "Sniper (already promoted)",
+    "options": [
+      { "cls": "Horseman", "note": "Mounted movement + Bow + Sword; strong mobility upgrade" },
+      { "cls": "Sniper", "note": "Keep for Parthia's +5 Res bonus and raw bow damage" }
+    ],
+    "recommended": "Go Horseman for mobility if you have magic coverage elsewhere; stay Sniper if you need the Res tanking from Parthia."
+  },
+  {
+    "name": "Palla / Catria",
+    "from": "Pegasus Knight → Falcon Knight",
+    "options": [
+      { "cls": "Dracoknight", "note": "More Str and Def, Lance + Axe coverage" },
+      { "cls": "Falcon Knight", "note": "Keep for Speed and Sword access" }
+    ],
+    "recommended": "If running Caeda + Minerva already, reclass one to Dracoknight for weapon variety. Catria benefits more — her higher Speed sustains the Speed loss better than Palla."
+  },
+  {
+    "name": "Julian",
+    "from": "Thief",
+    "options": [
+      { "cls": "Assassin", "note": "Keeps Lockpick, gains Lethality skill" },
+      { "cls": "Hero", "note": "Good combat stats; loses thief utility" }
+    ],
+    "recommended": "Reclass to Assassin — keeps lockpick utility and adds combat viability. Only go Hero if all chests are covered and you want pure combat."
+  }
+];
+
 export const TIER_TIP = "<b>Bantu (C tier)</b> must survive the entire game — he is required to talk to Tiki in Ch. 19. Never invest EXP in him; just keep him out of danger.\n        <b>Julian</b> is your only reliable thief and should never die — he can open all chests and doors. Rickard is a spare thief but weaker; treat him as a sacrifice.\n        <b>Arran vs. Samson</b> in Ch. 16 are mutually exclusive village choices — pick one and skip the other.\n        <b>Horace and Etzel</b> are recruited by clearing their Gaiden chapters without KO'ing them — watch your units' attacks.\n        <b>Sacrifice strategy</b>: recruit Tier D units for the army headcount, then deliberately let them fall in the chapter that triggers a Gaiden you want to unlock.";

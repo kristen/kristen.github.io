@@ -40,6 +40,18 @@ export interface SplitItem {
 
 export type Item = ChapterItem | PairItem | SaveItem | SplitItem;
 
+export interface ReclassOption {
+  cls: string;
+  note: string;
+}
+
+export interface ReclassEntry {
+  name: string;
+  from: string;
+  options: ReclassOption[];
+  recommended: string;
+}
+
 export interface TierUnit {
   name: string;
   subtitle: string;
@@ -65,4 +77,5 @@ export interface GuideConfig {
   tiers: Tier[];
   tierPhilosophy?: string;
   tierTip?: string;
+  reclass?: ReclassEntry[];
 }

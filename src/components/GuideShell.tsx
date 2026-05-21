@@ -4,6 +4,7 @@ import { useProgress } from '../hooks/useProgress';
 import { ProgressBar } from './ProgressBar';
 import { ChapterList } from './ChapterList';
 import { TierList } from './TierList';
+import { ReclassGuide } from './ReclassGuide';
 import { AuthButton } from './AuthButton';
 import { computeRecruitedNames } from '../utils/recruitedNames.js';
 
@@ -13,6 +14,7 @@ interface Props {
 
 export function GuideShell({ config }: Props) {
   const [activeTab, setActiveTab] = useState<'chapters' | 'tiers'>('chapters');
+  const [tierSubTab, setTierSubTab] = useState<'tiers' | 'reclass'>('tiers');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const chapColRef = useRef<HTMLDivElement>(null);
   const tierColRef = useRef<HTMLDivElement>(null);
@@ -100,12 +102,32 @@ export function GuideShell({ config }: Props) {
             <div className="col-head-title">Unit Tier List</div>
           </div>
           <div className="col-body" id="tier-body">
-            <TierList
-              tiers={config.tiers}
-              philosophy={config.tierPhilosophy}
-              tip={config.tierTip}
-              recruitedNames={recruitedNames}
-            />
+            {config.reclass && (
+              <div className="tier-sub-tabs">
+                <button
+                  className={`tier-sub-btn${tierSubTab === 'tiers' ? ' active' : ''}`}
+                  onClick={() => setTierSubTab('tiers')}
+                >
+                  Tier List
+                </button>
+                <button
+                  className={`tier-sub-btn${tierSubTab === 'reclass' ? ' active' : ''}`}
+                  onClick={() => setTierSubTab('reclass')}
+                >
+                  Reclassing
+                </button>
+              </div>
+            )}
+            {tierSubTab === 'tiers' || !config.reclass ? (
+              <TierList
+                tiers={config.tiers}
+                philosophy={config.tierPhilosophy}
+                tip={config.tierTip}
+                recruitedNames={recruitedNames}
+              />
+            ) : (
+              <ReclassGuide entries={config.reclass} />
+            )}
           </div>
         </div>
       </div>

@@ -23,17 +23,16 @@ Uses `HashRouter` — all routes are `/#/...`:
 | `/#/guide/fe11` | FE11 Shadow Dragon guide |
 | `/#/nintendo-games` | Nintendo Games tracker |
 
-One non-React page (`fe-shadow-dragon-guide.html`) lives at the repo root. The CI workflow copies it into `dist/` after `npm run build` before deploying to GitHub Pages.
-
 ## File structure
 
 ```
 src/
   main.tsx                    # entry point: HashRouter + App
   App.tsx                     # routes: / → Landing, /guide/:key → GuidePage
-  types.ts                    # ChapterItem, PairItem, SaveItem, SplitItem, SplitOpt, TierUnit, Tier, GuideConfig, Item (union)
+  types.ts                    # ChapterItem, PairItem, SaveItem, SplitItem, SplitOpt, TierUnit, Tier,
+                              #   ReclassEntry, ReclassOption, GuideConfig, Item (union)
   styles/
-    shared.css                # guide layout: two-column, chapter rows, tiers
+    shared.css                # guide layout: two-column, chapter rows, tiers, reclass guide
     landing.css               # landing page styles
     index.css                 # global resets
   hooks/
@@ -45,11 +44,12 @@ src/
     fe6-data.js / fe6-tiers.js  # ES module exports
     fe7-data.js / fe7-tiers.js
     fe8-data.js / fe8-tiers.js
-    fe11-data.js / fe11-tiers.js
+    fe11-data.js / fe11-tiers.js  # fe11-tiers.js also exports RECLASS (ReclassEntry[])
   components/
     Landing.tsx               # card grid
     GuidePage.tsx             # reads :guideKey, renders GuideShell
-    GuideShell.tsx            # two-column layout + header + mobile tabs
+    GuideShell.tsx            # two-column layout + header + mobile tabs;
+                              #   shows "Tier List / Reclassing" sub-tabs if config.reclass is set
     NintendoGames.tsx         # Nintendo Games tracker (/#/nintendo-games)
     ChapterList.tsx           # maps items array
     ChapterRow.tsx            # single chapter row
@@ -58,6 +58,7 @@ src/
     SplitCard.tsx             # blue callout with route options
     SubItemList.tsx           # recruit / item / steal sub-checklist
     TierList.tsx              # tier list; accepts recruitedNames set to show a checkmark on recruited units
+    ReclassGuide.tsx          # reclassing guide; renders a grid of ReclassEntry cards (FE11 only for now)
     ProgressBar.tsx           # wide + narrow variants
   utils/
     recruitedNames.js         # parseRecruitNames, computeRecruitedNames, isUnitRecruited — plain JS so Node tests can import it
@@ -85,6 +86,7 @@ interface GuideConfig {
   tiers: Tier[];           // from data/feN-tiers.js
   tierPhilosophy?: string; // HTML string
   tierTip?: string;        // HTML string
+  reclass?: ReclassEntry[]; // if present, adds "Tier List / Reclassing" sub-tabs in the tier column
 }
 ```
 
@@ -93,7 +95,7 @@ interface GuideConfig {
 ## Data files
 
 `src/data/feN-data.js` — chapter data as `export const ITEMS = [...]`
-`src/data/feN-tiers.js` — tier data as `export const TIERS`, `TIER_PHILOSOPHY`, `TIER_TIP`
+`src/data/feN-tiers.js` — tier data as `export const TIERS`, `TIER_PHILOSOPHY`, `TIER_TIP`; fe11-tiers.js also exports `RECLASS` (array of `ReclassEntry`)
 
 Each entry in `ITEMS` is one of:
 - `{type:'ch', id, num, name, cls, badge, badgeText, recruits[], items[], steal[], warns[]}` — chapter row
